@@ -22,3 +22,9 @@
 - `storybook` – starts storybook dev server
 - `storybook:build` – build production storybook bundle to `storybook-static`
 - `prettier:write` – formats all files with Prettier
+
+# Attribution
+
+## Sound
+
+Double Beep by andersmmg -- https://freesound.org/s/511492/ -- License: Attribution 4.0
