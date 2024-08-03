@@ -14,14 +14,31 @@ export function WakeLock() {
   const wakeLock = useRef<WakeLockSentinel | null>(null);
   const [supported, setSupported] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [reacquire, setReacquire] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function aquireLock() {
-    wakeLock.current = await navigator.wakeLock.request('screen');
+    try {
+      wakeLock.current = await navigator.wakeLock.request('screen');
+      setError(null);
+      wakeLock.current.addEventListener('release', () => {
+        // the wake lock has been released
+        if (checked) setError('Wake Lock has been released');
+      });
+    } catch (err: any) {
+      setError(`${err.name}, ${err.message}`);
+    }
   }
+
+  document.addEventListener('visibilitychange', async () => {
+    if (wakeLock !== null && document.visibilityState === 'visible' && reacquire) {
+      aquireLock();
+    }
+  });
 
   async function releaseLock() {
     if (wakeLock.current) {
-      wakeLock.current.release();
+      await wakeLock.current.release();
       wakeLock.current = null;
     }
   }
@@ -44,11 +61,23 @@ export function WakeLock() {
   }, []);
 
   return (
-    <Switch
-      defaultChecked
-      label="Wake lock"
-      disabled={!supported}
-      onChange={(event) => setChecked(event.currentTarget.checked)}
-    />
+    <>
+      <Switch
+        defaultChecked
+        checked={checked}
+        label="Wake lock"
+        disabled={!supported}
+        onChange={(event) => setChecked(event.currentTarget.checked)}
+        error={error}
+      />
+      <Switch
+        defaultChecked
+        label="Reacquire lock"
+        checked={reacquire}
+        disabled={!supported}
+        onChange={(event) => setReacquire(event.currentTarget.checked)}
+        error={error}
+      />
+    </>
   );
 }
