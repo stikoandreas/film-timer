@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import { Stepper, Text, Progress, Stack, RingProgress, Center } from '@mantine/core';
-import { useState, useEffect, useRef } from 'react';
+import { Stepper, Text, Progress, Stack, RingProgress, Center, Button, Group } from '@mantine/core';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 import type { DevelopingProcess } from '@/types/DevelopingProcess';
 
 import click from './double_beep.wav';
+import tripleBeep from './triple_beep.wav';
+
+import { useTimer } from 'react-use-precision-timer';
 
 declare global {
   interface Navigator {
@@ -14,78 +17,127 @@ declare global {
   }
 }
 
-export function Timer({ process }: { process: DevelopingProcess }) {
-  const [activeStep, setActiveStep] = useState(0);
+interface TimerCardProps {
+  totalDuration: number;
+  interval: number;
+  renderSpeed: number;
+  callback: () => void;
+}
 
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endTime, setEndTime] = useState<Date | null>(null);
-
+export function TimeCard({ totalDuration, interval, renderSpeed, callback }: TimerCardProps) {
   const [chimeProgress, setChimeProgress] = useState<number>(0);
   const [stepProgress, setStepProgress] = useState<number>(0);
+  const [renderTime, setRenderTime] = useState<number>(0);
 
-  const audioRef = useRef<HTMLMediaElement>(null);
-  const handlePlay = () => {
+  const audioCallBack = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.play();
     }
-  };
+  }, []);
+
+  const renderCallback = useCallback(() => {
+    if (timer.getElapsedRunningTime() > totalDuration) {
+      callback();
+    }
+    setStepProgress((timer.getElapsedRunningTime() / totalDuration) * 100);
+    setChimeProgress(100 - (timer.getRemainingTime() / timer.getEffectiveDelay()) * 100);
+    setRenderTime(renderTimer.getRemainingTime());
+  }, [interval, totalDuration]);
+
+  // The callback will be called every 1000 milliseconds.
+  const timer = useTimer({ delay: interval }, audioCallBack);
+
+  const renderTimer = useTimer({ delay: renderSpeed }, renderCallback);
+
+  const audioRef = useRef<HTMLMediaElement>(null);
 
   function startTimer() {
-    const now = new Date();
-    setStartTime(now);
-    const end = new Date(now.getTime() + process.steps[activeStep].step_minutes * 60 * 1000);
-    setEndTime(end);
+    timer.start();
+    renderTimer.start();
   }
 
-  function handleNextStep() {
-    if (activeStep < process.steps.length - 1) setActiveStep(activeStep + 1);
-    startTimer();
-  }
-
-  function processTime() {
-    const now = new Date();
-    if (startTime && endTime) {
-      setStepProgress(
-        ((now.getTime() - startTime.getTime()) / (endTime.getTime() - startTime.getTime())) * 100
-      );
-      if (process.steps[activeStep].chime_seconds) {
-        const newChime =
-          ((now.getTime() - startTime.getTime()) / 1000 / process.steps[activeStep].chime_seconds) *
-          100;
-        setChimeProgress(newChime % 100);
-      }
-      if (now > endTime) {
-        handleNextStep();
-      }
+  function handlePlayPause() {
+    if (timer.isPaused()) {
+      timer.resume();
+    } else if (timer.isRunning()) {
+      timer.pause();
     }
   }
 
   useEffect(() => {
     startTimer();
     if ('audioSession' in navigator) navigator.audioSession.type = 'transient';
-  }, []);
-
-  useEffect(() => {
-    const intervals: NodeJS.Timeout[] = [];
-    intervals.push(setInterval(() => processTime(), 20));
-
-    if (process.steps[activeStep].chime_seconds) {
-      intervals.push(
-        setInterval(() => handlePlay(), process.steps[activeStep].chime_seconds * 1000)
-      );
-    }
-    return () => {
-      intervals.map((interval) => clearInterval(interval));
-    };
-  }, [startTime]);
+  }, [interval, totalDuration]);
 
   return (
-    <>
+    <Stack>
       <audio ref={audioRef}>
         <source src={click} type="audio/wav" />
         <p>Your browser does not support the audio element.</p>
       </audio>
+      <Text>Progress:</Text>
+      {timer.getElapsedRunningTime()} {timer.getRemainingTime()} {timer.getEffectiveDelay()}{' '}
+      {renderTime}
+      <Progress value={stepProgress} transitionDuration={100} />
+      <Center>
+        <RingProgress sections={[{ value: chimeProgress, color: 'cyan' }]} />
+      </Center>
+      <Button onClick={handlePlayPause}>{timer.isPaused() ? 'Resume' : 'Pause'}</Button>
+    </Stack>
+  );
+}
+
+export function Timer({ process }: { process: DevelopingProcess }) {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const [stepTime, setStepTime] = useState(0);
+  const [intervalTime, setIntervalTime] = useState(0);
+
+  const [isIntermission, setIsInterMission] = useState(true);
+  const [isFinished, setIsFinished] = useState(false);
+
+  const tripleBeepRef = useRef<HTMLMediaElement>(null);
+
+  useEffect(() => {
+    if (activeStep < process.steps.length) {
+      setStepTime((process.steps[activeStep].step_minutes * 60 * 1000) / 8);
+      setIntervalTime(Number(process.steps[activeStep].chime_seconds) * 1000);
+    }
+  }, [activeStep]);
+
+  function handlePrevStep() {
+    if (activeStep > 0) {
+      setIsFinished(false);
+      setActiveStep(activeStep - 1);
+      setIsInterMission(true);
+    }
+  }
+
+  function handleNextStep() {
+    if (activeStep < process.steps.length - 1) {
+      setActiveStep(activeStep + 1);
+      setIsInterMission(true);
+    } else {
+      setActiveStep(activeStep + 1);
+      setIsFinished(true);
+      setIsInterMission(true);
+    }
+  }
+
+  function handleFinished() {
+    if (tripleBeepRef.current) {
+      tripleBeepRef.current.play();
+    }
+    handleNextStep();
+  }
+
+  return (
+    <>
       <Stack>
+        <audio ref={tripleBeepRef}>
+          <source src={tripleBeep} type="audio/wav" />
+          <p>Your browser does not support the audio element.</p>
+        </audio>
         <Stepper active={activeStep}>
           {process.steps.map((item) => (
             <Stepper.Step
@@ -95,11 +147,28 @@ export function Timer({ process }: { process: DevelopingProcess }) {
             />
           ))}
         </Stepper>
-        <Text>Progress:</Text>
-        <Progress value={stepProgress} transitionDuration={100} />
-        <Center>
-          <RingProgress sections={[{ value: chimeProgress, color: 'cyan' }]} />
-        </Center>
+        {stepTime} {intervalTime}
+        {!isIntermission ? (
+          <TimeCard
+            totalDuration={stepTime}
+            interval={intervalTime}
+            renderSpeed={10}
+            callback={handleFinished}
+          ></TimeCard>
+        ) : !isFinished ? (
+          <Stack>
+            <Text>Get ready to {process.steps[activeStep].name}!</Text>
+            <Button onClick={() => setIsInterMission(false)}>Continue</Button>
+          </Stack>
+        ) : (
+          <Stack>
+            <Text>Wow you are done!</Text>
+          </Stack>
+        )}
+        <Group grow>
+          <Button onClick={handlePrevStep}>Previous</Button>
+          <Button onClick={handleNextStep}>Next</Button>
+        </Group>
       </Stack>
     </>
   );

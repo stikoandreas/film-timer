@@ -13,10 +13,10 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
-      /*workbox: {
+      workbox: {
         clientsClaim: true,
         skipWaiting: true,
-      },*/
+      },
       manifest: {
         theme_color: 'red',
         name: 'Film Timer',
