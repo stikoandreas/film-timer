@@ -44,7 +44,7 @@ export function ProcessForm() {
   const fields = form.getValues().steps.map((item, index) => (
     <Draggable key={item.key} index={index} draggableId={item.key}>
       {(provided) => (
-        <Card shadow="sm" mt="xs" pl={'xs'} ref={provided.innerRef} {...provided.draggableProps}>
+        <Card shadow="sm" mt="xs" pl="xs" ref={provided.innerRef} {...provided.draggableProps}>
           <Group gap="xs">
             <Center {...provided.dragHandleProps}>
               <IconGripVertical size="1.2rem" />

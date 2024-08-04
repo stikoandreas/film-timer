@@ -1,8 +1,5 @@
 import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { IconMoon, IconSunLow } from '@tabler/icons-react';
-import { useContext } from 'react';
-
-import { DebugContext } from '@/context/DebugContext';
 
 export function ColorSchemeButton() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
