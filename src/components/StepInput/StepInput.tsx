@@ -93,6 +93,7 @@ export function StepInput({
         <TextInput
           label="Step name"
           placeholder="Step name"
+          inputSize="20"
           defaultValue={_value?.name && _value.name}
           onChange={(e) => handleChange({ ..._value, name: e.currentTarget.value })}
           error={nameInputProps.error}

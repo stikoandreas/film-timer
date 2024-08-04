@@ -1,4 +1,4 @@
-import { Group, Button, Center, Box, rem } from '@mantine/core';
+import { Group, Button, Center, Box, rem, Card } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -44,18 +44,20 @@ export function ProcessForm() {
   const fields = form.getValues().steps.map((item, index) => (
     <Draggable key={item.key} index={index} draggableId={item.key}>
       {(provided) => (
-        <Group ref={provided.innerRef} mt="xs" {...provided.draggableProps}>
-          <Center {...provided.dragHandleProps}>
-            <IconGripVertical size="1.2rem" />
-          </Center>
-          <StepInput
-            key={form.key(`steps.${index}`)}
-            {...form.getInputProps(`steps.${index}`)}
-            nameInputProps={{ ...form.getInputProps(`steps.${index}.name`) }}
-            durationInputProps={{ ...form.getInputProps(`steps.${index}.step_minutes`) }}
-            chimeInputProps={{ ...form.getInputProps(`steps.${index}.chime_seconds`) }}
-          />
-        </Group>
+        <Card shadow="sm" mt="xs" pl={'xs'} ref={provided.innerRef} {...provided.draggableProps}>
+          <Group gap="xs">
+            <Center {...provided.dragHandleProps}>
+              <IconGripVertical size="1.2rem" />
+            </Center>
+            <StepInput
+              key={form.key(`steps.${index}`)}
+              {...form.getInputProps(`steps.${index}`)}
+              nameInputProps={{ ...form.getInputProps(`steps.${index}.name`) }}
+              durationInputProps={{ ...form.getInputProps(`steps.${index}.step_minutes`) }}
+              chimeInputProps={{ ...form.getInputProps(`steps.${index}.chime_seconds`) }}
+            />
+          </Group>
+        </Card>
       )}
     </Draggable>
   ));

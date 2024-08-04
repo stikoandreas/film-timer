@@ -59,11 +59,7 @@ export function WakeLock() {
 
   return (
     <>
-      <ActionIcon
-        variant={checked ? 'light' : 'light'}
-        disabled={!supported}
-        onClick={() => setChecked(!checked)}
-      >
+      <ActionIcon variant="default" disabled={!supported} onClick={() => setChecked(!checked)}>
         {checked ? (
           <IconCoffee style={{ width: '80%', height: '80%' }} stroke={1.5} />
         ) : (

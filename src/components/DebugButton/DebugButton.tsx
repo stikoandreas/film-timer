@@ -9,7 +9,7 @@ export function DebugButton() {
 
   return (
     <>
-      <ActionIcon variant={debug ? 'light' : 'light'} onClick={() => setDebug(!debug)}>
+      <ActionIcon variant="default" onClick={() => setDebug(!debug)}>
         {debug ? (
           <IconBug style={{ width: '80%', height: '80%' }} stroke={1.5} />
         ) : (
