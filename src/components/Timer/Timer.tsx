@@ -207,7 +207,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                   mounted={!isIntermission && activeStep === index}
                   transition="fade-up"
                   duration={150}
-                  timingFunction="ease"
+                  timingFunction="ease-in-out"
                   enterDelay={150}
                 >
                   {(styles) => (
@@ -230,7 +230,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                   transition="fade-down"
                   duration={150}
                   enterDelay={150}
-                  timingFunction="ease"
+                  timingFunction="ease-in-out"
                 >
                   {(styles) => (
                     <div style={styles}>
