@@ -10,6 +10,7 @@ import {
   Box,
   Title,
   Space,
+  Transition,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
@@ -32,10 +33,17 @@ interface TimerCardProps {
   totalDuration: number;
   interval: number;
   renderSpeed: number;
+  paused: boolean;
   callback: () => void;
 }
 
-export function TimeCard({ totalDuration, interval, renderSpeed, callback }: TimerCardProps) {
+export function TimeCard({
+  totalDuration,
+  interval,
+  renderSpeed,
+  callback,
+  paused,
+}: TimerCardProps) {
   const [chimeProgress, setChimeProgress] = useState<number>(0);
   const [stepProgress, setStepProgress] = useState<number>(0);
 
@@ -72,6 +80,11 @@ export function TimeCard({ totalDuration, interval, renderSpeed, callback }: Tim
       timer.pause();
     }
   }
+
+  useEffect(() => {
+    if (paused) timer.pause();
+    else timer.resume();
+  }, [paused]);
 
   function getTimeRemaining() {
     const timeRemaining = totalDuration - timer.getElapsedRunningTime();
@@ -124,6 +137,8 @@ export function Timer({ process }: { process: DevelopingProcess }) {
   const [isIntermission, setIsInterMission] = useState(true);
   const [isFinished, setIsFinished] = useState(false);
 
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+
   const tripleBeepRef = useRef<HTMLMediaElement>(null);
 
   function getDurationForStep(index: number) {
@@ -165,7 +180,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           <source src={tripleBeep} type="audio/wav" />
           <p>Your browser does not support the audio element.</p>
         </audio>
-        <Stepper active={activeStep}>
+        <Stepper active={activeStep} mt="md" mx="lg">
           {process.steps.map((item) => (
             <Stepper.Step
               key={item.key}
@@ -188,27 +203,52 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           {process.steps.map((item, index) => (
             <Carousel.Slide key={item.key}>
               <Box bg="blue" h="100%" p="xl" style={{ borderRadius: '10pt' }}>
+                <Transition
+                  mounted={!isIntermission && activeStep === index}
+                  transition="fade-up"
+                  duration={150}
+                  timingFunction="ease"
+                  enterDelay={150}
+                >
+                  {(styles) => (
+                    <div style={styles}>
+                      <Center>
+                        <Title c="white">{item.name}</Title>
+                      </Center>
+                      <TimeCard
+                        totalDuration={getDurationForStep(index)}
+                        interval={getIntervalForStep(index)}
+                        renderSpeed={10}
+                        callback={handleFinished}
+                        paused={isPaused}
+                      />
+                    </div>
+                  )}
+                </Transition>
+                <Transition
+                  mounted={isIntermission && activeStep == index}
+                  transition="fade-down"
+                  duration={150}
+                  enterDelay={150}
+                  timingFunction="ease"
+                >
+                  {(styles) => (
+                    <div style={styles}>
+                      <Stack align="center" justify="space-between" h={320}>
+                        <Center>
+                          <Title c="white">Get ready to {item.name}!</Title>
+                        </Center>
+                        <Button variant="white" onClick={() => setIsInterMission(false)}>
+                          Continue
+                        </Button>
+                      </Stack>
+                    </div>
+                  )}
+                </Transition>
                 {!isIntermission && activeStep === index ? (
-                  <>
-                    <Center>
-                      <Title c="white">{item.name}</Title>
-                    </Center>
-                    <TimeCard
-                      totalDuration={getDurationForStep(index)}
-                      interval={getIntervalForStep(index)}
-                      renderSpeed={10}
-                      callback={handleFinished}
-                    />
-                  </>
+                  <></>
                 ) : !isFinished ? (
-                  <Stack align="center" justify="space-between" h={300}>
-                    <Center>
-                      <Title c="white">Get ready to {item.name}!</Title>
-                    </Center>
-                    <Button variant="white" onClick={() => setIsInterMission(false)}>
-                      Continue
-                    </Button>
-                  </Stack>
+                  <></>
                 ) : (
                   <Stack>
                     <Text>Wow you are done!</Text>
@@ -218,6 +258,19 @@ export function Timer({ process }: { process: DevelopingProcess }) {
             </Carousel.Slide>
           ))}
         </Carousel>
+        {isIntermission ? (
+          <Center>
+            <Button w="90%" onClick={() => setIsInterMission(false)}>
+              Continue
+            </Button>
+          </Center>
+        ) : (
+          <Center>
+            <Button w="90%" onClick={() => setIsPaused(!isPaused)}>
+              {isPaused ? 'Resume' : 'Pause'}
+            </Button>
+          </Center>
+        )}
       </Stack>
     </>
   );
