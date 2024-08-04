@@ -8,12 +8,13 @@ import {
   Collapse,
   SegmentedControl,
   Text,
-  Button,
 } from '@mantine/core';
-import { useState } from 'react';
-import { useDisclosure, useUncontrolled } from '@mantine/hooks';
+import { useState, useContext } from 'react';
+import { useUncontrolled } from '@mantine/hooks';
 
 import type { DevelopingStep } from '@/types/DevelopingProcess';
+
+import { DebugContext } from '@/context/DebugContext';
 
 interface CustomInputProps {
   value?: DevelopingStep;
@@ -43,7 +44,7 @@ export function StepInput({
   const [customChime, setCustomChime] = useState(false);
   const [customValue, setCustomValue] = useState<number | ''>('');
 
-  const [showRaw, { toggle: toggleRaw }] = useDisclosure(false);
+  const { debug } = useContext(DebugContext);
 
   function setSegmentedControl() {
     if (customChime) return 'custom';
@@ -109,7 +110,7 @@ export function StepInput({
         />
       </Group>
       <Space h="md" />
-      <Group>
+      <Group gap="xs">
         <Text size="sm">Chime:</Text>
         <SegmentedControl
           size="xs"
@@ -145,11 +146,7 @@ export function StepInput({
           </Text>
         )}
       </Collapse>
-      <Space h="md" />
-      <Button onClick={toggleRaw} variant="light" size="xs">
-        Show raw
-      </Button>
-      <Collapse in={showRaw}>
+      <Collapse in={debug}>
         <Space h="md" />
         <Code block>{JSON.stringify(_value, null, 2)}</Code>
       </Collapse>

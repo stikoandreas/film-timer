@@ -1,15 +1,18 @@
-import { Welcome } from '../components/Welcome/Welcome';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
+import { Welcome } from '@/components/Welcome/Welcome';
+import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { ProcessForm } from '@/components/ProcessForm/ProcessForm';
-import { WakeLock } from '@/components/WakeLock/WakeLock';
+import { DebugContextProvider } from '@/context/DebugContext';
+import { ButtonBar } from '@/components/ButtonBar/ButtonBar';
 
 export function HomePage() {
   return (
     <>
-      <WakeLock />
-      <Welcome />
-      <ProcessForm />
-      <ColorSchemeToggle />
+      <DebugContextProvider>
+        <ButtonBar />
+        <Welcome />
+        <ProcessForm />
+        <ColorSchemeToggle />
+      </DebugContextProvider>
     </>
   );
 }
