@@ -4007,6 +4007,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mantine/carousel@npm:^7.11.2":
+  version: 7.11.2
+  resolution: "@mantine/carousel@npm:7.11.2"
+  peerDependencies:
+    "@mantine/core": 7.11.2
+    "@mantine/hooks": 7.11.2
+    embla-carousel-react: ">=7.0.0"
+    react: ^18.2.0
+    react-dom: ^18.2.0
+  checksum: 10c0/560c10bb4fa9cd270f4f74c74feb5fdcf3a3f03593e179f4aa8504ebaf99b6408e1d517e7f51842b3c5a79d80cff4461510a3393d95ff765148c0d3aa78bb46b
+  languageName: node
+  linkType: hard
+
 "@mantine/core@npm:7.11.1":
   version: 7.11.1
   resolution: "@mantine/core@npm:7.11.1"
@@ -8220,6 +8233,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"embla-carousel-react@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "embla-carousel-react@npm:7.1.0"
+  dependencies:
+    embla-carousel: "npm:7.1.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.1 || ^18.0.0
+  checksum: 10c0/05e33fdb1062fde0164a0685163a5212f8e8f343fbe28e9a8e2348c989d8825d80fdcecfed485c7617d27f8f5d72b393612a3dd13ef9cffc02ef0cf21109ba51
+  languageName: node
+  linkType: hard
+
+"embla-carousel@npm:7.1.0":
+  version: 7.1.0
+  resolution: "embla-carousel@npm:7.1.0"
+  checksum: 10c0/3fcfe5b287c5d09d35dac76b6612567cf6f15abdae0bbf7d10754db9f732dd90cdfdf5bc7405d8fb3f65542bdead09971e93e024a0db9b3f1fcc653a70e733bc
+  languageName: node
+  linkType: hard
+
 "emoji-regex@npm:^8.0.0":
   version: 8.0.0
   resolution: "emoji-regex@npm:8.0.0"
@@ -9412,6 +9443,7 @@ __metadata:
   resolution: "film-timer@workspace:."
   dependencies:
     "@hello-pangea/dnd": "npm:^16.6.0"
+    "@mantine/carousel": "npm:^7.11.2"
     "@mantine/core": "npm:7.11.1"
     "@mantine/form": "npm:^7.11.2"
     "@mantine/hooks": "npm:7.11.1"
@@ -9432,6 +9464,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
     "@typescript-eslint/parser": "npm:^7.13.1"
     "@vitejs/plugin-react": "npm:^4.3.1"
+    embla-carousel-react: "npm:^7.1.0"
     eslint: "npm:^8.57.0"
     eslint-config-airbnb: "npm:19.0.4"
     eslint-config-airbnb-typescript: "npm:^18.0.0"
@@ -9450,6 +9483,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-router-dom: "npm:^6.23.1"
+    react-use-precision-timer: "npm:^3.5.5"
     storybook: "npm:^8.1.10"
     storybook-dark-mode: "npm:^4.0.2"
     stylelint: "npm:^16.6.1"
@@ -13115,6 +13149,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-sub-unsub@npm:^2.2.2":
+  version: 2.2.7
+  resolution: "react-sub-unsub@npm:2.2.7"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0
+  checksum: 10c0/2dc2dd7ba69fdb960e9b37eab7d21eb87cc77d29cc1e6aeb18da6858a76a083d4831c87063d033db75eaa54b9ca70e8ff06ca6996ed5fea8e66c56ea075969e6
+  languageName: node
+  linkType: hard
+
 "react-textarea-autosize@npm:8.5.3":
   version: 8.5.3
   resolution: "react-textarea-autosize@npm:8.5.3"
@@ -13125,6 +13169,18 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/33d38a6d96cf584842695b50c341980944ece23a42155bf0bd1958f02396adb185c7720b88678dc677817fe111783059c0ebcdf7761644006892583b10e258ee
+  languageName: node
+  linkType: hard
+
+"react-use-precision-timer@npm:^3.5.5":
+  version: 3.5.5
+  resolution: "react-use-precision-timer@npm:3.5.5"
+  dependencies:
+    react-sub-unsub: "npm:^2.2.2"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0
+  checksum: 10c0/6b3f3c8aaed07da80bc8a557e0fc31cdcaef19e5c5384ce0eabddf96ac4eb220fd157b61e9fd2525714b748c896675e563ed1b4337fc19d8d632ccd262cfb281
   languageName: node
   linkType: hard
 

@@ -28,3 +28,5 @@
 ## Sound
 
 Double Beep by andersmmg -- https://freesound.org/s/511492/ -- License: Attribution 4.0
+
+Triple Beep by andersmmg -- https://freesound.org/s/511491/ -- License: Attribution 4.0
