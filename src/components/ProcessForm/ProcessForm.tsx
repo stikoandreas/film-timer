@@ -1,20 +1,14 @@
-import { Group, TextInput, Button, Center, NumberInput } from '@mantine/core';
+import { Group, Button, Center, Box, rem } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { IconGripVertical } from '@tabler/icons-react';
+import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 import { Timer } from '@/components/Timer/Timer';
+import { StepInput } from '../StepInput/StepInput';
 
-export interface DevelopingProcess {
-  steps: Array<{
-    name: string;
-    step_minutes: number;
-    chime_seconds: number | '';
-    key: string;
-  }>;
-}
+import type { DevelopingProcess } from '@/types/DevelopingProcess';
 
 export function ProcessForm() {
   const form = useForm<DevelopingProcess>({
@@ -23,7 +17,7 @@ export function ProcessForm() {
       steps: [
         { name: 'Develop', step_minutes: 6, chime_seconds: 30, key: randomId() },
         { name: 'Stop', step_minutes: 1, chime_seconds: '', key: randomId() },
-        { name: 'Fix', step_minutes: 1, chime_seconds: 30, key: randomId() },
+        { name: 'Fix', step_minutes: 1, chime_seconds: 27, key: randomId() },
       ],
     },
     validate: {
@@ -40,6 +34,8 @@ export function ProcessForm() {
   const [submittedValues, setSubmittedValues] = useState<typeof form.values | null>(null);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
   function handleSubmit(values: DevelopingProcess) {
     setSubmittedValues(values);
     setIsRunning(true);
@@ -52,37 +48,13 @@ export function ProcessForm() {
           <Center {...provided.dragHandleProps}>
             <IconGripVertical size="1.2rem" />
           </Center>
-          <TextInput
-            label="Step name"
-            placeholder="Step name"
-            key={form.key(`steps.${index}.name`)}
-            {...form.getInputProps(`steps.${index}.name`)}
+          <StepInput
+            key={form.key(`steps.${index}`)}
+            {...form.getInputProps(`steps.${index}`)}
+            nameInputProps={{ ...form.getInputProps(`steps.${index}.name`) }}
+            durationInputProps={{ ...form.getInputProps(`steps.${index}.step_minutes`) }}
+            chimeInputProps={{ ...form.getInputProps(`steps.${index}.chime_seconds`) }}
           />
-          <NumberInput
-            label="Step duration"
-            placeholder="Time in minutes"
-            min={1}
-            max={100}
-            pattern="\d*"
-            key={form.key(`steps.${index}.step_minutes`)}
-            {...form.getInputProps(`steps.${index}.step_minutes`)}
-          />
-          <NumberInput
-            label="Chime every"
-            placeholder="Time in seconds"
-            min={1}
-            max={100}
-            pattern="\d*"
-            key={form.key(`steps.${index}.chime_seconds`)}
-            {...form.getInputProps(`steps.${index}.chime_seconds`)}
-          />
-          <Button
-            onClick={() => {
-              form.removeListItem('steps', index);
-            }}
-          >
-            Remove
-          </Button>
         </Group>
       )}
     </Draggable>
@@ -93,11 +65,49 @@ export function ProcessForm() {
       {!isRunning ? (
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <DragDropContext
-            onDragEnd={({ destination, source }) =>
-              destination?.index !== undefined &&
-              form.reorderListItem('steps', { from: source.index, to: destination.index })
-            }
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={({ destination, source }) => {
+              setIsDragging(false);
+              if (destination?.droppableId === 'dnd-delete') {
+                form.removeListItem('steps', source.index);
+              } else {
+                destination?.index !== undefined &&
+                  form.reorderListItem('steps', { from: source.index, to: destination.index });
+              }
+            }}
           >
+            <Droppable droppableId="dnd-delete" direction="vertical">
+              {(provided) => (
+                <>
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    <Center>
+                      <Box
+                        style={{
+                          backgroundColor: 'var(--mantine-color-red-2)',
+                          color: 'var(--mantine-color-red-6)',
+                          borderRadius: '5px',
+                          transition: 'width 0.2s ease-in-out',
+                          overflow: 'hidden',
+                        }}
+                        bd={isDragging ? '1px solid var(--mantine-color-red-6)' : undefined}
+                        w="100%"
+                      >
+                        <Center
+                          style={{
+                            transition: 'height 0.2s ease-in-out',
+                            overflow: 'hidden',
+                          }}
+                          h={isDragging ? rem(35) : 0}
+                        >
+                          <IconTrash style={{ height: rem(30), width: rem(30), stroke: '1.5' }} />
+                        </Center>
+                        {provided.placeholder}
+                      </Box>
+                    </Center>
+                  </div>
+                </>
+              )}
+            </Droppable>
             <Droppable droppableId="dnd-list" direction="vertical">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>

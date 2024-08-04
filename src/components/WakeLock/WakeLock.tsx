@@ -1,4 +1,5 @@
-import { Switch } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
+import { IconCoffee, IconCoffeeOff } from '@tabler/icons-react';
 import { useState, useRef, useEffect } from 'react';
 
 export interface DevelopingProcess {
@@ -20,9 +21,6 @@ export function WakeLock() {
     try {
       wakeLock.current = await navigator.wakeLock.request('screen');
       setError(null);
-      wakeLock.current.addEventListener('release', () => {
-        console.log('Wake Lock has been released');
-      });
     } catch (err: any) {
       setError(`${err.name}, ${err.message}`);
       setChecked(false);
@@ -61,14 +59,18 @@ export function WakeLock() {
 
   return (
     <>
-      <Switch
-        defaultChecked
-        checked={checked}
-        label="Wake lock"
+      <ActionIcon
+        variant={checked ? 'light' : 'light'}
         disabled={!supported}
-        onChange={(event) => setChecked(event.currentTarget.checked)}
-        error={error}
-      />
+        onClick={() => setChecked(!checked)}
+      >
+        {checked ? (
+          <IconCoffee style={{ width: '80%', height: '80%' }} stroke={1.5} />
+        ) : (
+          <IconCoffeeOff style={{ width: '80%', height: '80%' }} stroke={1.5} />
+        )}
+      </ActionIcon>
+      {error && error}
     </>
   );
 }
