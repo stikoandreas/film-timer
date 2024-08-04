@@ -10,6 +10,9 @@ export default defineConfig({
     tsconfigPaths(),
     VitePWA({
       registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
       workbox: {
         clientsClaim: true,
         skipWaiting: true,
