@@ -21,11 +21,7 @@ export function WakeLock() {
       wakeLock.current = await navigator.wakeLock.request('screen');
       setError(null);
       wakeLock.current.addEventListener('release', () => {
-        // the wake lock has been released
-        if (checked) {
-          setError('Wake Lock has been released');
-          setChecked(false);
-        }
+        console.log('Wake Lock has been released');
       });
     } catch (err: any) {
       setError(`${err.name}, ${err.message}`);
@@ -57,7 +53,7 @@ export function WakeLock() {
   useEffect(() => {
     if ('wakeLock' in navigator) {
       setSupported(true);
-      setChecked(true);
+      //setChecked(true);
     } else {
       setSupported(false);
     }
