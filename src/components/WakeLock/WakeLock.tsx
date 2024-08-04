@@ -28,7 +28,7 @@ export function WakeLock() {
   }
 
   document.addEventListener('visibilitychange', async () => {
-    if (wakeLock !== null && document.visibilityState === 'visible') {
+    if (supported && wakeLock !== null && document.visibilityState === 'visible') {
       aquireLock();
     }
   });
@@ -59,11 +59,7 @@ export function WakeLock() {
 
   return (
     <>
-      <ActionIcon
-        variant={checked ? 'light' : 'light'}
-        disabled={!supported}
-        onClick={() => setChecked(!checked)}
-      >
+      <ActionIcon variant="default" disabled={!supported} onClick={() => setChecked(!checked)}>
         {checked ? (
           <IconCoffee style={{ width: '80%', height: '80%' }} stroke={1.5} />
         ) : (
