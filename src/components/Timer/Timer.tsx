@@ -2,7 +2,7 @@
 import { Stepper, Text, Progress, Stack, RingProgress, Center } from '@mantine/core';
 import { useState, useEffect, useRef } from 'react';
 
-import { DevelopingProcess } from '../ProcessForm/ProcessForm';
+import type { DevelopingProcess } from '@/types/DevelopingProcess';
 
 import click from './double_beep.wav';
 

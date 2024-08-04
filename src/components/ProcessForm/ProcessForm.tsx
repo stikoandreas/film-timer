@@ -1,4 +1,4 @@
-import { Group, TextInput, Button, Center, NumberInput, Box, rem } from '@mantine/core';
+import { Group, Button, Center, Box, rem } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -6,15 +6,9 @@ import { IconGripVertical, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 import { Timer } from '@/components/Timer/Timer';
+import { StepInput } from '../StepInput/StepInput';
 
-export interface DevelopingProcess {
-  steps: Array<{
-    name: string;
-    step_minutes: number;
-    chime_seconds: number | '';
-    key: string;
-  }>;
-}
+import type { DevelopingProcess } from '@/types/DevelopingProcess';
 
 export function ProcessForm() {
   const form = useForm<DevelopingProcess>({
@@ -23,7 +17,7 @@ export function ProcessForm() {
       steps: [
         { name: 'Develop', step_minutes: 6, chime_seconds: 30, key: randomId() },
         { name: 'Stop', step_minutes: 1, chime_seconds: '', key: randomId() },
-        { name: 'Fix', step_minutes: 1, chime_seconds: 30, key: randomId() },
+        { name: 'Fix', step_minutes: 1, chime_seconds: 27, key: randomId() },
       ],
     },
     validate: {
@@ -54,31 +48,12 @@ export function ProcessForm() {
           <Center {...provided.dragHandleProps}>
             <IconGripVertical size="1.2rem" />
           </Center>
-          <TextInput
-            label="Step name"
-            placeholder="Step name"
-            key={form.key(`steps.${index}.name`)}
-            {...form.getInputProps(`steps.${index}.name`)}
-          />
-          <NumberInput
-            label="Step duration"
-            placeholder="Time in minutes"
-            min={1}
-            max={100}
-            inputSize="3"
-            pattern="\d*"
-            key={form.key(`steps.${index}.step_minutes`)}
-            {...form.getInputProps(`steps.${index}.step_minutes`)}
-          />
-          <NumberInput
-            label="Chime every"
-            placeholder="Time in seconds"
-            min={1}
-            max={100}
-            inputSize="3"
-            pattern="\d*"
-            key={form.key(`steps.${index}.chime_seconds`)}
-            {...form.getInputProps(`steps.${index}.chime_seconds`)}
+          <StepInput
+            key={form.key(`steps.${index}`)}
+            {...form.getInputProps(`steps.${index}`)}
+            nameInputProps={{ ...form.getInputProps(`steps.${index}.name`) }}
+            durationInputProps={{ ...form.getInputProps(`steps.${index}.step_minutes`) }}
+            chimeInputProps={{ ...form.getInputProps(`steps.${index}.chime_seconds`) }}
           />
         </Group>
       )}
