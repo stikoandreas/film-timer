@@ -20,7 +20,3 @@
 .timeinput:last-child::after {
   content: '';
 }
-
-/*.digitinput:focus::placeholder {
-  color: transparent;
-}*/

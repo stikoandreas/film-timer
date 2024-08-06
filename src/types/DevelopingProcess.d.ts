@@ -1,6 +1,6 @@
 export interface DevelopingStep {
   name: string;
-  step_minutes: number;
+  step_seconds: number;
   chime_seconds: number | '';
   key: string;
 }

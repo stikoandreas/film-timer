@@ -21,6 +21,8 @@ import type { DevelopingProcess } from '@/types/DevelopingProcess';
 import click from './double_beep.wav';
 import tripleBeep from './triple_beep.wav';
 
+import { formatSeconds } from '@/lib/time';
+
 declare global {
   interface Navigator {
     audioSession: {
@@ -33,17 +35,10 @@ interface TimerCardProps {
   totalDuration: number;
   interval: number;
   renderSpeed: number;
-  paused: boolean;
   callback: () => void;
 }
 
-export function TimeCard({
-  totalDuration,
-  interval,
-  renderSpeed,
-  callback,
-  paused,
-}: TimerCardProps) {
+export function TimeCard({ totalDuration, interval, renderSpeed, callback }: TimerCardProps) {
   const [chimeProgress, setChimeProgress] = useState<number>(0);
   const [stepProgress, setStepProgress] = useState<number>(0);
 
@@ -54,48 +49,47 @@ export function TimeCard({
   }, []);
 
   const renderCallback = useCallback(() => {
-    if (timer.getElapsedRunningTime() > totalDuration) {
-      callback();
-    }
-    setStepProgress((timer.getElapsedRunningTime() / totalDuration) * 100);
-    setChimeProgress(100 - (timer.getRemainingTime() / timer.getEffectiveDelay()) * 100);
+    setStepProgress(
+      100 - (durationTimer.getRemainingTime() / durationTimer.getEffectiveDelay()) * 100
+    );
+    setChimeProgress(
+      100 - (intervalTimer.getRemainingTime() / intervalTimer.getEffectiveDelay()) * 100
+    );
   }, [interval, totalDuration]);
 
-  // The callback will be called every 1000 milliseconds.
-  const timer = useTimer({ delay: interval }, audioCallBack);
-
-  const renderTimer = useTimer({ delay: renderSpeed }, renderCallback);
+  const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
+  const intervalTimer = useTimer({ delay: interval }, audioCallBack);
 
   const audioRef = useRef<HTMLMediaElement>(null);
 
   function startTimer() {
-    timer.start();
-    renderTimer.start();
+    durationTimer.start();
+    intervalTimer.start();
   }
 
   function handlePlayPause() {
-    if (timer.isPaused()) {
-      timer.resume();
-    } else if (timer.isRunning()) {
-      timer.pause();
+    if (durationTimer.isPaused()) {
+      durationTimer.resume();
+      intervalTimer.resume();
+    } else if (durationTimer.isRunning()) {
+      durationTimer.pause();
+      intervalTimer.resume();
     }
   }
 
-  useEffect(() => {
-    if (paused) timer.pause();
-    else timer.resume();
-  }, [paused]);
-
   function getTimeRemaining() {
-    const timeRemaining = totalDuration - timer.getElapsedRunningTime();
-    const minutes = Math.floor(timeRemaining / 60 / 1000);
-    const seconds = Math.floor(timeRemaining / 1000) % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const timeRemaining = durationTimer.getRemainingTime();
+    return formatSeconds(Math.floor(timeRemaining / 1000));
   }
 
   useEffect(() => {
-    startTimer();
+    const intervalId = setInterval(renderCallback, renderSpeed);
     if ('audioSession' in navigator) navigator.audioSession.type = 'transient';
+    return () => clearTimeout(intervalId);
+  }, []);
+
+  useEffect(() => {
+    startTimer();
   }, [interval, totalDuration]);
 
   return (
@@ -123,7 +117,7 @@ export function TimeCard({
         />
       </Center>
       <Button variant="white" onClick={handlePlayPause}>
-        {timer.isPaused() ? 'Resume' : 'Pause'}
+        {durationTimer.isPaused() ? 'Resume' : 'Pause'}
       </Button>
     </Stack>
   );
@@ -137,12 +131,10 @@ export function Timer({ process }: { process: DevelopingProcess }) {
   const [isIntermission, setIsInterMission] = useState(true);
   const [isFinished, setIsFinished] = useState(false);
 
-  const [isPaused, setIsPaused] = useState<boolean>(false);
-
   const tripleBeepRef = useRef<HTMLMediaElement>(null);
 
   function getDurationForStep(index: number) {
-    return process.steps[index].step_minutes * 60 * 1000;
+    return process.steps[index].step_seconds * 1000;
   }
 
   function getIntervalForStep(index: number) {
@@ -185,7 +177,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
             <Stepper.Step
               key={item.key}
               label={item.name}
-              description={`${item.step_minutes} minutes`}
+              description={formatSeconds(item.step_seconds)}
             />
           ))}
         </Stepper>
@@ -220,13 +212,12 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                         interval={getIntervalForStep(index)}
                         renderSpeed={10}
                         callback={handleFinished}
-                        paused={isPaused}
                       />
                     </div>
                   )}
                 </Transition>
                 <Transition
-                  mounted={isIntermission && activeStep == index}
+                  mounted={isIntermission && activeStep === index}
                   transition="fade-down"
                   duration={150}
                   enterDelay={150}
@@ -258,19 +249,6 @@ export function Timer({ process }: { process: DevelopingProcess }) {
             </Carousel.Slide>
           ))}
         </Carousel>
-        {isIntermission ? (
-          <Center>
-            <Button w="90%" onClick={() => setIsInterMission(false)}>
-              Continue
-            </Button>
-          </Center>
-        ) : (
-          <Center>
-            <Button w="90%" onClick={() => setIsPaused(!isPaused)}>
-              {isPaused ? 'Resume' : 'Pause'}
-            </Button>
-          </Center>
-        )}
       </Stack>
     </>
   );
