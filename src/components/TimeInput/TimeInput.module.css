@@ -1,0 +1,22 @@
+.timeinput:nth-child(2n + 2) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: auto;
+  gap: var(--group-gap);
+  width: auto;
+}
+
+.timeinput:nth-child(2n + 2) > input {
+  display: inline-block;
+  width: var(--pin-input-size);
+}
+
+.timeinput:nth-child(2n + 2)::after {
+  content: ':';
+  display: inline-block;
+}
+
+.timeinput:last-child::after {
+  content: '';
+}
