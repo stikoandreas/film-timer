@@ -73,7 +73,7 @@ export function TimeCard({ totalDuration, interval, renderSpeed, callback }: Tim
       intervalTimer.resume();
     } else if (durationTimer.isRunning()) {
       durationTimer.pause();
-      intervalTimer.resume();
+      intervalTimer.pause();
     }
   }
 
