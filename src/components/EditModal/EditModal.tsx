@@ -129,7 +129,7 @@ export function EditModal({
             {durationInputProps.error}
           </Text>
         )}
-        <Space h="md" />
+        <Space h="xl" />
         <Group gap="xs">
           <Text size="sm">Chime:</Text>
           <SegmentedControl
@@ -170,7 +170,7 @@ export function EditModal({
           <Space h="md" />
           <Code block>{JSON.stringify(_value, null, 2)}</Code>
         </Collapse>
-        <Space h="md" />
+        <Space h="xl" />
         <Button fullWidth onClick={handleValidate}>
           Submit
         </Button>

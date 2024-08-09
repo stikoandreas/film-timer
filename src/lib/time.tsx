@@ -9,7 +9,7 @@ export function secondsToMinutes(input: number) {
   };
 }
 
-export function formatSeconds(input: number) {
+export function formatSeconds(input: number, divider: string = ':') {
   const { minutes, seconds } = secondsToMinutes(input);
-  return `${clockPad(minutes)}:${clockPad(seconds)}`;
+  return `${clockPad(minutes)}${divider}${clockPad(seconds)}`;
 }
