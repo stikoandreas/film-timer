@@ -214,7 +214,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                       <TimeCard
                         totalDuration={getDurationForStep(index)}
                         interval={getIntervalForStep(index)}
-                        renderSpeed={100}
+                        renderSpeed={10}
                         callback={handleFinished}
                       />
                     </div>
