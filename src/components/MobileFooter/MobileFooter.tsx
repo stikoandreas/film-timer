@@ -1,7 +1,5 @@
-import { DebugContextProvider } from '@/context/DebugContext';
-import { ButtonBar } from '@/components/ButtonBar/ButtonBar';
 import { Link, useLocation } from 'react-router-dom';
-import { AppShell, Group, rem, Stack, Text } from '@mantine/core';
+import { Group, Stack, Text } from '@mantine/core';
 import { IconAlarm, IconAlarmFilled, IconFlask, IconFlaskFilled } from '@tabler/icons-react';
 
 import classes from './MobileFooter.module.css';

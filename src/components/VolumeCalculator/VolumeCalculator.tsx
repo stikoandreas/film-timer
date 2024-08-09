@@ -43,14 +43,13 @@ export function VolumeCalculator() {
       default:
         setTargetVolume('');
         targetVolumeRef.current!.focus();
-        return;
     }
   }
 
   return (
     <>
       <Center>
-        <Stack align="left" mt="xl" maw={'85vw'}>
+        <Stack align="left" mt="xl" maw="85vw">
           <Input.Wrapper label="Dilution">
             <Group wrap="nowrap">
               <NumberInput
