@@ -3,11 +3,9 @@ import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { IconGripVertical, IconBell } from '@tabler/icons-react';
-import { useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import classes from './ProcessForm.module.css';
-
-import { Timer } from '@/components/Timer/Timer';
 
 import { EditModal } from '@/components/EditModal/EditModal';
 
@@ -16,6 +14,7 @@ import type { DevelopingProcess } from '@/types/DevelopingProcess';
 import { formatSeconds } from '@/lib/time';
 
 export function ProcessForm() {
+  const navigate = useNavigate();
   const form = useForm<DevelopingProcess>({
     mode: 'uncontrolled',
     initialValues: {
@@ -37,12 +36,11 @@ export function ProcessForm() {
     },
   });
 
-  const [submittedValues, setSubmittedValues] = useState<typeof form.values | null>(null);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
-
   function handleSubmit(values: DevelopingProcess) {
-    setSubmittedValues(values);
-    setIsRunning(true);
+    navigate({
+      pathname: 'timer',
+      search: createSearchParams({ recipe: JSON.stringify(values) }).toString(),
+    });
   }
 
   const fields = form.getValues().steps.map((item, index) => (
@@ -116,49 +114,41 @@ export function ProcessForm() {
 
   return (
     <Center>
-      {!isRunning ? (
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <DragDropContext
-            onDragEnd={({ destination, source }) => {
-              destination?.index !== undefined &&
-                form.reorderListItem('steps', { from: source.index, to: destination.index });
-            }}
-          >
-            <Droppable droppableId="dnd-list" direction="vertical">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {fields}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <DragDropContext
+          onDragEnd={({ destination, source }) => {
+            destination?.index !== undefined &&
+              form.reorderListItem('steps', { from: source.index, to: destination.index });
+          }}
+        >
+          <Droppable droppableId="dnd-list" direction="vertical">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {fields}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
 
-          <Group justify="center" mt="md">
-            <Button
-              onClick={() =>
-                form.insertListItem('steps', {
-                  name: 'New step',
-                  step_seconds: 60,
-                  chime_seconds: '',
-                  key: randomId(),
-                })
-              }
-            >
-              Add Step
-            </Button>
-          </Group>
-          <Button type="submit" mt="md" fullWidth>
-            Submit
+        <Group justify="center" mt="md">
+          <Button
+            onClick={() =>
+              form.insertListItem('steps', {
+                name: 'New step',
+                step_seconds: 60,
+                chime_seconds: '',
+                key: randomId(),
+              })
+            }
+          >
+            Add Step
           </Button>
-        </form>
-      ) : (
-        submittedValues && (
-          <>
-            <Timer process={submittedValues}></Timer>
-          </>
-        )
-      )}
+        </Group>
+        <Button type="submit" mt="md" fullWidth>
+          Submit
+        </Button>
+      </form>
     </Center>
   );
 }

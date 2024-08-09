@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { AppShell } from '@mantine/core';
 import { MobileFooter } from './components/MobileFooter/MobileFooter';
 
@@ -9,6 +9,7 @@ import classes from './Root.module.css';
 import { Navbar } from './components/Navbar/Navbar';
 
 export function Root() {
+  const { pathname } = useLocation();
   return (
     <>
       <DebugContextProvider>
@@ -19,7 +20,7 @@ export function Root() {
             breakpoint: 'sm',
           }}
           footer={{
-            height: 50,
+            height: 65,
           }}
           className={classes.shell}
         >
@@ -32,9 +33,11 @@ export function Root() {
           <AppShell.Main>
             <Outlet />
           </AppShell.Main>
-          <AppShell.Footer className={classes.footer} hiddenFrom="sm">
-            <MobileFooter />
-          </AppShell.Footer>
+          {pathname !== '/timer' && (
+            <AppShell.Footer className={classes.footer} hiddenFrom="sm">
+              <MobileFooter />
+            </AppShell.Footer>
+          )}
         </AppShell>
       </DebugContextProvider>
     </>
