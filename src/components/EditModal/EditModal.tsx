@@ -170,7 +170,7 @@ export function EditModal({
           <Space h="md" />
           <Code block>{JSON.stringify(_value, null, 2)}</Code>
         </Collapse>
-        <Space h="xl" />
+        <Space h="md" />
         <Button fullWidth onClick={handleValidate}>
           Submit
         </Button>
