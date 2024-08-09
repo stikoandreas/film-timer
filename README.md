@@ -11,7 +11,8 @@ You can find it here:
 ✨ Features:
 
 - Custom recipes
-- Audio alerts for agitations
+- Audio alerts for agitation
+- Volume calculator
 
 📱 Phone support:
 

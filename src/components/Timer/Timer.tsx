@@ -99,21 +99,25 @@ export function TimeCard({ totalDuration, interval, renderSpeed, callback }: Tim
         <p>Your browser does not support the audio element.</p>
       </audio>
       <Space />
-      <Title c="white">{getTimeRemaining()}</Title>
-      <Progress.Root
-        transitionDuration={100}
-        w="80%"
-        bg="var(--mantine-color-blue-9)"
-        size="lg"
-        radius="lg"
-      >
-        <Progress.Section color="white" value={stepProgress} />
-      </Progress.Root>
       <Center>
         <RingProgress
           rootColor="var(--mantine-color-blue-9)"
-          roundCaps
-          sections={[{ value: chimeProgress, color: 'white' }]}
+          size={200}
+          label={
+            <Stack gap={2} align="center">
+              <Title c="white">{getTimeRemaining()}</Title>
+              <Progress.Root
+                transitionDuration={100}
+                w={90}
+                bg="var(--mantine-color-blue-9)"
+                size="xs"
+                radius="lg"
+              >
+                <Progress.Section color="white" value={chimeProgress} />
+              </Progress.Root>
+            </Stack>
+          }
+          sections={[{ value: stepProgress, color: 'white' }]}
         />
       </Center>
       <Button variant="white" onClick={handlePlayPause}>
