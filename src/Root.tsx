@@ -18,6 +18,7 @@ export function Root() {
           navbar={{
             width: 50,
             breakpoint: 'sm',
+            collapsed: { mobile: true },
           }}
           footer={{
             height: 65,
@@ -27,10 +28,10 @@ export function Root() {
           <AppShell.Header className={classes.header}>
             <ButtonBar />
           </AppShell.Header>
-          <AppShell.Navbar visibleFrom="sm">
+          <AppShell.Navbar visibleFrom="sm" className={classes.navbar}>
             <Navbar />
           </AppShell.Navbar>
-          <AppShell.Main>
+          <AppShell.Main className={classes.main}>
             <Outlet />
           </AppShell.Main>
           {pathname !== '/timer' && (
