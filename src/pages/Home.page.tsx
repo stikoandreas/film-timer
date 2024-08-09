@@ -5,10 +5,7 @@ import { ButtonBar } from '@/components/ButtonBar/ButtonBar';
 export function HomePage() {
   return (
     <>
-      <DebugContextProvider>
-        <ButtonBar />
-        <ProcessForm />
-      </DebugContextProvider>
+      <ProcessForm />
     </>
   );
 }
