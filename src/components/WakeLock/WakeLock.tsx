@@ -2,6 +2,8 @@ import { ActionIcon } from '@mantine/core';
 import { IconCoffee, IconCoffeeOff } from '@tabler/icons-react';
 import { useState, useRef, useEffect } from 'react';
 
+import { notifications } from '@mantine/notifications';
+
 export interface DevelopingProcess {
   steps: Array<{
     name: string;
@@ -10,6 +12,20 @@ export interface DevelopingProcess {
     key: string;
   }>;
 }
+
+const notificationOff = {
+  title: 'Screen Wake: Off',
+  message: 'Your phone can go to sleep 😴',
+  color: 'gray',
+  icon: <IconCoffeeOff size={20} />,
+};
+
+const notificationOn = {
+  title: 'Screen Wake: On',
+  message: 'Your phone will stay awake ☕',
+  color: 'blue',
+  icon: <IconCoffee size={20} />,
+};
 
 export function WakeLock() {
   const wakeLock = useRef<WakeLockSentinel | null>(null);
@@ -22,7 +38,7 @@ export function WakeLock() {
       wakeLock.current = await navigator.wakeLock.request('screen');
       setError(null);
     } catch (err: any) {
-      setError(`${err.name}, ${err.message}`);
+      notifications.show(notificationOff);
       setChecked(false);
     }
   }
@@ -57,9 +73,19 @@ export function WakeLock() {
     }
   }, []);
 
+  function handleChange() {
+    if (checked) {
+      notifications.show(notificationOff);
+    } else {
+      notifications.show(notificationOn);
+    }
+
+    setChecked(!checked);
+  }
+
   return (
     <>
-      <ActionIcon variant="default" disabled={!supported} onClick={() => setChecked(!checked)}>
+      <ActionIcon variant="default" disabled={!supported} onClick={handleChange}>
         {checked ? (
           <IconCoffee style={{ width: '80%', height: '80%' }} stroke={1.5} />
         ) : (

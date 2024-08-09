@@ -10,12 +10,14 @@ const links = [
     icon: <IconAlarm className={classes.icon} />,
     selectedIcon: <IconAlarmFilled className={classes.icon} />,
     href: '/',
+    id: 'footer-index',
   },
   {
     label: 'Volume',
     icon: <IconFlask />,
     selectedIcon: <IconFlaskFilled />,
     href: '/volume',
+    id: 'footer-volume',
   },
 ];
 
@@ -28,6 +30,7 @@ export function MobileFooter() {
     <Group grow>
       {links.map((link) => (
         <Link
+          key={link.id}
           to={link.href}
           className={[classes.link, isActive(link.href) ? classes.active : undefined].join(' ')}
         >
