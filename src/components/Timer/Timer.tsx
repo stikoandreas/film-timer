@@ -102,7 +102,6 @@ export function TimeCard({ totalDuration, interval, renderSpeed, callback }: Tim
       <Center>
         <RingProgress
           rootColor="var(--mantine-color-blue-9)"
-          roundCaps
           size={200}
           label={
             <Stack gap={2} align="center">
