@@ -1,0 +1,26 @@
+.shell {
+  padding-bottom: var(--mantine-spacing-xs);
+  padding-top: var(--mantine-spacing-xs);
+
+  @media all and (display-mode: standalone) {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-top: calc(env(safe-area-inset-top, 0));
+  }
+}
+
+.header {
+  height: calc(env(safe-area-inset-top, 0) + rem(50));
+
+  @media all and (display-mode: standalone) {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+}
+
+.footer {
+  padding-bottom: var(--mantine-spacing-xs);
+  padding-top: var(--mantine-spacing-xs);
+
+  @media all and (display-mode: standalone) {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+}
