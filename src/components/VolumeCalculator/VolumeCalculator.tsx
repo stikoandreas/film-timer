@@ -49,7 +49,7 @@ export function VolumeCalculator() {
   return (
     <>
       <Center>
-        <Stack align="left" mt="xl" maw="85vw">
+        <Stack align="left" mt="md" maw="85vw">
           <Input.Wrapper label="Dilution">
             <Group wrap="nowrap">
               <NumberInput

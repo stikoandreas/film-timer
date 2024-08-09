@@ -25,13 +25,13 @@ export function MobileFooter() {
   }
   const { pathname } = useLocation();
   return (
-    <Group grow mt="xs" mb="lg">
+    <Group grow>
       {links.map((link) => (
         <Link
           to={link.href}
           className={[classes.link, isActive(link.href) ? classes.active : undefined].join(' ')}
         >
-          <Stack align="center" gap={0} mb="xs">
+          <Stack align="center" gap={0}>
             {isActive(link.href) ? link.selectedIcon : link.icon}
             <Text size="xs">{link.label}</Text>
           </Stack>
