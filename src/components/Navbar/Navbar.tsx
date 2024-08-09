@@ -2,13 +2,11 @@ import { IconAlarm, IconAlarmFilled, IconFlask, IconFlaskFilled } from '@tabler/
 import { Link, useLocation } from 'react-router-dom';
 import { NavLink, Tooltip } from '@mantine/core';
 
-import classes from './Navbar.module.css';
-
 const links = [
   {
     label: 'Timer',
-    icon: <IconAlarm className={classes.icon} />,
-    selectedIcon: <IconAlarmFilled className={classes.icon} />,
+    icon: <IconAlarm />,
+    selectedIcon: <IconAlarmFilled />,
     href: '/',
     id: 'footer-index',
   },
