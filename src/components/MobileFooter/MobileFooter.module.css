@@ -1,0 +1,18 @@
+.icon {
+  width: rem(32);
+  height: rem(32);
+  stroke-width: 1.5;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--mantine-color-dimmed);
+}
+
+.active {
+  color: black;
+
+  @mixin dark {
+    color: white;
+  }
+}

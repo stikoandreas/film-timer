@@ -21,6 +21,7 @@ export default defineConfig({
         theme_color: 'red',
         name: 'Film Timer',
         short_name: 'Film Timer',
+        display: 'standalone',
       },
     }),
   ],
