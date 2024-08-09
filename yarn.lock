@@ -9838,6 +9838,7 @@ __metadata:
     prettier: "npm:^3.3.2"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.3.1"
+    react-digit-input: "npm:^2.1.0"
     react-dom: "npm:^18.3.1"
     react-router-dom: "npm:^6.23.1"
     react-use-precision-timer: "npm:^3.5.5"
@@ -13369,6 +13370,13 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: 10c0/48eb73cf71e10841c2a61b6b06ab81da9fffa9876134c239bfdebcf348ce2a47e56b146338e35dfb03512c85966bfc9a53844fc56bc50154e71f8daee59ff6f0
+  languageName: node
+  linkType: hard
+
+"react-digit-input@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-digit-input@npm:2.1.0"
+  checksum: 10c0/a9e1dc6afd6cec088bcbc23cb4696346a814bcee4f2e41ea27886baa6933c4ed1cfb599144e9b58e22b373da5d5b459dba1d94c8e1867decd623a0a90a79a1e8
   languageName: node
   linkType: hard
 
