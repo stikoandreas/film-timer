@@ -1,7 +1,7 @@
+# ⚗️ Film Timer
+
 ![example workflow](https://github.com/stikoandreas/film-timer/actions/workflows/deploy_pages.yml/badge.svg)
 ![example workflow](https://github.com/stikoandreas/film-timer/actions/workflows/npm_test.yml/badge.svg)
-
-# ⚗️ Film Timer
 
 An online timer for developing film.
 
