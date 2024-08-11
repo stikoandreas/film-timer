@@ -22,7 +22,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
       steps: [
         { name: 'Develop', chime_seconds: 30, key: randomId(), step_seconds: 6 * 60 },
         { name: 'Stop', chime_seconds: '', key: randomId(), step_seconds: 30 },
-        { name: 'Fix', chime_seconds: 27, key: randomId(), step_seconds: 5 * 60 },
+        { name: 'Fix', chime_seconds: 30, key: randomId(), step_seconds: 5 * 60 },
       ],
     },
     validate: {
@@ -46,18 +46,20 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
 
   const fields = form.getValues().steps.map((item, index) => (
     <Draggable key={item.key} index={index} draggableId={item.key}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <Card
           shadow="sm"
           mt="xs"
           pl="xs"
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          className={
+          className={[
+            classes.draggable,
+            snapshot.isDragging ? classes.dragging : undefined,
             Object.keys(form.errors).some((key) => key.startsWith(`steps.${index}`))
               ? classes.carderror
-              : undefined
-          }
+              : undefined,
+          ].join(' ')}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
           w={400}
           maw="85vw"
         >
