@@ -6,5 +6,7 @@ export interface DevelopingStep {
 }
 
 export interface DevelopingProcess {
+  name?: string;
   steps: Array<DevelopingStep>;
+  key: string;
 }

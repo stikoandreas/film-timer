@@ -1,8 +1,8 @@
-import { Group, Button, Center, rem, Card, Title, Stack, Badge } from '@mantine/core';
+import { Group, Button, Center, rem, Card, Title, Stack, Badge, Avatar } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { IconGripVertical, IconBell } from '@tabler/icons-react';
+import { IconBell } from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import classes from './ProcessForm.module.css';
@@ -13,11 +13,12 @@ import type { DevelopingProcess } from '@/types/DevelopingProcess';
 
 import { formatSeconds } from '@/lib/time';
 
-export function ProcessForm() {
+export function ProcessForm({ initialValues }: { initialValues?: DevelopingProcess }) {
   const navigate = useNavigate();
   const form = useForm<DevelopingProcess>({
     mode: 'uncontrolled',
-    initialValues: {
+    initialValues: initialValues || {
+      key: randomId(),
       steps: [
         { name: 'Develop', chime_seconds: 30, key: randomId(), step_seconds: 6 * 60 },
         { name: 'Stop', chime_seconds: '', key: randomId(), step_seconds: 30 },
@@ -38,7 +39,7 @@ export function ProcessForm() {
 
   function handleSubmit(values: DevelopingProcess) {
     navigate({
-      pathname: 'timer',
+      pathname: '/timer',
       search: createSearchParams({ recipe: JSON.stringify(values) }).toString(),
     });
   }
@@ -57,12 +58,17 @@ export function ProcessForm() {
               ? classes.carderror
               : undefined
           }
-          w={300}
+          w={400}
+          maw="85vw"
         >
-          <Group gap="xs" justify="space-between">
+          <Group gap="xs" justify="space-between" {...provided.dragHandleProps}>
             <Group gap="xs">
-              <Center {...provided.dragHandleProps}>
-                <IconGripVertical size="1.2rem" />
+              <Center>
+                <Avatar
+                  size="md"
+                  name={form.getTransformedValues().steps[index].name}
+                  color="initials"
+                />
               </Center>
               <Stack gap={6}>
                 <Title m={0} order={3}>

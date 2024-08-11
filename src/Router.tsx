@@ -3,6 +3,8 @@ import { HomePage } from './pages/Home.page';
 import { VolumePage } from './pages/Volume.page';
 import { Root } from './Root';
 import { TimerPage } from './pages/Timer.page';
+import { RecipeDetailsPage } from './pages/RecipeDetail.page';
+import { RecipesPage } from './pages/Recipes.page';
 
 const router = createBrowserRouter(
   [
@@ -18,6 +20,14 @@ const router = createBrowserRouter(
         {
           path: 'volume',
           element: <VolumePage />,
+        },
+        {
+          path: 'recipes',
+          element: <RecipesPage />,
+        },
+        {
+          path: 'recipes/:id',
+          element: <RecipeDetailsPage />,
         },
       ],
     },

@@ -14,6 +14,7 @@ export interface DevelopingProcess {
 }
 
 const notificationOff = {
+  id: 'screenwakeoff',
   title: 'Screen Wake: Off',
   message: 'Your phone can go to sleep 😴',
   color: 'gray',
@@ -21,6 +22,7 @@ const notificationOff = {
 };
 
 const notificationOn = {
+  id: 'screenwakeon',
   title: 'Screen Wake: On',
   message: 'Your phone will stay awake ☕',
   color: 'blue',
