@@ -8,7 +8,7 @@ export const recipes: DevelopingProcess[] = [
     steps: [
       { name: 'Develop', chime_seconds: 30, key: randomId(), step_seconds: 6 * 60 },
       { name: 'Stop', chime_seconds: '', key: randomId(), step_seconds: 30 },
-      { name: 'Fix', chime_seconds: 27, key: randomId(), step_seconds: 5 * 60 },
+      { name: 'Fix', chime_seconds: 30, key: randomId(), step_seconds: 5 * 60 },
     ],
     key: randomId(),
   },
