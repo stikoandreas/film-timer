@@ -37,7 +37,8 @@ const links = [
 
 export function MobileFooter() {
   function isActive(link: string) {
-    return pathname === link;
+    if (link === '/') return pathname === link || pathname.startsWith('/timer');
+    return pathname.startsWith(link);
   }
   const { pathname } = useLocation();
   return (

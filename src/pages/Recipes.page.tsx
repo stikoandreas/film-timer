@@ -7,7 +7,14 @@ export function RecipesPage() {
   return (
     <Stack align="center" mt="md">
       {recipes.map((recipe, index) => (
-        <Card w={400} maw="85vw" withBorder key={recipe.key}>
+        <Card
+          component={Link}
+          w={400}
+          maw="85vw"
+          withBorder
+          key={recipe.key}
+          to={`/recipes/${index}`}
+        >
           <Group justify="space-between ">
             <Title order={2}>{recipe.name}</Title>
             <Button component={Link} to={`/recipes/${index}`}>
