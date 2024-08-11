@@ -46,18 +46,20 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
 
   const fields = form.getValues().steps.map((item, index) => (
     <Draggable key={item.key} index={index} draggableId={item.key}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <Card
           shadow="sm"
           mt="xs"
           pl="xs"
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          className={
+          className={[
+            classes.draggable,
+            snapshot.isDragging ? classes.dragging : undefined,
             Object.keys(form.errors).some((key) => key.startsWith(`steps.${index}`))
               ? classes.carderror
-              : undefined
-          }
+              : undefined,
+          ].join(' ')}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
           w={400}
           maw="85vw"
         >
