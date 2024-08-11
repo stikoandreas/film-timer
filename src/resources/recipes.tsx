@@ -1,17 +1,16 @@
 import { randomId } from '@mantine/hooks';
 import { ReactNode } from 'react';
-
-import { DevelopingProcess } from '@/types/DevelopingProcess';
 import {
   IconBrightness,
   IconBucketDroplet,
-  IconDetailsOff,
   IconDropletPause,
   IconShadowOff,
   IconSparkles,
   IconTemperaturePlus,
   IconTriangleOff,
 } from '@tabler/icons-react';
+
+import { DevelopingProcess } from '@/types/DevelopingProcess';
 
 export const recipeIcons: Record<string, ReactNode> = {
   dropletPause: <IconDropletPause />,
