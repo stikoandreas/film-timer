@@ -15,7 +15,6 @@ export function RecipeDetailsPage() {
         <ProcessForm initialValues={recipes[Number(id)]} />
       </>
     );
-  } else {
-    return 'No such recipe';
   }
+  return 'No such recipe';
 }

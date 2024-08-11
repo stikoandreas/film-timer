@@ -1,6 +1,7 @@
-import { recipes } from '@/resources/recipes';
-import { Button, Card, Center, Group, Stack, Text, Title } from '@mantine/core';
+import { Button, Card, Group, Stack, Title } from '@mantine/core';
 import { Link } from 'react-router-dom';
+
+import { recipes } from '@/resources/recipes';
 
 export function RecipesPage() {
   return (

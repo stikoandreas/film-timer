@@ -7,9 +7,9 @@ import {
   IconFlaskFilled,
   IconList,
 } from '@tabler/icons-react';
+import { randomId } from '@mantine/hooks';
 
 import classes from './MobileFooter.module.css';
-import { randomId } from '@mantine/hooks';
 
 const links = [
   {

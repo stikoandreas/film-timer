@@ -2,7 +2,7 @@ import { Group, Button, Center, rem, Card, Title, Stack, Badge, Avatar } from '@
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { IconGripVertical, IconBell } from '@tabler/icons-react';
+import { IconBell } from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import classes from './ProcessForm.module.css';
@@ -18,6 +18,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
   const form = useForm<DevelopingProcess>({
     mode: 'uncontrolled',
     initialValues: initialValues || {
+      key: randomId(),
       steps: [
         { name: 'Develop', chime_seconds: 30, key: randomId(), step_seconds: 6 * 60 },
         { name: 'Stop', chime_seconds: '', key: randomId(), step_seconds: 30 },
@@ -67,7 +68,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                   size="md"
                   name={form.getTransformedValues().steps[index].name}
                   color="initials"
-                ></Avatar>
+                />
               </Center>
               <Stack gap={6}>
                 <Title m={0} order={3}>

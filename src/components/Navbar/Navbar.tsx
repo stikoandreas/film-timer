@@ -36,7 +36,7 @@ const links = [
 export function Navbar() {
   function isActive(link: string) {
     if (link === '/') return pathname === link || pathname.startsWith('/timer');
-    else return pathname.startsWith(link);
+    return pathname.startsWith(link);
   }
   const { pathname } = useLocation();
   return (

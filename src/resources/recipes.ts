@@ -1,5 +1,6 @@
-import { DevelopingProcess } from '@/types/DevelopingProcess';
 import { randomId } from '@mantine/hooks';
+
+import { DevelopingProcess } from '@/types/DevelopingProcess';
 
 export const recipes: DevelopingProcess[] = [
   {
