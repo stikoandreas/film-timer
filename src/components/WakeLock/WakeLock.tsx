@@ -33,12 +33,10 @@ export function WakeLock() {
   const wakeLock = useRef<WakeLockSentinel | null>(null);
   const [supported, setSupported] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   async function aquireLock() {
     try {
       wakeLock.current = await navigator.wakeLock.request('screen');
-      setError(null);
     } catch (err: any) {
       notifications.show(notificationOff);
       setChecked(false);
@@ -94,7 +92,6 @@ export function WakeLock() {
           <IconCoffeeOff style={{ width: '80%', height: '80%' }} stroke={1.5} />
         )}
       </ActionIcon>
-      {error && error}
     </>
   );
 }
