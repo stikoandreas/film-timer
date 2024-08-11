@@ -20,6 +20,8 @@ import type { DevelopingStep } from '@/types/DevelopingProcess';
 import { TimeInput } from '../TimeInput/TimeInput';
 import { DebugContext } from '@/context/DebugContext';
 
+import classes from './EditModal.module.css';
+
 interface CustomInputProps {
   index?: number;
   value?: DevelopingStep;
@@ -103,7 +105,12 @@ export function EditModal({
   }
   return (
     <>
-      <Modal opened={opened} onClose={close} title="Edit step">
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Edit step"
+        classNames={{ overlay: classes.overlay }}
+      >
         <Autocomplete
           label="Step name"
           placeholder="Step name"
