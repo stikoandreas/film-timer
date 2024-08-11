@@ -102,6 +102,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                 <Group gap="xs">
                   <Badge size="lg">
                     {formatSeconds(form.getTransformedValues().steps[index].step_seconds)}
+                    {form.getTransformedValues().steps[index].exhaust_compensation && '+'}
                   </Badge>
                   {form.getTransformedValues().steps[index].chime_seconds && (
                     <Badge

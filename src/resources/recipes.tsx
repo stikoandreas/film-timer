@@ -8,6 +8,7 @@ import {
   IconSparkles,
   IconTemperaturePlus,
   IconTriangleOff,
+  IconTriangle,
 } from '@tabler/icons-react';
 
 import { DevelopingProcess } from '@/types/DevelopingProcess';
@@ -20,6 +21,7 @@ export const recipeIcons: Record<string, ReactNode> = {
   brightness: <IconBrightness />,
   shadowOff: <IconShadowOff />,
   triangleOff: <IconTriangleOff />,
+  triangle: <IconTriangle />,
 };
 
 export const recipes: DevelopingProcess[] = [
@@ -67,6 +69,101 @@ export const recipes: DevelopingProcess[] = [
         key: randomId(),
         step_seconds: 6 * 60,
         icon: 'triangleOff',
+      },
+      {
+        name: 'Rinse',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 3 * 60,
+        icon: 'bucketDroplet',
+      },
+      {
+        name: 'Stab',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 1 * 60,
+        icon: 'sparkles',
+      },
+    ],
+    key: randomId(),
+  },
+  {
+    name: 'Tetenal Colortec C41',
+    steps: [
+      {
+        name: 'Preheat',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 2 * 60,
+        icon: 'temperaturePlus',
+      },
+      {
+        name: 'Develop',
+        chime_seconds: 30,
+        key: randomId(),
+        step_seconds: 3.25 * 60,
+        icon: 'brightness',
+        exhaust_compensation: 15,
+        exhaust_compensation_rate: 4,
+      },
+      {
+        name: 'Blix',
+        chime_seconds: 30,
+        key: randomId(),
+        step_seconds: 6 * 60,
+        icon: 'triangleOff',
+        exhaust_compensation: 60 * 2,
+        exhaust_compensation_rate: 4,
+      },
+      {
+        name: 'Rinse',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 3 * 60,
+        icon: 'bucketDroplet',
+      },
+      {
+        name: 'Stab',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 1 * 60,
+        icon: 'sparkles',
+      },
+    ],
+    key: randomId(),
+  },
+  {
+    name: 'Bellini C41',
+    steps: [
+      {
+        name: 'Preheat',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 3 * 60,
+        icon: 'temperaturePlus',
+      },
+      {
+        name: 'Develop',
+        chime_seconds: 30,
+        key: randomId(),
+        step_seconds: 3.25 * 60,
+        icon: 'brightness',
+        exhaust_compensation: 15,
+        exhaust_compensation_rate: 4,
+      },
+      {
+        name: 'Bleach',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 6 * 60,
+        icon: 'triangle',
+      },
+      {
+        name: 'Fix',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 3 * 60,
+        icon: 'shadowOff',
       },
       {
         name: 'Rinse',

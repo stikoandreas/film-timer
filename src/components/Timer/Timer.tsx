@@ -12,12 +12,13 @@ import {
   Space,
   Transition,
   Avatar,
+  Slider,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { useTimer } from 'react-use-precision-timer';
 
-import type { DevelopingProcess } from '@/types/DevelopingProcess';
+import type { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
 
 import click from './double_beep.wav';
 import tripleBeep from './triple_beep.wav';
@@ -138,15 +139,10 @@ export function Timer({ process }: { process: DevelopingProcess }) {
   const [isIntermission, setIsInterMission] = useState(true);
   const [isFinished, setIsFinished] = useState(false);
 
+  const [exhaustCompensated, setExhaustCompensated] = useState(false);
+  const [numberFilms, setNumberFilms] = useState<number>(0);
+
   const tripleBeepRef = useRef<HTMLMediaElement>(null);
-
-  function getDurationForStep(index: number) {
-    return process.steps[index].step_seconds * 1000;
-  }
-
-  function getIntervalForStep(index: number) {
-    return Number(process.steps[index].chime_seconds) * 1000;
-  }
 
   /*function handlePrevStep() {
     if (activeStep > 0) {
@@ -172,6 +168,48 @@ export function Timer({ process }: { process: DevelopingProcess }) {
     handleNextStep();
   }
 
+  function calculateCompensationAmount(step: DevelopingStep) {
+    return (
+      step.exhaust_compensation! *
+      Math.floor(Math.max(0, numberFilms - 1) / step.exhaust_compensation_rate!)
+    );
+  }
+
+  function calculateCompensatedValue(step: DevelopingStep) {
+    return step.step_seconds + calculateCompensationAmount(step);
+  }
+
+  const compensated_steps = process.steps.map((step) =>
+    step.exhaust_compensation && step.exhaust_compensation_rate
+      ? { ...step, step_seconds: calculateCompensatedValue(step) }
+      : { ...step }
+  );
+
+  if (
+    process.steps.some((item) => item.exhaust_compensation && item.exhaust_compensation_rate) &&
+    !exhaustCompensated
+  ) {
+    return (
+      <>
+        <Stack maw="85vw" w={450}>
+          <Title mt={30}>Time compensation</Title>
+          <Text>How many films have you developed so far?</Text>
+          <Slider color="blue" value={numberFilms} onChange={setNumberFilms} max={30} />
+          <Text>This will extend the following steps:</Text>
+          {process.steps
+            .filter((item) => item.exhaust_compensation && item.exhaust_compensation_rate)
+            .map((item) => (
+              <Text key={item.key}>
+                {item.name}: {formatSeconds(item.step_seconds)} &rarr;{' '}
+                {formatSeconds(calculateCompensatedValue(item))}
+              </Text>
+            ))}
+          <Button onClick={() => setExhaustCompensated(true)}>Submit</Button>
+        </Stack>
+      </>
+    );
+  }
+
   return (
     <>
       <Stack maw="100vw" w="500pt">
@@ -180,7 +218,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           <p>Your browser does not support the audio element.</p>
         </audio>
         <Stepper active={activeStep} mt="md" mx="lg">
-          {process.steps.map((item) => (
+          {compensated_steps.map((item) => (
             <Stepper.Step
               key={item.key}
               label={item.name}
@@ -204,7 +242,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
             setActiveStep(index);
           }}
         >
-          {process.steps.map((item, index) => (
+          {compensated_steps.map((item, index) => (
             <Carousel.Slide key={item.key}>
               <Box bg="blue" h="100%" p="xl" style={{ borderRadius: '10pt' }}>
                 <Transition
@@ -220,8 +258,8 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                         <Title c="white">{item.name}</Title>
                       </Center>
                       <TimeCard
-                        totalDuration={getDurationForStep(index)}
-                        interval={getIntervalForStep(index)}
+                        totalDuration={item.step_seconds * 1000}
+                        interval={Number(item.chime_seconds) * 1000}
                         renderSpeed={10}
                         callback={handleFinished}
                       />

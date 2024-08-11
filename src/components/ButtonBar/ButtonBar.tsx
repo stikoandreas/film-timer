@@ -6,7 +6,7 @@ import { ColorSchemeButton } from '../ColorSchemeButton/ColorSchemeButton';
 export function ButtonBar() {
   return (
     <>
-      <Group justify="space-between" pl="xs">
+      <Group justify="space-between" pl="md">
         <Title order={2}>
           <Text
             inherit

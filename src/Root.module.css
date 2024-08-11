@@ -1,6 +1,10 @@
 .header {
   height: calc(env(safe-area-inset-top, 0) + rem(50));
 
+  background-color: alpha(var(--mantine-color-body), 0.8);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+
   @media all and (display-mode: standalone) {
     padding-top: env(safe-area-inset-top, 0);
   }
@@ -9,6 +13,10 @@
 .footer {
   padding-bottom: var(--mantine-spacing-xs);
   padding-top: var(--mantine-spacing-xs);
+
+  background-color: alpha(var(--mantine-color-body), 0.9);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
 
   @media all and (display-mode: standalone) {
     padding-bottom: env(safe-area-inset-bottom, 0);
