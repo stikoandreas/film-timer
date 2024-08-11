@@ -11,6 +11,7 @@ import {
   Title,
   Space,
   Transition,
+  Avatar,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
@@ -22,6 +23,8 @@ import click from './double_beep.wav';
 import tripleBeep from './triple_beep.wav';
 
 import { formatSeconds } from '@/lib/time';
+
+import { recipeIcons } from '@/resources/recipes';
 
 declare global {
   interface Navigator {
@@ -182,6 +185,11 @@ export function Timer({ process }: { process: DevelopingProcess }) {
               key={item.key}
               label={item.name}
               description={formatSeconds(item.step_seconds)}
+              icon={
+                <Avatar name={item.name} color="initials">
+                  {item.icon && recipeIcons[item.icon]}
+                </Avatar>
+              }
             />
           ))}
         </Stepper>

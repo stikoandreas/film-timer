@@ -13,6 +13,8 @@ import type { DevelopingProcess } from '@/types/DevelopingProcess';
 
 import { formatSeconds } from '@/lib/time';
 
+import { recipeIcons } from '@/resources/recipes';
+
 export function ProcessForm({ initialValues }: { initialValues?: DevelopingProcess }) {
   const navigate = useNavigate();
   const form = useForm<DevelopingProcess>({
@@ -20,9 +22,27 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
     initialValues: initialValues || {
       key: randomId(),
       steps: [
-        { name: 'Develop', chime_seconds: 30, key: randomId(), step_seconds: 6 * 60 },
-        { name: 'Stop', chime_seconds: '', key: randomId(), step_seconds: 30 },
-        { name: 'Fix', chime_seconds: 30, key: randomId(), step_seconds: 5 * 60 },
+        {
+          name: 'Develop',
+          chime_seconds: 30,
+          key: randomId(),
+          step_seconds: 6 * 60,
+          icon: 'brightness',
+        },
+        {
+          name: 'Stop',
+          chime_seconds: '',
+          key: randomId(),
+          step_seconds: 30,
+          icon: 'dropletPause',
+        },
+        {
+          name: 'Fix',
+          chime_seconds: 30,
+          key: randomId(),
+          step_seconds: 5 * 60,
+          icon: 'shadowOff',
+        },
       ],
     },
     validate: {
@@ -70,7 +90,10 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                   size="md"
                   name={form.getTransformedValues().steps[index].name}
                   color="initials"
-                />
+                >
+                  {form.getTransformedValues().steps[index].icon &&
+                    recipeIcons[form.getTransformedValues().steps[index].icon!]}
+                </Avatar>
               </Center>
               <Stack gap={6}>
                 <Title m={0} order={3}>
