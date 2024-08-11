@@ -1,6 +1,13 @@
-import { IconAlarm, IconAlarmFilled, IconFlask, IconFlaskFilled } from '@tabler/icons-react';
+import {
+  IconAlarm,
+  IconAlarmFilled,
+  IconFlask,
+  IconFlaskFilled,
+  IconList,
+} from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
 import { NavLink, Tooltip } from '@mantine/core';
+import { randomId } from '@mantine/hooks';
 
 const links = [
   {
@@ -8,30 +15,37 @@ const links = [
     icon: <IconAlarm />,
     selectedIcon: <IconAlarmFilled />,
     href: '/',
-    id: 'footer-index',
+    key: randomId(),
+  },
+  {
+    label: 'Recipes',
+    icon: <IconList />,
+    selectedIcon: <IconList strokeWidth={2.5} />,
+    href: '/recipes',
+    key: randomId(),
   },
   {
     label: 'Volume Calculator',
     icon: <IconFlask />,
     selectedIcon: <IconFlaskFilled />,
     href: '/volume',
-    id: 'footer-volume',
+    key: randomId(),
   },
 ];
 
 export function Navbar() {
   function isActive(link: string) {
-    return pathname === link;
+    if (link === '/') return pathname === link || pathname.startsWith('/timer');
+    else return pathname.startsWith(link);
   }
   const { pathname } = useLocation();
   return (
     <>
       {links.map((link) => (
-        <Tooltip key={link.id} label={link.label} position="right" color="gray">
+        <Tooltip key={link.key} label={link.label} position="right" color="gray">
           <NavLink
             leftSection={isActive(link.href) ? link.selectedIcon : link.icon}
             component={Link}
-            key={link.id}
             to={link.href}
             active={isActive(link.href)}
           />

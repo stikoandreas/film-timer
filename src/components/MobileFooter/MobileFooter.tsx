@@ -1,23 +1,37 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Group, Stack, Text } from '@mantine/core';
-import { IconAlarm, IconAlarmFilled, IconFlask, IconFlaskFilled } from '@tabler/icons-react';
+import {
+  IconAlarm,
+  IconAlarmFilled,
+  IconFlask,
+  IconFlaskFilled,
+  IconList,
+} from '@tabler/icons-react';
 
 import classes from './MobileFooter.module.css';
+import { randomId } from '@mantine/hooks';
 
 const links = [
   {
     label: 'Timer',
-    icon: <IconAlarm className={classes.icon} />,
-    selectedIcon: <IconAlarmFilled className={classes.icon} />,
+    icon: <IconAlarm />,
+    selectedIcon: <IconAlarmFilled />,
     href: '/',
-    id: 'footer-index',
+    key: randomId(),
+  },
+  {
+    label: 'Recipes',
+    icon: <IconList />,
+    selectedIcon: <IconList strokeWidth={2.5} />,
+    href: '/recipes',
+    key: randomId(),
   },
   {
     label: 'Volume',
     icon: <IconFlask />,
     selectedIcon: <IconFlaskFilled />,
     href: '/volume',
-    id: 'footer-volume',
+    key: randomId(),
   },
 ];
 
@@ -30,7 +44,7 @@ export function MobileFooter() {
     <Group grow>
       {links.map((link) => (
         <Link
-          key={link.id}
+          key={link.key}
           to={link.href}
           className={[classes.link, isActive(link.href) ? classes.active : undefined].join(' ')}
         >

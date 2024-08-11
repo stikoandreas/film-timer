@@ -6,12 +6,14 @@ import { notifications } from '@mantine/notifications';
 import { DebugContext } from '@/context/DebugContext';
 
 const notificationOn = {
+  id: 'debugon',
   title: 'Debug: On',
   message: 'Internal details will be shown 🐛',
   icon: <IconBug size={20} />,
 };
 
 const notificationOff = {
+  id: 'debugoff',
   title: 'Debug: Off',
   message: 'Unnecessary details will be hidden 😌',
   color: 'gray',

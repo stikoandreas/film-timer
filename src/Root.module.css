@@ -28,6 +28,13 @@
   }
 }
 
+.container {
+  padding-bottom: rem(80);
+  @media all and (display-mode: standalone) {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0) + rem(80));
+  }
+}
+
 .navbar {
   height: calc(100dvh - var(--app-shell-header-offset, 0rem));
 }

@@ -32,7 +32,9 @@ export function Root() {
             <Navbar />
           </AppShell.Navbar>
           <AppShell.Main className={classes.main}>
-            <Outlet />
+            <div className={pathname !== '/timer' ? classes.container : undefined}>
+              <Outlet />
+            </div>
           </AppShell.Main>
           {pathname !== '/timer' && (
             <AppShell.Footer className={classes.footer} hiddenFrom="sm">
