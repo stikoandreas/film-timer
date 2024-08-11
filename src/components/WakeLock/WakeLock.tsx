@@ -46,7 +46,7 @@ export function WakeLock() {
   }
 
   document.addEventListener('visibilitychange', async () => {
-    if (supported && wakeLock !== null && document.visibilityState === 'visible') {
+    if (supported && checked && wakeLock !== null && document.visibilityState === 'visible') {
       aquireLock();
     }
   });
