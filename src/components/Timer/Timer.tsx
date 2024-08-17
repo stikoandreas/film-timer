@@ -13,6 +13,8 @@ import {
   Transition,
   Avatar,
   Slider,
+  Modal,
+  InputWrapper,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
@@ -26,6 +28,8 @@ import tripleBeep from './triple_beep.wav';
 import { formatSeconds } from '@/lib/time';
 
 import { recipeIcons } from '@/resources/recipes';
+
+import classes from './Timer.module.css';
 
 declare global {
   interface Navigator {
@@ -185,17 +189,35 @@ export function Timer({ process }: { process: DevelopingProcess }) {
       : { ...step }
   );
 
-  if (
-    process.steps.some((item) => item.exhaust_compensation && item.exhaust_compensation_rate) &&
-    !exhaustCompensated
-  ) {
-    return (
-      <>
-        <Stack maw="85vw" w={450}>
-          <Title mt={30}>Time compensation</Title>
-          <Text>How many films have you developed so far?</Text>
-          <Slider color="blue" value={numberFilms} onChange={setNumberFilms} max={30} />
-          <Text>This will extend the following steps:</Text>
+  function close() {
+    setNumberFilms(0);
+    setExhaustCompensated(true);
+  }
+
+  return (
+    <>
+      <Modal
+        opened={
+          process.steps.some(
+            (item) => item.exhaust_compensation && item.exhaust_compensation_rate
+          ) && !exhaustCompensated
+        }
+        onClose={close}
+        title="Time Compensation"
+        classNames={{ overlay: classes.overlay }}
+        yOffset={120}
+      >
+        <Stack>
+          <Text size="sm">
+            This recipe will adjust itself depending on how many films you have developed so far.
+          </Text>
+          <InputWrapper
+            label="Films developed"
+            description="How many films have you developed so far?"
+          >
+            <Slider color="blue" value={numberFilms} onChange={setNumberFilms} max={30} mt="md" />
+          </InputWrapper>
+          <Text size="sm">This will extend the following steps:</Text>
           {process.steps
             .filter((item) => item.exhaust_compensation && item.exhaust_compensation_rate)
             .map((item) => (
@@ -204,14 +226,10 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                 {formatSeconds(calculateCompensatedValue(item))}
               </Text>
             ))}
-          <Button onClick={() => setExhaustCompensated(true)}>Submit</Button>
+          <Button onClick={() => setExhaustCompensated(true)}>Start</Button>
         </Stack>
-      </>
-    );
-  }
+      </Modal>
 
-  return (
-    <>
       <Stack maw="100vw" w="500pt">
         <audio ref={tripleBeepRef}>
           <source src={tripleBeep} type="audio/wav" />

@@ -110,6 +110,7 @@ export function EditModal({
         onClose={close}
         title="Edit step"
         classNames={{ overlay: classes.overlay }}
+        yOffset={120}
       >
         <Autocomplete
           label="Step name"
