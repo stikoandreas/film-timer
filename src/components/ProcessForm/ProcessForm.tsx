@@ -96,7 +96,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                 </Avatar>
               </Center>
               <Stack gap={6}>
-                <Title m={0} order={3}>
+                <Title m={0} order={4}>
                   {form.getTransformedValues().steps[index].name}
                 </Title>
                 <Group gap="xs">

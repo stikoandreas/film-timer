@@ -11,12 +11,13 @@ export function RecipesPage() {
           component={Link}
           w={400}
           maw="85vw"
-          withBorder
+          shadow="sm"
+          mt="xs"
           key={recipe.key}
           to={`/recipes/${index}`}
         >
           <Group justify="space-between ">
-            <Title order={2}>{recipe.name}</Title>
+            <Title order={4}>{recipe.name}</Title>
             <Button component={Link} to={`/recipes/${index}`}>
               Go
             </Button>
