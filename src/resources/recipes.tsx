@@ -9,6 +9,8 @@ import {
   IconTemperaturePlus,
   IconTriangleOff,
   IconTriangle,
+  IconTrianglePlus,
+  IconRotateRectangle,
 } from '@tabler/icons-react';
 
 import { DevelopingProcess } from '@/types/DevelopingProcess';
@@ -22,6 +24,8 @@ export const recipeIcons: Record<string, ReactNode> = {
   shadowOff: <IconShadowOff />,
   triangleOff: <IconTriangleOff />,
   triangle: <IconTriangle />,
+  trianglePlus: <IconTrianglePlus />,
+  rotateRectangle: <IconRotateRectangle />,
 };
 
 export const recipes: DevelopingProcess[] = [
@@ -177,6 +181,84 @@ export const recipes: DevelopingProcess[] = [
         chime_seconds: '',
         key: randomId(),
         step_seconds: 1 * 60,
+        icon: 'sparkles',
+      },
+    ],
+    key: randomId(),
+  },
+  {
+    name: 'Bellini E6',
+    steps: [
+      {
+        name: 'Preheat',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 3 * 60,
+        icon: 'temperaturePlus',
+      },
+      {
+        name: 'First Developer',
+        chime_seconds: 30,
+        key: randomId(),
+        step_seconds: 6 * 60,
+        icon: 'brightness',
+        exhaust_compensation: 30,
+        exhaust_compensation_rate: 6,
+      },
+      {
+        name: 'Wash',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 2 * 60,
+        icon: 'bucketDroplet',
+      },
+      {
+        name: 'Reversal',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 2 * 60,
+        icon: 'rotateRectangle',
+      },
+      {
+        name: 'Colour Developer',
+        chime_seconds: 30,
+        key: randomId(),
+        step_seconds: 6 * 60,
+        icon: 'brightness',
+      },
+      {
+        name: 'Pre Bleach',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 2 * 60,
+        icon: 'trianglePlus',
+      },
+      {
+        name: 'Bleach',
+        chime_seconds: 30,
+        key: randomId(),
+        step_seconds: 6 * 60,
+        icon: 'triangle',
+      },
+      {
+        name: 'Fix',
+        chime_seconds: 30,
+        key: randomId(),
+        step_seconds: 4 * 60,
+        icon: 'shadowOff',
+      },
+      {
+        name: 'Wash',
+        chime_seconds: 2 * 60,
+        key: randomId(),
+        step_seconds: 6 * 60,
+        icon: 'bucketDroplet',
+      },
+      {
+        name: 'Stab',
+        chime_seconds: '',
+        key: randomId(),
+        step_seconds: 0.5 * 60,
         icon: 'sparkles',
       },
     ],
