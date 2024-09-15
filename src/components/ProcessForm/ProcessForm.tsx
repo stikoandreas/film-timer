@@ -128,15 +128,8 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                 durationInputProps={{ ...form.getInputProps(`steps.${index}.step_seconds`) }}
                 chimeInputProps={{ ...form.getInputProps(`steps.${index}.chime_seconds`) }}
                 validate={form.validate}
+                onDelete={() => form.removeListItem('steps', index)}
               />
-              <Button
-                color="red"
-                variant="default"
-                size="xs"
-                onClick={() => form.removeListItem('steps', index)}
-              >
-                Delete
-              </Button>
             </Stack>
           </Group>
         </Card>
