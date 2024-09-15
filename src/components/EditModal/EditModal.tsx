@@ -15,6 +15,7 @@ import {
 } from '@mantine/core';
 import { useState, useContext } from 'react';
 import { FormValidationResult } from '@mantine/form/lib/types';
+import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 
 import type { DevelopingStep } from '@/types/DevelopingProcess';
 
@@ -22,7 +23,6 @@ import { TimeInput } from '../TimeInput/TimeInput';
 import { DebugContext } from '@/context/DebugContext';
 
 import classes from './EditModal.module.css';
-import { IconAd, IconAdjustments, IconAdjustmentsHorizontal, IconTool } from '@tabler/icons-react';
 
 interface CustomInputProps {
   index?: number;
