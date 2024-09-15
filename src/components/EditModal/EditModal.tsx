@@ -11,9 +11,11 @@ import {
   Code,
   NumberInput,
   Autocomplete,
+  ActionIcon,
 } from '@mantine/core';
 import { useState, useContext } from 'react';
 import { FormValidationResult } from '@mantine/form/lib/types';
+import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 
 import type { DevelopingStep } from '@/types/DevelopingProcess';
 
@@ -32,6 +34,7 @@ interface CustomInputProps {
   durationInputProps?: any;
   nameInputProps?: any;
   chimeInputProps?: any;
+  onDelete?: () => void;
 }
 
 export function EditModal({
@@ -43,6 +46,7 @@ export function EditModal({
   validate,
   nameInputProps,
   chimeInputProps,
+  onDelete,
 }: CustomInputProps) {
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -108,7 +112,16 @@ export function EditModal({
       <Modal
         opened={opened}
         onClose={close}
-        title="Edit step"
+        title={
+          <Group>
+            Edit step{' '}
+            {onDelete && (
+              <Button size="xs" variant="outline" color="red" onClick={onDelete}>
+                Delete step
+              </Button>
+            )}
+          </Group>
+        }
         classNames={{ overlay: classes.overlay }}
         yOffset={120}
       >
@@ -183,9 +196,9 @@ export function EditModal({
           Submit
         </Button>
       </Modal>
-      <Button size="xs" onClick={open}>
-        Edit
-      </Button>
+      <ActionIcon variant="subtle" aria-label="Settings" onClick={open} color="grey">
+        <IconAdjustmentsHorizontal style={{ width: '70%', height: '70%' }} stroke={1.5} />
+      </ActionIcon>
     </>
   );
 }

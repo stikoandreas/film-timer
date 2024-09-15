@@ -10,7 +10,7 @@ export function RecipesPage() {
         <Card
           component={Link}
           w={400}
-          maw="85vw"
+          maw="90vw"
           shadow="sm"
           mt="xs"
           key={recipe.key}
