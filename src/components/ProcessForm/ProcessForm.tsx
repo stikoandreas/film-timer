@@ -81,7 +81,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
           ref={provided.innerRef}
           {...provided.draggableProps}
           w={400}
-          maw="85vw"
+          maw="90vw"
         >
           <Group gap="xs" justify="space-between" {...provided.dragHandleProps}>
             <Group gap="xs">
