@@ -18,7 +18,7 @@ export default defineConfig({
         skipWaiting: true,
       },
       manifest: {
-        theme_color: 'red',
+        theme_color: 'black',
         name: 'Film Timer',
         short_name: 'Film Timer',
         display: 'standalone',
