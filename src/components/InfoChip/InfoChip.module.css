@@ -1,16 +1,3 @@
-.carderror {
-  border: 1px solid var(--mantine-color-error);
-}
-
-.draggable {
-  transition: scale ease-in-out 200ms;
-  scale: 1;
-}
-
-.dragging {
-  scale: 1.08;
-}
-
 .icon {
   margin-right: rem(3px);
   color: light-dark(var(--mantine-color-gray-5), var(--mantine-color-dark-1));
