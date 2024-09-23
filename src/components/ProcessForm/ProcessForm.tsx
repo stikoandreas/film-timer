@@ -1,11 +1,9 @@
-import { Group, Button, Center, rem, Card, Title, Stack, Badge, Avatar } from '@mantine/core';
+import { Group, Button, Center, Card, Title, Stack, Avatar } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { IconBell } from '@tabler/icons-react';
+import { IconAlarm, IconBell } from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-
-import classes from './ProcessForm.module.css';
 
 import { EditModal } from '@/components/EditModal/EditModal';
 
@@ -14,6 +12,10 @@ import type { DevelopingProcess } from '@/types/DevelopingProcess';
 import { formatSeconds } from '@/lib/time';
 
 import { recipeIcons } from '@/resources/recipes';
+
+import classes from './ProcessForm.module.css';
+
+import { InfoChip } from '@/components/InfoChip/InfoChip';
 
 export function ProcessForm({ initialValues }: { initialValues?: DevelopingProcess }) {
   const navigate = useNavigate();
@@ -96,25 +98,25 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                 </Avatar>
               </Center>
               <Stack gap={6}>
-                <Title m={0} order={4}>
+                <Title m={0} order={4} ml={3}>
                   {form.getTransformedValues().steps[index].name}
                 </Title>
-                <Group gap="xs">
-                  <Badge size="lg">
-                    {formatSeconds(form.getTransformedValues().steps[index].step_seconds)}
-                    {form.getTransformedValues().steps[index].exhaust_compensation && '+'}
-                  </Badge>
+                <Group gap={8}>
+                  <InfoChip
+                    icon={IconAlarm}
+                    primary
+                    label={formatSeconds(
+                      form.getTransformedValues().steps[index].step_seconds
+                    ).concat(
+                      '',
+                      form.getTransformedValues().steps[index].exhaust_compensation ? '+' : ''
+                    )}
+                  />
                   {form.getTransformedValues().steps[index].chime_seconds && (
-                    <Badge
-                      size="lg"
-                      tt="none"
-                      color="gray"
-                      leftSection={
-                        <IconBell style={{ height: rem(15), width: rem(15), strokeWidth: '2.5' }} />
-                      }
-                    >
-                      {form.getTransformedValues().steps[index].chime_seconds}s
-                    </Badge>
+                    <InfoChip
+                      icon={IconBell}
+                      label={`${form.getTransformedValues().steps[index].chime_seconds}s`}
+                    />
                   )}
                 </Group>
               </Stack>
