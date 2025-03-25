@@ -239,7 +239,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           <p>Your browser does not support the audio element.</p>
         </audio>
         <ScrollArea scrollbars="x" offsetScrollbars viewportRef={viewportRef}>
-          <Stepper active={activeStep} mt="md" mx="lg" size="xs" wrap={false}>
+          <Stepper active={activeStep} mt="md" mx="lg" size="sm" wrap={false}>
             {compensated_steps.map((item) => (
               <Stepper.Step
                 data-list-item
