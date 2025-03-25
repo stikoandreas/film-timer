@@ -20,6 +20,7 @@ import {
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { useTimer } from 'react-use-precision-timer';
+import { IconMoodHappyFilled } from '@tabler/icons-react';
 
 import type { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
 
@@ -318,8 +319,9 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                 ) : !isFinished ? (
                   <></>
                 ) : (
-                  <Stack>
-                    <Text>Wow you are done!</Text>
+                  <Stack h="100%" align="center" c="white" justify="center">
+                    <IconMoodHappyFilled size={150} />
+                    <Text size="xl">You are done!</Text>
                   </Stack>
                 )}
               </Box>
