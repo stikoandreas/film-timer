@@ -264,7 +264,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           onSlideChange={(index) => {
             viewportRef.current
               ?.querySelectorAll('[data-list-item]')
-              ?.[index]?.scrollIntoView({ block: 'nearest' });
+              ?.[index]?.scrollIntoView({ inline: 'center', behavior: 'smooth' });
             setIsInterMission(true);
             setActiveStep(index);
           }}
