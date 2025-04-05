@@ -41,7 +41,7 @@ declare global {
 
 interface TimerCardProps {
   totalDuration: number;
-  continous_agiation?: number;
+  continuous_agitation?: number;
   interval: number;
   renderSpeed: number;
   callback: () => void;
@@ -50,7 +50,7 @@ interface TimerCardProps {
 export function TimeCard({
   totalDuration,
   interval,
-  continous_agiation,
+  continuous_agitation,
   renderSpeed,
   callback,
 }: TimerCardProps) {
@@ -86,14 +86,17 @@ export function TimeCard({
   }, [interval, totalDuration]);
 
   const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
-  const continousTimer = useTimer({ delay: continous_agiation, runOnce: true }, continousCallback);
+  const continousTimer = useTimer(
+    { delay: continuous_agitation, runOnce: true },
+    continousCallback
+  );
   const intervalTimer = useTimer({ delay: interval }, audioCallBack);
 
   const audioRef = useRef<HTMLMediaElement>(null);
 
   function startTimer() {
     durationTimer.start();
-    if (continous_agiation) {
+    if (continuous_agitation) {
       continousTimer.start();
     } else {
       intervalTimer.start();
@@ -125,7 +128,7 @@ export function TimeCard({
 
   useEffect(() => {
     startTimer();
-  }, [interval, totalDuration, continous_agiation]);
+  }, [interval, totalDuration, continuous_agitation]);
 
   return (
     <Stack align="center" justify="space-between" h={300}>
@@ -312,7 +315,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                       <TimeCard
                         totalDuration={item.step_seconds * 1000}
                         interval={Number(item.chime_seconds) * 1000}
-                        continous_agiation={
+                        continuous_agitation={
                           item.continuous_agitation ? item.continuous_agitation * 1000 : undefined
                         }
                         renderSpeed={10}
