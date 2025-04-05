@@ -57,7 +57,7 @@ export function TimeCard({
   const [chimeProgress, setChimeProgress] = useState<number>(0);
   const [stepProgress, setStepProgress] = useState<number>(0);
 
-  const continousCallback = useCallback(() => {
+  const continuousCallback = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.play();
     }
@@ -74,9 +74,9 @@ export function TimeCard({
     setStepProgress(
       100 - (durationTimer.getRemainingTime() / durationTimer.getEffectiveDelay()) * 100
     );
-    if (continousTimer.isStarted()) {
+    if (continuousTimer.isStarted()) {
       setChimeProgress(
-        100 - (continousTimer.getRemainingTime() / continousTimer.getEffectiveDelay()) * 100
+        100 - (continuousTimer.getRemainingTime() / continuousTimer.getEffectiveDelay()) * 100
       );
     } else {
       setChimeProgress(
@@ -86,9 +86,9 @@ export function TimeCard({
   }, [interval, totalDuration]);
 
   const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
-  const continousTimer = useTimer(
+  const continuousTimer = useTimer(
     { delay: continuous_agitation, runOnce: true },
-    continousCallback
+    continuousCallback
   );
   const intervalTimer = useTimer({ delay: interval }, audioCallBack);
 
@@ -97,7 +97,7 @@ export function TimeCard({
   function startTimer() {
     durationTimer.start();
     if (continuous_agitation) {
-      continousTimer.start();
+      continuousTimer.start();
     } else {
       intervalTimer.start();
     }
@@ -106,12 +106,12 @@ export function TimeCard({
   function handlePlayPause() {
     if (durationTimer.isPaused()) {
       durationTimer.resume();
-      continousTimer.resume();
+      continuousTimer.resume();
       intervalTimer.resume();
     } else if (durationTimer.isRunning()) {
       durationTimer.pause();
       intervalTimer.pause();
-      continousTimer.pause();
+      continuousTimer.pause();
     }
   }
 
@@ -146,12 +146,12 @@ export function TimeCard({
               <Title c="white">{getTimeRemaining()}</Title>
               <Progress.Root w={90} bg="var(--mantine-color-blue-9)" size="xs" radius="lg">
                 <Progress.Section
-                  animated={continousTimer.isStarted()}
+                  animated={continuousTimer.isStarted()}
                   color="white"
                   value={chimeProgress}
                   className={classes.progress}
                 />
-                {continousTimer.isStarted() && (
+                {continuousTimer.isStarted() && (
                   <Progress.Section
                     animated
                     color="blue-9"
