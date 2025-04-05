@@ -8,6 +8,7 @@ export interface DevelopingStep {
   exhaust_compensation_rate?: number;
   key: string;
   icon?: string;
+  continuous_agitation?: number;
 }
 
 export interface DevelopingProcess {

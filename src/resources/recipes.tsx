@@ -38,6 +38,7 @@ export const recipes: DevelopingProcess[] = [
         key: randomId(),
         step_seconds: 6 * 60,
         icon: 'brightness',
+        continuous_agitation: 15,
       },
       {
         name: 'Stop',
@@ -45,6 +46,7 @@ export const recipes: DevelopingProcess[] = [
         key: randomId(),
         step_seconds: 30,
         icon: 'dropletPause',
+        continuous_agitation: 30,
       },
       { name: 'Fix', chime_seconds: 30, key: randomId(), step_seconds: 5 * 60, icon: 'shadowOff' },
     ],

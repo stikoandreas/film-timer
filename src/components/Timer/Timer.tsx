@@ -43,14 +43,28 @@ declare global {
 
 interface TimerCardProps {
   totalDuration: number;
+  continuous_agitation?: number;
   interval: number;
   renderSpeed: number;
   callback: () => void;
 }
 
-export function TimeCard({ totalDuration, interval, renderSpeed, callback }: TimerCardProps) {
+export function TimeCard({
+  totalDuration,
+  interval,
+  continuous_agitation,
+  renderSpeed,
+  callback,
+}: TimerCardProps) {
   const [chimeProgress, setChimeProgress] = useState<number>(0);
   const [stepProgress, setStepProgress] = useState<number>(0);
+
+  const continuousCallback = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+    intervalTimer.start();
+  }, []);
 
   const audioCallBack = useCallback(() => {
     if (audioRef.current) {
@@ -62,28 +76,44 @@ export function TimeCard({ totalDuration, interval, renderSpeed, callback }: Tim
     setStepProgress(
       100 - (durationTimer.getRemainingTime() / durationTimer.getEffectiveDelay()) * 100
     );
-    setChimeProgress(
-      100 - (intervalTimer.getRemainingTime() / intervalTimer.getEffectiveDelay()) * 100
-    );
+    if (continuousTimer.isStarted()) {
+      setChimeProgress(
+        100 - (continuousTimer.getRemainingTime() / continuousTimer.getEffectiveDelay()) * 100
+      );
+    } else {
+      setChimeProgress(
+        100 - (intervalTimer.getRemainingTime() / intervalTimer.getEffectiveDelay()) * 100
+      );
+    }
   }, [interval, totalDuration]);
 
   const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
+  const continuousTimer = useTimer(
+    { delay: continuous_agitation, runOnce: true },
+    continuousCallback
+  );
   const intervalTimer = useTimer({ delay: interval }, audioCallBack);
 
   const audioRef = useRef<HTMLMediaElement>(null);
 
   function startTimer() {
     durationTimer.start();
-    intervalTimer.start();
+    if (continuous_agitation) {
+      continuousTimer.start();
+    } else {
+      intervalTimer.start();
+    }
   }
 
   function handlePlayPause() {
     if (durationTimer.isPaused()) {
       durationTimer.resume();
+      continuousTimer.resume();
       intervalTimer.resume();
     } else if (durationTimer.isRunning()) {
       durationTimer.pause();
       intervalTimer.pause();
+      continuousTimer.pause();
     }
   }
 
@@ -100,7 +130,7 @@ export function TimeCard({ totalDuration, interval, renderSpeed, callback }: Tim
 
   useEffect(() => {
     startTimer();
-  }, [interval, totalDuration]);
+  }, [interval, totalDuration, continuous_agitation]);
 
   return (
     <Stack align="center" justify="space-between" h={300}>
@@ -116,14 +146,21 @@ export function TimeCard({ totalDuration, interval, renderSpeed, callback }: Tim
           label={
             <Stack gap={2} align="center">
               <Title c="white">{getTimeRemaining()}</Title>
-              <Progress.Root
-                transitionDuration={100}
-                w={90}
-                bg="var(--mantine-color-blue-9)"
-                size="xs"
-                radius="lg"
-              >
-                <Progress.Section color="white" value={chimeProgress} />
+              <Progress.Root w={90} bg="var(--mantine-color-blue-9)" size="xs" radius="lg">
+                <Progress.Section
+                  animated={continuousTimer.isStarted()}
+                  color="white"
+                  value={chimeProgress}
+                  className={classes.progress}
+                />
+                {continuousTimer.isStarted() && (
+                  <Progress.Section
+                    animated
+                    color="blue-9"
+                    value={100 - chimeProgress}
+                    className={classes.progress}
+                  />
+                )}
               </Progress.Root>
             </Stack>
           }
@@ -288,6 +325,9 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                       <TimeCard
                         totalDuration={item.step_seconds * 1000}
                         interval={Number(item.chime_seconds) * 1000}
+                        continuous_agitation={
+                          item.continuous_agitation ? item.continuous_agitation * 1000 : undefined
+                        }
                         renderSpeed={10}
                         callback={handleFinished}
                       />
