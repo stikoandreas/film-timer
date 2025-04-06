@@ -201,6 +201,7 @@ export function EditModal({
         <Button
           mt="xs"
           variant="subtle"
+          size="xs"
           fullWidth
           color="gray"
           onClick={toggleAdvanced}
@@ -208,13 +209,13 @@ export function EditModal({
             <IconChevronDown
               size={rem(12)}
               style={{
-                transform: advanced ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform',
+                transform: advanced ? 'rotate(0deg)' : 'rotate(-90deg)',
+                transition: 'transform 200ms',
               }}
             />
           }
         >
-          Advanced
+          Advanced settings
         </Button>
         <Collapse in={advanced}>
           <NumberInput
