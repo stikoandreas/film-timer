@@ -12,10 +12,19 @@ import {
   NumberInput,
   Autocomplete,
   ActionIcon,
+  FocusTrap,
+  rem,
+  InputWrapper,
 } from '@mantine/core';
 import { useState, useContext } from 'react';
 import { FormValidationResult } from '@mantine/form/lib/types';
-import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
+import {
+  IconAdjustmentsHorizontal,
+  IconChevronDown,
+  IconChevronRight,
+  IconPlaceholder,
+  IconPlus,
+} from '@tabler/icons-react';
 
 import type { DevelopingStep } from '@/types/DevelopingProcess';
 
@@ -49,6 +58,8 @@ export function EditModal({
   onDelete,
 }: CustomInputProps) {
   const [opened, { open, close }] = useDisclosure(false);
+
+  const [advanced, { toggle: toggleAdvanced }] = useDisclosure(false);
 
   const [_value, handleChange] = useUncontrolled({
     value,
@@ -125,6 +136,7 @@ export function EditModal({
         classNames={{ overlay: classes.overlay }}
         yOffset={120}
       >
+        <FocusTrap.InitialFocus />
         <Autocomplete
           label="Step name"
           placeholder="Step name"
@@ -191,8 +203,95 @@ export function EditModal({
           <Space h="md" />
           <Code block>{JSON.stringify(_value, null, 2)}</Code>
         </Collapse>
-        <Space h="md" />
-        <Button fullWidth onClick={handleValidate}>
+        <Button
+          mt="xs"
+          variant="subtle"
+          fullWidth
+          color="gray"
+          onClick={toggleAdvanced}
+          rightSection={
+            <IconChevronDown
+              size={rem(12)}
+              style={{
+                transform: advanced ? 'rotate(180deg)' : 'rotate(0deg)',
+                transition: 'transform',
+              }}
+            />
+          }
+        >
+          Advanced
+        </Button>
+        <Collapse in={advanced}>
+          <NumberInput
+            label="Continuous agitation"
+            description="Optional first agitation step"
+            placeholder="Seconds"
+            suffix=" s"
+            allowNegative={false}
+            defaultValue={_value?.continuous_agitation && _value.continuous_agitation}
+            onChange={(val) =>
+              handleChange({
+                ..._value,
+                continuous_agitation: Number(val) ? Number(val) : undefined,
+              })
+            }
+          />
+          <Space h="xs" />
+          <NumberInput
+            label="Temperature"
+            description="Target temperature for step"
+            placeholder="Degrees Celcius"
+            suffix=" &deg;C"
+            inputMode="numeric"
+            allowNegative={false}
+            defaultValue={_value?.temperature && _value.temperature}
+            onChange={(val) =>
+              handleChange({
+                ..._value,
+                temperature: Number(val) ? Number(val) : undefined,
+              })
+            }
+          />
+          <Space h="xs" />
+          <Space h="xs" />
+          <InputWrapper
+            label="Exhaust compensation"
+            description="Extend duration depending on number of films already developed"
+          >
+            <Group grow mt={4}>
+              <NumberInput
+                placeholder="Seconds"
+                suffix=" s"
+                allowNegative={false}
+                inputMode="numeric"
+                inputSize="12"
+                defaultValue={_value?.exhaust_compensation && _value.exhaust_compensation}
+                onChange={(val) =>
+                  handleChange({
+                    ..._value,
+                    exhaust_compensation: Number(val) ? Number(val) : undefined,
+                  })
+                }
+              />
+
+              <NumberInput
+                placeholder="Number of films"
+                prefix="every "
+                suffix=" films"
+                allowNegative={false}
+                inputMode="numeric"
+                defaultValue={_value?.exhaust_compensation_rate && _value.exhaust_compensation_rate}
+                onChange={(val) =>
+                  handleChange({
+                    ..._value,
+                    exhaust_compensation_rate: Number(val) ? Number(val) : undefined,
+                  })
+                }
+              />
+            </Group>
+          </InputWrapper>
+        </Collapse>
+        <Button fullWidth onClick={handleValidate} mt="xs">
           Submit
         </Button>
       </Modal>

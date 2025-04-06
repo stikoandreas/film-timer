@@ -2,7 +2,13 @@ import { Group, Button, Center, Card, Title, Stack, Avatar } from '@mantine/core
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { IconAlarm, IconBell, IconRefresh } from '@tabler/icons-react';
+import {
+  IconAlarm,
+  IconBell,
+  IconRefresh,
+  IconTemperature,
+  IconThermometer,
+} from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import { EditModal } from '@/components/EditModal/EditModal';
@@ -37,6 +43,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
           key: randomId(),
           step_seconds: 30,
           icon: 'dropletPause',
+          continuous_agitation: 30,
         },
         {
           name: 'Fix',
@@ -112,6 +119,12 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                       form.getTransformedValues().steps[index].exhaust_compensation ? '+' : ''
                     )}
                   />
+                  {form.getTransformedValues().steps[index].temperature && (
+                    <InfoChip
+                      icon={IconThermometer}
+                      label={`${form.getTransformedValues().steps[index].temperature}°C`}
+                    />
+                  )}
                   {form.getTransformedValues().steps[index].continuous_agitation && (
                     <InfoChip
                       icon={IconRefresh}
