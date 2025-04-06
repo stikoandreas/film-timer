@@ -86,8 +86,8 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
           w={400}
           maw="90vw"
         >
-          <Group gap="xs" justify="space-between" {...provided.dragHandleProps}>
-            <Group gap="xs">
+          <Group gap="xs" wrap="nowrap" justify="space-between" {...provided.dragHandleProps}>
+            <Group gap="xs" wrap="nowrap">
               <Center>
                 <Avatar
                   size="md"
