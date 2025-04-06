@@ -296,6 +296,7 @@ export const recipes: DevelopingProcess[] = [
         exhaust_compensation: 15,
         exhaust_compensation_rate: 4,
         continuous_agitation: 30,
+        temperature: 38,
       },
       {
         name: 'Rinse',

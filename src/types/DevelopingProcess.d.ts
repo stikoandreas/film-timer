@@ -9,6 +9,7 @@ export interface DevelopingStep {
   key: string;
   icon?: string;
   continuous_agitation?: number;
+  temperature?: number;
 }
 
 export interface DevelopingProcess {
