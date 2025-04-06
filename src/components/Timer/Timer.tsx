@@ -15,6 +15,7 @@ import {
   Slider,
   Modal,
   InputWrapper,
+  Badge,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
@@ -57,18 +58,28 @@ export function TimeCard({
   const [chimeProgress, setChimeProgress] = useState<number>(0);
   const [stepProgress, setStepProgress] = useState<number>(0);
 
-  const continuousCallback = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
-    intervalTimer.start();
-  }, []);
+  const audioRef = useRef<HTMLMediaElement>(null);
 
   const audioCallBack = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.play();
     }
-  }, []);
+  }, [audioRef]);
+
+  const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
+  const intervalTimer = useTimer({ delay: interval }, audioCallBack);
+
+  const continuousCallback = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+    intervalTimer.start();
+  }, [audioRef, intervalTimer]);
+
+  const continuousTimer = useTimer(
+    { delay: continuous_agitation, runOnce: true },
+    continuousCallback
+  );
 
   const renderCallback = useCallback(() => {
     setStepProgress(
@@ -84,15 +95,6 @@ export function TimeCard({
       );
     }
   }, [interval, totalDuration]);
-
-  const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
-  const continuousTimer = useTimer(
-    { delay: continuous_agitation, runOnce: true },
-    continuousCallback
-  );
-  const intervalTimer = useTimer({ delay: interval }, audioCallBack);
-
-  const audioRef = useRef<HTMLMediaElement>(null);
 
   function startTimer() {
     durationTimer.start();
@@ -160,6 +162,11 @@ export function TimeCard({
                   />
                 )}
               </Progress.Root>
+              {continuousTimer.isStarted() && (
+                <Badge color="blue" variant="white" size="xs" radius="sm" mt={3}>
+                  Continuous
+                </Badge>
+              )}
             </Stack>
           }
           sections={[{ value: stepProgress, color: 'white' }]}
