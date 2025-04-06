@@ -2,7 +2,7 @@ import { Group, Button, Center, Card, Title, Stack, Avatar } from '@mantine/core
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { IconAlarm, IconBell } from '@tabler/icons-react';
+import { IconAlarm, IconBell, IconRefresh } from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import { EditModal } from '@/components/EditModal/EditModal';
@@ -112,6 +112,12 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                       form.getTransformedValues().steps[index].exhaust_compensation ? '+' : ''
                     )}
                   />
+                  {form.getTransformedValues().steps[index].continuous_agitation && (
+                    <InfoChip
+                      icon={IconRefresh}
+                      label={`${form.getTransformedValues().steps[index].continuous_agitation}s`}
+                    />
+                  )}
                   {form.getTransformedValues().steps[index].chime_seconds && (
                     <InfoChip
                       icon={IconBell}
