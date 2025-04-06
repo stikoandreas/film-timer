@@ -178,6 +178,7 @@ export function EditModal({
             placeholder="Chime interval in seconds"
             min={1}
             max={100}
+            suffix=" s"
             inputSize="3"
             pattern="\d*"
             value={customValue}
@@ -220,6 +221,7 @@ export function EditModal({
             label="Continuous agitation"
             description="Optional first agitation step"
             placeholder="Seconds"
+            inputMode="numeric"
             suffix=" s"
             allowNegative={false}
             defaultValue={_value?.continuous_agitation && _value.continuous_agitation}
