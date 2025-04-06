@@ -2,13 +2,7 @@ import { Group, Button, Center, Card, Title, Stack, Avatar } from '@mantine/core
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import {
-  IconAlarm,
-  IconBell,
-  IconRefresh,
-  IconTemperature,
-  IconThermometer,
-} from '@tabler/icons-react';
+import { IconAlarm, IconBell, IconRefresh, IconThermometer } from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import { EditModal } from '@/components/EditModal/EditModal';

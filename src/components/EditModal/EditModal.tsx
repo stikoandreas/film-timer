@@ -18,13 +18,7 @@ import {
 } from '@mantine/core';
 import { useState, useContext } from 'react';
 import { FormValidationResult } from '@mantine/form/lib/types';
-import {
-  IconAdjustmentsHorizontal,
-  IconChevronDown,
-  IconChevronRight,
-  IconPlaceholder,
-  IconPlus,
-} from '@tabler/icons-react';
+import { IconAdjustmentsHorizontal, IconChevronDown } from '@tabler/icons-react';
 
 import type { DevelopingStep } from '@/types/DevelopingProcess';
 
