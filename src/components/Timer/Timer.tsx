@@ -16,10 +16,12 @@ import {
   Modal,
   InputWrapper,
   Badge,
+  ScrollArea,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { useTimer } from 'react-use-precision-timer';
+import { IconMoodHappyFilled } from '@tabler/icons-react';
 
 import type { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
 
@@ -192,6 +194,8 @@ export function Timer({ process }: { process: DevelopingProcess }) {
 
   const tripleBeepRef = useRef<HTMLMediaElement>(null);
 
+  const viewportRef = useRef<HTMLDivElement>(null);
+
   /*function handlePrevStep() {
     if (activeStep > 0) {
       setIsFinished(false);
@@ -279,20 +283,23 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           <source src={tripleBeep} type="audio/wav" />
           <p>Your browser does not support the audio element.</p>
         </audio>
-        <Stepper active={activeStep} mt="md" mx="lg">
-          {compensated_steps.map((item) => (
-            <Stepper.Step
-              key={item.key}
-              label={item.name}
-              description={formatSeconds(item.step_seconds)}
-              icon={
-                <Avatar name={item.name} color="initials">
-                  {item.icon && recipeIcons[item.icon]}
-                </Avatar>
-              }
-            />
-          ))}
-        </Stepper>
+        <ScrollArea scrollbars="x" offsetScrollbars viewportRef={viewportRef}>
+          <Stepper active={activeStep} mt="md" mx="lg" size="sm" wrap={false}>
+            {compensated_steps.map((item) => (
+              <Stepper.Step
+                data-list-item
+                key={item.key}
+                label={item.name}
+                description={formatSeconds(item.step_seconds)}
+                icon={
+                  <Avatar name={item.name} color="initials">
+                    {item.icon && recipeIcons[item.icon]}
+                  </Avatar>
+                }
+              />
+            ))}
+          </Stepper>
+        </ScrollArea>
         <Carousel
           height={400}
           slideSize="90%"
@@ -300,6 +307,9 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           align="center"
           getEmblaApi={setEmbla}
           onSlideChange={(index) => {
+            viewportRef.current
+              ?.querySelectorAll('[data-list-item]')
+              ?.[index]?.scrollIntoView({ inline: 'center', behavior: 'smooth' });
             setIsInterMission(true);
             setActiveStep(index);
           }}
@@ -356,8 +366,9 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                 ) : !isFinished ? (
                   <></>
                 ) : (
-                  <Stack>
-                    <Text>Wow you are done!</Text>
+                  <Stack h="100%" align="center" c="white" justify="center">
+                    <IconMoodHappyFilled size={150} />
+                    <Text size="xl">You are done!</Text>
                   </Stack>
                 )}
               </Box>
