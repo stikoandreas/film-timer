@@ -283,13 +283,20 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           <source src={tripleBeep} type="audio/wav" />
           <p>Your browser does not support the audio element.</p>
         </audio>
-        <ScrollArea scrollbars="x" offsetScrollbars viewportRef={viewportRef}>
+        <ScrollArea
+          scrollbars="x"
+          offsetScrollbars="x"
+          scrollbarSize={8}
+          viewportRef={viewportRef}
+          styles={{ viewport: { scrollSnapType: 'x mandatory', scrollBehavior: 'smooth' } }}
+        >
           <Stepper active={activeStep} mt="md" mx="lg" size="sm" wrap={false}>
             {compensated_steps.map((item) => (
               <Stepper.Step
                 data-list-item
                 key={item.key}
                 label={item.name}
+                style={{ scrollSnapAlign: 'center' }}
                 description={formatSeconds(item.step_seconds)}
                 icon={
                   <Avatar name={item.name} color="initials">
