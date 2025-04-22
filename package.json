@@ -16,7 +16,8 @@
     "vitest:watch": "vitest",
     "test": "npm run typecheck && npm run prettier && npm run lint && npm run vitest && npm run build",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build"
+    "storybook:build": "storybook build",
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^16.6.0",

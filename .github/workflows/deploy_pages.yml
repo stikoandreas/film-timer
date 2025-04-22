@@ -37,6 +37,8 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Generate assets
+        run: yarn generate-pwa-assets
       - name: Build
         run: yarn build
       - name: Setup Pages
