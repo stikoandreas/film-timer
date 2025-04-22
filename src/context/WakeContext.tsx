@@ -74,7 +74,7 @@ export function WakeContextProvider({ children }: React.PropsWithChildren) {
         releaseLock();
       }
     }
-  }, [isEnabled, pathname, isSupported]);
+  }, [isAuto, isEnabled, pathname, isSupported]);
 
   return (
     <WakeContext.Provider
