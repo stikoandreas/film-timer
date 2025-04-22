@@ -13,14 +13,14 @@ export function InstallButton() {
       {os === 'ios' && !matches && (
         <>
           <Modal opened={opened} onClose={close} title="Install Film Timer">
-            <Text>Film Timer is available as a home screen application!</Text>
+            <Text>Film Timer is available as a home screen application on iOS!</Text>
             <Space h="md" />
             <Text>How to install:</Text>
             <Space h="xs" />
             <List type="ordered" withPadding>
               <List.Item>
                 <Group gap={6}>
-                  <Text>Click the share button</Text>
+                  <Text>Click the share button in Safari</Text>
                   <ThemeIcon variant="light" color="gray">
                     <IconShare2 style={{ width: '75%', height: '75%' }} />
                   </ThemeIcon>
