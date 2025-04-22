@@ -25,14 +25,14 @@ import { IconMoodHappyFilled } from '@tabler/icons-react';
 
 import type { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
 
-import click from './double_beep.wav';
-import tripleBeep from './triple_beep.wav';
-
 import { formatSeconds } from '@/lib/time';
 
 import { recipeIcons } from '@/resources/recipes';
 
 import classes from './Timer.module.css';
+
+const click = `${import.meta.env.BASE_URL}sound/double_beep.wav`;
+const tripleBeep = `${import.meta.env.BASE_URL}sound/triple_beep.wav`;
 
 declare global {
   interface Navigator {
