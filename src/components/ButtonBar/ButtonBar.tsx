@@ -2,6 +2,7 @@ import { Group, Text, Title } from '@mantine/core';
 import { WakeLock } from '@/components/WakeLock/WakeLock';
 import { DebugButton } from '@/components/DebugButton/DebugButton';
 import { ColorSchemeButton } from '../ColorSchemeButton/ColorSchemeButton';
+import { InstallButton } from '../InstallButton/InstallButton';
 
 export function ButtonBar() {
   return (
@@ -18,6 +19,7 @@ export function ButtonBar() {
           </Text>
         </Title>
         <Group gap="xs" justify="right" p="xs">
+          <InstallButton />
           <ColorSchemeButton />
           <DebugButton />
           <WakeLock />

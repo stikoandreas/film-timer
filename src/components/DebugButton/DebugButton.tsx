@@ -34,13 +34,15 @@ export function DebugButton() {
 
   return (
     <>
-      <ActionIcon variant="default" onClick={handleDebug}>
-        {debug ? (
-          <IconBug style={{ width: '80%', height: '80%' }} stroke={1.5} />
-        ) : (
-          <IconBugOff style={{ width: '80%', height: '80%' }} stroke={1.5} />
-        )}
-      </ActionIcon>
+      {import.meta.env.MODE === 'development' && (
+        <ActionIcon variant="default" onClick={handleDebug}>
+          {debug ? (
+            <IconBug style={{ width: '80%', height: '80%' }} stroke={1.5} />
+          ) : (
+            <IconBugOff style={{ width: '80%', height: '80%' }} stroke={1.5} />
+          )}
+        </ActionIcon>
+      )}
     </>
   );
 }
