@@ -5,6 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   base: '/film-timer/',
+  publicDir: 'public',
   plugins: [
     react(),
     tsconfigPaths(),
@@ -23,6 +24,7 @@ export default defineConfig({
         short_name: 'Film Timer',
         display: 'standalone',
       },
+      includeAssets: ['**/*.wav'],
     }),
   ],
   test: {
