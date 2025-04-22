@@ -28,7 +28,7 @@ export function InstallButton() {
               </List.Item>
               <List.Item>
                 <Group gap={6}>
-                  <Text>Click "Add to Home Screen"</Text>
+                  <Text>Click &ldquo;Add to Home Screen&rdquo;</Text>
                   <ThemeIcon variant="light" color="gray">
                     <IconSquarePlus style={{ width: '75%', height: '75%' }} />
                   </ThemeIcon>
