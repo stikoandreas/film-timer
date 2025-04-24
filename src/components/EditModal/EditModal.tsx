@@ -13,7 +13,6 @@ import {
   Autocomplete,
   ActionIcon,
   FocusTrap,
-  rem,
   InputWrapper,
 } from '@mantine/core';
 import { useState, useContext } from 'react';
