@@ -13,7 +13,6 @@ import {
   Autocomplete,
   ActionIcon,
   FocusTrap,
-  rem,
   InputWrapper,
 } from '@mantine/core';
 import { useState, useContext } from 'react';
@@ -207,7 +206,7 @@ export function EditModal({
           onClick={toggleAdvanced}
           rightSection={
             <IconChevronDown
-              size={rem(12)}
+              size={12}
               style={{
                 transform: advanced ? 'rotate(0deg)' : 'rotate(-90deg)',
                 transition: 'transform 200ms',
