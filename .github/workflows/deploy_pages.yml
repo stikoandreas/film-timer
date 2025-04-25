@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BASE_URL: ${{ github.event.repository.html_url }}
+  BASE_URL: '/film-timer/'
 
 jobs:
   # Single deploy job since we're just deploying
