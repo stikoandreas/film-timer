@@ -22,6 +22,7 @@ concurrency:
 
 env:
   BASE_URL: '/film-timer/'
+  HASH_ROUTER: 'true'
 
 jobs:
   # Single deploy job since we're just deploying
