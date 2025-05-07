@@ -35,7 +35,7 @@ const router = createRouter(
       ],
     },
   ],
-  { basename: '/' }
+  { basename: import.meta.env.BASE_URL || '/' }
 );
 
 export function Router() {
