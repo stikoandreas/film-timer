@@ -1,5 +1,5 @@
-import { Button, Card, Group, Stack, Title } from '@mantine/core';
-import { IconAlarm, IconListCheck } from '@tabler/icons-react';
+import { ActionIcon, Card, Group, Stack, Text } from '@mantine/core';
+import { IconAlarm, IconChevronRight, IconListCheck } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 
 import { recipes } from '@/resources/recipes';
@@ -10,7 +10,7 @@ import { InfoChip } from '@/components/InfoChip/InfoChip';
 
 export function RecipesPage() {
   return (
-    <Stack align="center" mt="md">
+    <Stack align="center" mt="md" gap={0}>
       {recipes.map((recipe, index) => (
         <Card
           component={Link}
@@ -23,9 +23,9 @@ export function RecipesPage() {
         >
           <Group justify="space-between ">
             <Stack gap={6}>
-              <Title order={4} ml={3}>
+              <Text m={0} ml={3} fz={17} fw={500}>
                 {recipe.name}
-              </Title>
+              </Text>
               <Group gap={8}>
                 <InfoChip
                   icon={IconAlarm}
@@ -39,9 +39,9 @@ export function RecipesPage() {
                 <InfoChip icon={IconListCheck} label={`${recipe.steps.length} steps`} />
               </Group>
             </Stack>
-            <Button component={Link} to={`/recipes/${index}`}>
-              Go
-            </Button>
+            <ActionIcon variant="subtle" color="gray">
+              <IconChevronRight size={24} />
+            </ActionIcon>
           </Group>
         </Card>
       ))}

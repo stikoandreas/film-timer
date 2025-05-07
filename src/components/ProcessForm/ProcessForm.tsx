@@ -1,4 +1,4 @@
-import { Group, Button, Center, Card, Title, Stack, Avatar } from '@mantine/core';
+import { Group, Button, Center, Card, Text, Stack, Avatar } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -99,9 +99,9 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                 </Avatar>
               </Center>
               <Stack gap={6}>
-                <Title m={0} order={4} ml={3}>
+                <Text m={0} ml={3} fz={17} fw={500}>
                   {form.getTransformedValues().steps[index].name}
-                </Title>
+                </Text>
                 <Group gap={8}>
                   <InfoChip
                     icon={IconAlarm}

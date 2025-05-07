@@ -9,7 +9,7 @@ export function InfoChip(props: { icon: Icon; label: string; primary?: boolean }
       <props.icon
         className={[classes.icon, props.primary ? classes.primary : undefined].join(' ')}
       />
-      <Text size="sm">{props.label}</Text>
+      <Text size="xs">{props.label}</Text>
     </Center>
   );
 }
