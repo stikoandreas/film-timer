@@ -1,4 +1,4 @@
-import { Group, Button, Center, Card, Text, Stack, Avatar } from '@mantine/core';
+import { Group, Button, Center, Card, Text, Stack, Avatar, Affix, Space } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -153,8 +153,8 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
   ));
 
   return (
-    <Center>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+    <form onSubmit={form.onSubmit(handleSubmit)}>
+      <Stack align="center" gap={0}>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
             destination?.index !== undefined &&
@@ -173,6 +173,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
 
         <Group justify="center" mt="md">
           <Button
+            size="xs"
             onClick={() =>
               form.insertListItem('steps', {
                 name: 'New step',
@@ -181,14 +182,27 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                 key: randomId(),
               })
             }
+            variant="outline"
           >
             Add Step
           </Button>
         </Group>
-        <Button type="submit" mt="md" fullWidth>
-          Submit
+        <Button type="submit" fullWidth visibleFrom="sm" mt="sm" w={400} maw="90vw">
+          Start Timer
         </Button>
-      </form>
-    </Center>
+        <Space h="65px" hiddenFrom="sm" />
+      </Stack>
+      <Affix
+        position={{ bottom: 'calc(env(safe-area-inset-bottom, 0) + 65px)' }}
+        withinPortal={false}
+        hiddenFrom="sm"
+      >
+        <Center w="100dvw" p="sm" className={classes.action}>
+          <Button type="submit" fullWidth size="sm">
+            Start Timer
+          </Button>
+        </Center>
+      </Affix>
+    </form>
   );
 }
