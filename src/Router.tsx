@@ -7,7 +7,7 @@ import { RecipeDetailsPage } from './pages/RecipeDetail.page';
 import { RecipesPage } from './pages/Recipes.page';
 
 const createRouter =
-  import.meta.env.USE_HASH_ROUTER === 'true' ? createHashRouter : createBrowserRouter;
+  import.meta.env.VITE_USE_HASH_ROUTER === 'true' ? createHashRouter : createBrowserRouter;
 
 const router = createRouter(
   [
@@ -35,7 +35,7 @@ const router = createRouter(
       ],
     },
   ],
-  { basename: import.meta.env.BASE_URL || '/' }
+  { basename: '/' }
 );
 
 export function Router() {
