@@ -24,6 +24,7 @@
 .root {
   height: 100dvh;
   overflow: hidden;
+
   @media all and (display-mode: standalone) {
     height: 100vh;
   }
