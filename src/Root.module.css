@@ -1,3 +1,14 @@
+:global(html),
+:global(body) {
+  overscroll-behavior: contain;
+  height: 100dvh;
+  overflow: hidden;
+
+  @media all and (display-mode: standalone) {
+    height: calc(100vh - 1px);
+  }
+}
+
 .header {
   height: calc(env(safe-area-inset-top, 0) + rem(50));
 
@@ -7,6 +18,15 @@
 
   @media all and (display-mode: standalone) {
     padding-top: env(safe-area-inset-top, 0);
+  }
+}
+
+.root {
+  height: 100dvh;
+  overflow: hidden;
+
+  @media all and (display-mode: standalone) {
+    height: 100vh;
   }
 }
 
@@ -27,18 +47,23 @@
   min-height: calc(100dvh - rem(50));
   margin-bottom: rem(20);
 
+  height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
   @media all and (display-mode: standalone) {
     margin-bottom: calc(env(safe-area-inset-bottom, 0) + rem(20));
     padding-top: calc(env(safe-area-inset-top, 0) + rem(50));
     min-height: calc(100vh - rem(50));
+    height: calc(100vh);
   }
 }
 
 .container {
-  padding-bottom: rem(80);
+  padding-bottom: rem(20);
 
   @media all and (display-mode: standalone) {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0) + rem(80));
+    padding-bottom: calc(env(safe-area-inset-bottom, 0) + rem(20));
   }
 }
 
