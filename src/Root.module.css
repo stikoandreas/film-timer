@@ -30,7 +30,7 @@
   @media all and (display-mode: standalone) {
     margin-bottom: calc(env(safe-area-inset-bottom, 0) + rem(20));
     padding-top: calc(env(safe-area-inset-top, 0) + rem(50));
-    max-height: calc(100dvh - rem(50));
+    min-height: calc(100vh - rem(50));
   }
 }
 
