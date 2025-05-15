@@ -33,11 +33,9 @@ export function Root() {
             <AppShell.Navbar visibleFrom="sm" className={classes.navbar}>
               <Navbar />
             </AppShell.Navbar>
-            <AppShell.Main className={classes.main}>
-              <div className={pathname !== '/timer' ? classes.container : undefined}>
-                <Outlet />
-              </div>
-            </AppShell.Main>
+            <div className={classes.main}>
+              <Outlet />
+            </div>
             {pathname !== '/timer' && (
               <AppShell.Footer className={classes.footer} hiddenFrom="sm">
                 <MobileFooter />

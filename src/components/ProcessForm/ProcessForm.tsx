@@ -1,4 +1,4 @@
-import { Group, Button, Center, Card, Text, Stack, Avatar, Affix, Space } from '@mantine/core';
+import { Group, Button, Center, Card, Text, Stack, Avatar, Affix } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -154,7 +154,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack align="center" gap={0}>
+      <Stack align="center" gap={0} pb={50}>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
             destination?.index !== undefined &&
@@ -190,7 +190,6 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
         <Button type="submit" fullWidth visibleFrom="sm" mt="sm" w={400} maw="90vw">
           Start Timer
         </Button>
-        <Space h="65px" hiddenFrom="sm" />
       </Stack>
       <Affix
         position={{ bottom: 'calc(env(safe-area-inset-bottom, 0) + 65px)' }}
