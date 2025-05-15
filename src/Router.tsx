@@ -5,6 +5,7 @@ import { Root } from './Root';
 import { TimerPage } from './pages/Timer.page';
 import { RecipeDetailsPage } from './pages/RecipeDetail.page';
 import { RecipesPage } from './pages/Recipes.page';
+import { SettingsPage } from './pages/Settings.page';
 
 const createRouter =
   import.meta.env.VITE_USE_HASH_ROUTER === 'true' ? createHashRouter : createBrowserRouter;
@@ -31,6 +32,10 @@ const router = createRouter(
         {
           path: 'recipes/:id',
           element: <RecipeDetailsPage />,
+        },
+        {
+          path: 'settings',
+          element: <SettingsPage />,
         },
       ],
     },

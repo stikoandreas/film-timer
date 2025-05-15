@@ -6,8 +6,10 @@ import {
   IconFlask,
   IconFlaskFilled,
   IconList,
+  IconSettings,
+  IconSettingsFilled,
 } from '@tabler/icons-react';
-import { randomId } from '@mantine/hooks';
+import { randomId, useMediaQuery } from '@mantine/hooks';
 
 import classes from './MobileFooter.module.css';
 
@@ -40,6 +42,9 @@ export function MobileFooter() {
     if (link === '/') return pathname === link || pathname.startsWith('/timer');
     return pathname.startsWith(link);
   }
+
+  const matches = useMediaQuery('(display-mode: standalone)');
+
   const { pathname } = useLocation();
   return (
     <Group grow>
@@ -55,6 +60,20 @@ export function MobileFooter() {
           </Stack>
         </Link>
       ))}
+      {matches && (
+        <Link
+          to="/settings"
+          className={[
+            classes.link,
+            pathname.startsWith('/settings') ? classes.active : undefined,
+          ].join(' ')}
+        >
+          <Stack align="center" gap={0}>
+            {pathname.startsWith('/settings') ? <IconSettingsFilled /> : <IconSettings />}
+            <Text size="xs">Settings</Text>
+          </Stack>
+        </Link>
+      )}
     </Group>
   );
 }
