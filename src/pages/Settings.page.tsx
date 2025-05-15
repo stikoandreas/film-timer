@@ -1,5 +1,6 @@
-import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
 import { Button, Center, rem, Stack, Title } from '@mantine/core';
+
+import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
 
 export function SettingsPage() {
   return (
