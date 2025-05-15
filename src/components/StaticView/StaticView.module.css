@@ -1,0 +1,7 @@
+.staticview {
+  --static-view-padding-top: calc(env(safe-area-inset-top, 0) + rem(50));
+  --static-view-padding-bottom: calc(env(safe-area-inset-bottom, 0) + rem(80));
+
+  padding-top: var(--static-view-padding-top);
+  padding-bottom: var(--static-view-padding-bottom);
+}

@@ -2,6 +2,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Center, Button, Stack } from '@mantine/core';
 
 import { Timer } from '@/components/Timer/Timer';
+import { StaticView } from '@/components/StaticView/StaticView';
 
 export function TimerPage() {
   const [searchParams] = useSearchParams();
@@ -9,13 +10,15 @@ export function TimerPage() {
   const recipe = JSON.parse(searchParams.get('recipe')!);
   const navigate = useNavigate();
   return (
-    <Center>
-      <Stack align="center">
-        <Timer process={recipe} />
-        <Button maw="90vw" w="450pt" variant="outline" onClick={() => navigate(-1)}>
-          Cancel
-        </Button>
-      </Stack>
-    </Center>
+    <StaticView>
+      <Center>
+        <Stack align="center">
+          <Timer process={recipe} />
+          <Button maw="90vw" w="450pt" variant="outline" onClick={() => navigate(-1)}>
+            Cancel
+          </Button>
+        </Stack>
+      </Center>
+    </StaticView>
   );
 }
