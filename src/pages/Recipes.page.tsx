@@ -12,7 +12,7 @@ import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
 export function RecipesPage() {
   return (
     <ScrollableView>
-      <Stack align="center" gap="xs">
+      <Stack align="center" gap={0}>
         {recipes.map((recipe, index) => (
           <Card
             component={Link}
@@ -21,6 +21,7 @@ export function RecipesPage() {
             shadow="sm"
             key={recipe.key}
             to={`/recipes/${index}`}
+            mt="xs"
           >
             <Group justify="space-between ">
               <Stack gap={6}>
