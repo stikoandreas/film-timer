@@ -28,6 +28,7 @@
     "@mantine/notifications": "^7.12.0",
     "@tabler/icons-react": "3.17",
     "embla-carousel-react": "^7.1.0",
+    "figma-squircle": "^1.1.0",
     "react": "^18.3.1",
     "react-digit-input": "^2.1.0",
     "react-dom": "^18.3.1",

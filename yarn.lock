@@ -9773,6 +9773,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"figma-squircle@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "figma-squircle@npm:1.1.0"
+  checksum: 10c0/2879c5d69ad1908d4c76b4e7dc87a1d72cd023d601bd31b9d38b219558867dd8d5a7953e25a8ae7753344a79d412e85d3ecbda4df7a5a2243509d138b5b62aed
+  languageName: node
+  linkType: hard
+
 "file-entry-cache@npm:^6.0.1":
   version: 6.0.1
   resolution: "file-entry-cache@npm:6.0.1"
@@ -9865,6 +9872,7 @@ __metadata:
     eslint-plugin-jsx-a11y: "npm:^6.9.0"
     eslint-plugin-react: "npm:^7.34.3"
     eslint-plugin-react-hooks: "npm:^4.6.2"
+    figma-squircle: "npm:^1.1.0"
     identity-obj-proxy: "npm:^3.0.0"
     jsdom: "npm:^24.1.0"
     postcss: "npm:^8.4.38"
