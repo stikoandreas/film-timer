@@ -31,8 +31,8 @@ import { recipeIcons } from '@/resources/recipes';
 
 import classes from './Timer.module.css';
 
-const click = `${import.meta.env.BASE_URL}sound/double_beep.wav`;
-const tripleBeep = `${import.meta.env.BASE_URL}sound/triple_beep.wav`;
+const click = `${import.meta.env.BASE_URL}sound/two.wav`;
+const tripleBeep = `${import.meta.env.BASE_URL}sound/three.wav`;
 
 declare global {
   interface Navigator {
