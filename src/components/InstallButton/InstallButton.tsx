@@ -66,9 +66,12 @@ export function InstallButton() {
                 <Center w="100dvw" style={styles}>
                   <Tooltip
                     label={
-                      <Group gap={4}>
-                        <ThemeIcon variant="subtle" color="white">
-                          <IconSquarePlus style={{ width: '75%', height: '75%' }} />
+                      <Group gap={3}>
+                        <ThemeIcon
+                          variant="subtle"
+                          color="light-dark(var(--mantine-color-white), var(--mantine-color-black))"
+                        >
+                          <IconSquarePlus style={{ width: '75%', height: '75%' }} stroke={1.5} />
                         </ThemeIcon>
                         Add to Home Screen
                       </Group>
