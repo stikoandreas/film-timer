@@ -1,6 +1,5 @@
 import { Group, Button, Center, Card, Text, Stack, Avatar, Affix } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { randomId } from '@mantine/hooks';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { IconAlarm, IconBell, IconRefresh, IconThermometer } from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
@@ -22,19 +21,19 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
   const form = useForm<DevelopingProcess>({
     mode: 'uncontrolled',
     initialValues: initialValues || {
-      key: randomId(),
+      id: '394f63d6-e445-4133-8cde-47220544679a',
       steps: [
         {
           name: 'Develop',
           chime_seconds: 30,
-          key: randomId(),
+          id: '26fc8d0b-9f99-4e71-9252-6049267e2851',
           step_seconds: 6 * 60,
           icon: 'brightness',
         },
         {
           name: 'Stop',
           chime_seconds: '',
-          key: randomId(),
+          id: '5e50e334-c247-4778-9d1c-e7a8074bf0ac',
           step_seconds: 30,
           icon: 'dropletPause',
           continuous_agitation: 30,
@@ -42,7 +41,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
         {
           name: 'Fix',
           chime_seconds: 30,
-          key: randomId(),
+          id: '88faff90-dddd-4964-8dab-f44608681b25',
           step_seconds: 5 * 60,
           icon: 'shadowOff',
         },
@@ -68,7 +67,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
   }
 
   const fields = form.getValues().steps.map((item, index) => (
-    <Draggable key={item.key} index={index} draggableId={item.key}>
+    <Draggable key={item.id} index={index} draggableId={item.id}>
       {(provided, snapshot) => (
         <Card
           shadow="sm"
@@ -179,7 +178,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                 name: 'New step',
                 step_seconds: 60,
                 chime_seconds: '',
-                key: randomId(),
+                id: crypto.randomUUID(),
               })
             }
             variant="outline"
