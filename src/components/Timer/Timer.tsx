@@ -17,11 +17,11 @@ import {
   InputWrapper,
   Badge,
   ScrollArea,
+  Image,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { useTimer } from 'react-use-precision-timer';
-import { IconMoodHappyFilled } from '@tabler/icons-react';
 
 import type { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
 
@@ -270,7 +270,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           {process.steps
             .filter((item) => item.exhaust_compensation && item.exhaust_compensation_rate)
             .map((item) => (
-              <Text key={item.key}>
+              <Text key={item.id}>
                 {item.name}: {formatSeconds(item.step_seconds)} &rarr;{' '}
                 {formatSeconds(calculateCompensatedValue(item))}
               </Text>
@@ -295,7 +295,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
             {compensated_steps.map((item) => (
               <Stepper.Step
                 data-list-item
-                key={item.key}
+                key={item.id}
                 label={item.name}
                 style={{ scrollSnapAlign: 'center' }}
                 description={formatSeconds(item.step_seconds)}
@@ -323,7 +323,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           }}
         >
           {compensated_steps.map((item, index) => (
-            <Carousel.Slide key={item.key}>
+            <Carousel.Slide key={item.id}>
               <Box bg="blue" h="100%" p="xl" style={{ borderRadius: '10pt' }}>
                 <Transition
                   mounted={!isIntermission && activeStep === index}
@@ -374,8 +374,21 @@ export function Timer({ process }: { process: DevelopingProcess }) {
                 ) : !isFinished ? (
                   <></>
                 ) : (
-                  <Stack h="100%" align="center" c="white" justify="center">
-                    <IconMoodHappyFilled size={150} />
+                  <Stack
+                    h="100%"
+                    align="center"
+                    c="white"
+                    justify="center"
+                    style={{ perspective: '300px' }}
+                  >
+                    <div className={classes.completeIcon}>
+                      <Image
+                        src={`${import.meta.env.BASE_URL}logo.svg`}
+                        h={150}
+                        w="auto"
+                        fit="contain"
+                      />
+                    </div>
                     <Text size="xl">You are done!</Text>
                   </Stack>
                 )}

@@ -19,7 +19,7 @@ export function RecipesPage() {
             w={400}
             maw="90vw"
             shadow="sm"
-            key={recipe.key}
+            key={recipe.id}
             to={`/recipes/${index}`}
             mt="xs"
           >

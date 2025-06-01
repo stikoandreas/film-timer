@@ -6,7 +6,7 @@ export interface DevelopingStep {
   chime_seconds: number | '';
   exhaust_compensation?: number;
   exhaust_compensation_rate?: number;
-  key: string;
+  id: string;
   icon?: string;
   continuous_agitation?: number;
   temperature?: number;
@@ -15,5 +15,5 @@ export interface DevelopingStep {
 export interface DevelopingProcess {
   name?: string;
   steps: Array<DevelopingStep>;
-  key: string;
+  id: string;
 }
