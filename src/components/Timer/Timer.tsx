@@ -62,21 +62,22 @@ export function TimeCard({
 
   const audioRef = useRef<HTMLMediaElement>(null);
 
+  const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
+
   const audioCallBack = useCallback(() => {
-    if (audioRef.current) {
+    if (audioRef.current && durationTimer.getRemainingTime() > 500) {
       audioRef.current.play();
     }
-  }, [audioRef]);
+  }, [audioRef, durationTimer]);
 
-  const durationTimer = useTimer({ delay: totalDuration, runOnce: true }, callback);
   const intervalTimer = useTimer({ delay: interval }, audioCallBack);
 
   const continuousCallback = useCallback(() => {
-    if (audioRef.current) {
+    if (audioRef.current && durationTimer.getRemainingTime() > 500) {
       audioRef.current.play();
     }
     intervalTimer.start();
-  }, [audioRef, intervalTimer]);
+  }, [audioRef, intervalTimer, durationTimer]);
 
   const continuousTimer = useTimer(
     { delay: continuous_agitation, runOnce: true },
