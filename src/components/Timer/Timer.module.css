@@ -16,19 +16,17 @@
   );
 }
 
-.perspective {
-}
-
 .completeIcon {
   transform: rotateY(0deg);
-  animation: rotateAnimation 2s cubic-bezier(0, 0.55, 0.45, 1);
+  animation: rotate-animation 2s cubic-bezier(0, 0.55, 0.45, 1);
   stroke-width: 0.1rem;
 }
 
-@keyframes rotateAnimation {
+@keyframes rotate-animation {
   from {
     transform: rotateY(1000deg);
   }
+
   to {
     transform: rotateY(0deg);
   }
