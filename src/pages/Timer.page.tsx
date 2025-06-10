@@ -24,9 +24,11 @@ export function TimerPage() {
     });
 
   return (
-    <StaticView>
+    <StaticView
+      style={{ viewTransitionName: 'timer-page', backgroundColor: 'var(--mantine-color-body)' }}
+    >
       <Center>
-        <Stack align="center" style={{ viewTransitionName: 'timer-page' }}>
+        <Stack align="center">
           <Timer process={recipe} />
           <Button maw="90vw" w="450pt" variant="outline" onClick={openModal}>
             Cancel
