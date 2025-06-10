@@ -23,6 +23,7 @@
       {
         "ignorePseudoClasses": ["global"]
       }
-    ]
+    ],
+    "color-function-alias-notation": null
   }
 }
