@@ -4,4 +4,6 @@
 
   padding-top: var(--static-view-padding-top);
   padding-bottom: var(--static-view-padding-bottom);
+
+  min-height: 100dvh;
 }
