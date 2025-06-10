@@ -60,9 +60,12 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
   });
 
   function handleSubmit(values: DevelopingProcess) {
-    navigate({
-      pathname: '/timer',
-      search: createSearchParams({ recipe: JSON.stringify(values) }).toString(),
+    const url = `/timer?${createSearchParams({
+      recipe: JSON.stringify(values),
+    }).toString()}`;
+
+    navigate(url, {
+      viewTransition: true,
     });
   }
 

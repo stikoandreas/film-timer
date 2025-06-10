@@ -1,4 +1,4 @@
-@keyframes move-out {
+@keyframes move-down {
   from {
     transform: translateY(0%);
     opacity: 1;
@@ -10,7 +10,7 @@
   }
 }
 
-@keyframes move-in {
+@keyframes move-up {
   from {
     transform: translateY(20%);
     opacity: 0;
@@ -23,9 +23,9 @@
 }
 
 &::view-transition-old(affix) {
-  animation: 0.1s ease-in both move-out;
+  animation: 0.1s ease-in both move-down;
 }
 
 &::view-transition-new(affix) {
-  animation: 0.1s ease-in both move-in;
+  animation: 0.1s ease-in both move-up;
 }

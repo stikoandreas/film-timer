@@ -53,7 +53,7 @@ export function MobileFooter() {
           key={link.key}
           to={link.href}
           className={[classes.link, isActive(link.href) ? classes.active : undefined].join(' ')}
-          unstable_viewTransition
+          viewTransition
         >
           <Stack align="center" gap={0}>
             {isActive(link.href) ? link.selectedIcon : link.icon}
@@ -68,7 +68,7 @@ export function MobileFooter() {
             classes.link,
             pathname.startsWith('/settings') ? classes.active : undefined,
           ].join(' ')}
-          unstable_viewTransition
+          viewTransition
         >
           <Stack align="center" gap={0}>
             {pathname.startsWith('/settings') ? <IconSettingsFilled /> : <IconSettings />}
