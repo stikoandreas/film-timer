@@ -22,6 +22,7 @@ export function RecipesPage() {
             key={recipe.id}
             to={`/recipes/${index}`}
             mt="xs"
+            viewTransition
           >
             <Group justify="space-between ">
               <Stack gap={6}>

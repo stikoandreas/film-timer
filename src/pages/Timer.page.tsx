@@ -26,7 +26,7 @@ export function TimerPage() {
   return (
     <StaticView>
       <Center>
-        <Stack align="center">
+        <Stack align="center" style={{ viewTransitionName: 'timer-page' }}>
           <Timer process={recipe} />
           <Button maw="90vw" w="450pt" variant="outline" onClick={openModal}>
             Cancel

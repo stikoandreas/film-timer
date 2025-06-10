@@ -60,9 +60,12 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
   });
 
   function handleSubmit(values: DevelopingProcess) {
-    navigate({
-      pathname: '/timer',
-      search: createSearchParams({ recipe: JSON.stringify(values) }).toString(),
+    const url = `/timer?${createSearchParams({
+      recipe: JSON.stringify(values),
+    }).toString()}`;
+
+    navigate(url, {
+      viewTransition: true,
     });
   }
 
@@ -194,6 +197,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
         position={{ bottom: 'calc(env(safe-area-inset-bottom, 0) + 65px)' }}
         withinPortal={false}
         hiddenFrom="sm"
+        style={{ viewTransitionName: 'affix' }}
       >
         <Center w="100dvw" p="sm" className={classes.action}>
           <Button type="submit" fullWidth size="sm">

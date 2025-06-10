@@ -1,0 +1,59 @@
+@keyframes move-down {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+}
+
+@keyframes move-up {
+  from {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+&::view-transition-old(affix) {
+  animation: 0.1s ease-in both move-down;
+}
+
+&::view-transition-new(affix) {
+  animation: 0.1s ease-in both move-up;
+}
+
+&::view-transition-old(timer-page) {
+  animation: 0.2s ease-in both slide-out;
+}
+
+&::view-transition-new(timer-page) {
+  animation: 0.2s ease-in both slide-in;
+}
