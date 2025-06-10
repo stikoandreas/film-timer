@@ -1,0 +1,31 @@
+@keyframes move-out {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+}
+
+@keyframes move-in {
+  from {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+&::view-transition-old(affix) {
+  animation: 0.1s ease-in both move-out;
+}
+
+&::view-transition-new(affix) {
+  animation: 0.1s ease-in both move-in;
+}

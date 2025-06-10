@@ -194,6 +194,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
         position={{ bottom: 'calc(env(safe-area-inset-bottom, 0) + 65px)' }}
         withinPortal={false}
         hiddenFrom="sm"
+        style={{ viewTransitionName: 'affix' }}
       >
         <Center w="100dvw" p="sm" className={classes.action}>
           <Button type="submit" fullWidth size="sm">
