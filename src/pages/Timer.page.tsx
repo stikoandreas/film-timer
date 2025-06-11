@@ -37,7 +37,7 @@ export function TimerPage() {
         <Stack align="center">
           <Timer process={recipe} />
           <Button maw="90vw" w="450pt" variant="outline" onClick={openModal}>
-            Cancel
+            {recipeActive ? 'Cancel' : 'Back to recipes'}
           </Button>
         </Stack>
       </Center>
