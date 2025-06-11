@@ -1,10 +1,11 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Center, Button, Stack, Text } from '@mantine/core';
 import { modals } from '@mantine/modals';
+import { useContext } from 'react';
 
 import { Timer } from '@/components/Timer/Timer';
 import { StaticView } from '@/components/StaticView/StaticView';
-import { useContext } from 'react';
+
 import { AppStateContext } from '@/context/AppStateContext';
 
 export function TimerPage() {
