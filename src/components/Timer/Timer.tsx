@@ -19,7 +19,7 @@ import {
   ScrollArea,
   Image,
 } from '@mantine/core';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { useTimer } from 'react-use-precision-timer';
 
@@ -30,6 +30,7 @@ import { formatSeconds } from '@/lib/time';
 import { recipeIcons } from '@/resources/recipes';
 
 import classes from './Timer.module.css';
+import { AppStateContext } from '@/context/AppStateContext';
 
 const click = `${import.meta.env.BASE_URL}sound/two.wav`;
 const tripleBeep = `${import.meta.env.BASE_URL}sound/three.wav`;
@@ -196,6 +197,17 @@ export function Timer({ process }: { process: DevelopingProcess }) {
   const tripleBeepRef = useRef<HTMLMediaElement>(null);
 
   const viewportRef = useRef<HTMLDivElement>(null);
+
+  const { setRecipeActive } = useContext(AppStateContext);
+
+  useEffect(() => {
+    if ((isIntermission && activeStep === 0) || isFinished) {
+      setRecipeActive(false);
+    }
+    if (!isIntermission && activeStep >= 0) {
+      setRecipeActive(true);
+    }
+  }, [isIntermission, activeStep, isFinished]);
 
   /*function handlePrevStep() {
     if (activeStep > 0) {
