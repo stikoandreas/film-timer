@@ -12,13 +12,16 @@ import { Router } from './Router';
 import { theme } from './theme';
 
 import classes from './Root.module.css';
+import { AppStateProvider } from './context/AppStateContext';
 
 export default function App() {
   return (
     <MantineProvider theme={theme}>
       <ModalsProvider>
-        <Notifications position="top-center" autoClose={3000} className={classes.notifications} />
-        <Router />
+        <AppStateProvider>
+          <Notifications position="top-center" autoClose={3000} className={classes.notifications} />
+          <Router />
+        </AppStateProvider>
       </ModalsProvider>
     </MantineProvider>
   );

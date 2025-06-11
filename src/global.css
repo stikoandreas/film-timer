@@ -47,19 +47,19 @@
 }
 
 ::view-transition-old(affix) {
-  animation: 0.1s ease-in both move-down;
+  animation: 0.2s ease-in both move-down;
 }
 
 ::view-transition-new(affix) {
-  animation: 0.1s ease-in both move-up;
+  animation: 0.2s ease-in both move-up;
 }
 
 ::view-transition-old(timer-page) {
-  animation: 0.2s ease-in both slide-out;
+  animation: 0.3s ease-in both slide-out;
 }
 
 ::view-transition-new(timer-page) {
-  animation: 0.2s ease-in both slide-in;
+  animation: 0.3s ease-in both slide-in;
 }
 
 ::view-transition-group(header) {
