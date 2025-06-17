@@ -32,6 +32,7 @@ export const recipeIcons: Record<string, ReactNode> = {
 export const recipes: DevelopingProcess[] = [
   {
     name: 'Black and white',
+    process: 'bw',
     steps: [
       {
         name: 'Develop',
@@ -61,6 +62,7 @@ export const recipes: DevelopingProcess[] = [
   },
   {
     name: 'Tetenal Colortec C41',
+    process: 'c41',
     steps: [
       {
         name: 'Preheat',
@@ -106,6 +108,7 @@ export const recipes: DevelopingProcess[] = [
   },
   {
     name: 'Bellini C41',
+    process: 'c41',
     steps: [
       {
         name: 'Preheat',
@@ -160,6 +163,7 @@ export const recipes: DevelopingProcess[] = [
   },
   {
     name: 'Bellini E6',
+    process: 'e6',
     steps: [
       {
         name: 'Preheat',
@@ -245,6 +249,7 @@ export const recipes: DevelopingProcess[] = [
   },
   {
     name: 'Adox C-Tec C41',
+    process: 'c41',
     steps: [
       {
         name: 'Preheat',
@@ -301,6 +306,7 @@ export const recipes: DevelopingProcess[] = [
   },
   {
     name: 'Adox SCALA',
+    process: 'other',
     steps: [
       {
         name: 'First Developer',

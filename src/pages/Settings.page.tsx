@@ -12,7 +12,7 @@ export function SettingsPage() {
   return (
     <ScrollableView>
       <Center>
-        <Stack align="left" mt="md" maw="90vw" w={rem(450)}>
+        <Stack align="left" mt="xs" maw="90vw" w={rem(450)}>
           <Title>Settings</Title>
           <Button
             onClick={() => {

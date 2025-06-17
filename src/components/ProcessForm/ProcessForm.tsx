@@ -30,6 +30,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
     mode: 'uncontrolled',
     initialValues: initialValues || {
       id: '394f63d6-e445-4133-8cde-47220544679a',
+      process: 'bw',
       steps: [
         {
           name: 'Develop',
