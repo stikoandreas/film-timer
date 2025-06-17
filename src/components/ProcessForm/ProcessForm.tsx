@@ -3,6 +3,7 @@ import { useForm } from '@mantine/form';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { IconAlarm, IconBell, IconRefresh, IconThermometer } from '@tabler/icons-react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import { useLocalStorage } from '@mantine/hooks';
 
 import { EditModal } from '@/components/EditModal/EditModal';
 
@@ -16,7 +17,6 @@ import classes from './ProcessForm.module.css';
 
 import { InfoChip } from '@/components/InfoChip/InfoChip';
 import { TimeInput } from '../TimeInput/TimeInput';
-import { useLocalStorage } from '@mantine/hooks';
 
 export function ProcessForm({ initialValues }: { initialValues?: DevelopingProcess }) {
   const [quickEdit] = useLocalStorage({

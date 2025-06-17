@@ -7,7 +7,7 @@ import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
 
 export function RecipeDetailsPage() {
   const { id } = useParams();
-  const recipe = recipes.find((recipe) => recipe.id === id);
+  const recipe = recipes.find((r) => r.id === id);
   if (recipe) {
     return (
       <ScrollableView>

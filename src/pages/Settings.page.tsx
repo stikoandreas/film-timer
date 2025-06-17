@@ -1,7 +1,7 @@
-import { Button, Center, Checkbox, rem, Stack, Switch, Title } from '@mantine/core';
+import { Button, Center, rem, Stack, Switch, Title } from '@mantine/core';
+import { useLocalStorage } from '@mantine/hooks';
 
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
-import { useLocalStorage } from '@mantine/hooks';
 
 export function SettingsPage() {
   const [quickEdit, setQuickEdit] = useLocalStorage({

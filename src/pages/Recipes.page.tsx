@@ -1,8 +1,6 @@
 import {
   ActionIcon,
-  Box,
   Card,
-  Center,
   Divider,
   Group,
   SegmentedControl,
@@ -13,6 +11,7 @@ import {
 } from '@mantine/core';
 import { IconAlarm, IconChevronRight, IconListCheck } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import { recipes } from '@/resources/recipes';
 import { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
@@ -20,7 +19,6 @@ import { formatSeconds } from '@/lib/time';
 
 import { InfoChip } from '@/components/InfoChip/InfoChip';
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
-import { useState } from 'react';
 
 export function RecipesPage() {
   const [process, setProcess] = useState('c41');
