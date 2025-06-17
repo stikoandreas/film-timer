@@ -15,8 +15,16 @@ import { recipeIcons } from '@/resources/recipes';
 import classes from './ProcessForm.module.css';
 
 import { InfoChip } from '@/components/InfoChip/InfoChip';
+import { TimeInput } from '../TimeInput/TimeInput';
+import { useLocalStorage } from '@mantine/hooks';
 
 export function ProcessForm({ initialValues }: { initialValues?: DevelopingProcess }) {
+  const [quickEdit] = useLocalStorage({
+    key: 'quickEdit',
+    defaultValue: false,
+    getInitialValueInEffect: true,
+  });
+
   const navigate = useNavigate();
   const form = useForm<DevelopingProcess>({
     mode: 'uncontrolled',
@@ -89,7 +97,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
           maw="90vw"
         >
           <Group gap="xs" wrap="nowrap" justify="space-between" {...provided.dragHandleProps}>
-            <Group gap="xs" wrap="nowrap">
+            <Group gap="xs" wrap="nowrap" style={{ flexGrow: 1 }}>
               <Center>
                 <Avatar
                   size="md"
@@ -100,10 +108,17 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                     recipeIcons[form.getTransformedValues().steps[index].icon!]}
                 </Avatar>
               </Center>
-              <Stack gap={6}>
+              <Stack gap={6} style={{ flexGrow: 1 }}>
                 <Text m={0} ml={3} fz={17} fw={500}>
                   {form.getTransformedValues().steps[index].name}
                 </Text>
+                {quickEdit && (
+                  <TimeInput
+                    {...form.getInputProps(`steps.${index}.step_seconds`)}
+                    size="sm"
+                    autoFocus={false}
+                  />
+                )}
                 <Group gap={8}>
                   <InfoChip
                     icon={IconAlarm}
