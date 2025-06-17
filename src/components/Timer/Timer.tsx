@@ -265,7 +265,7 @@ export function Timer({ process }: { process: DevelopingProcess }) {
         }
         onClose={close}
         title="Time Compensation"
-        classNames={{ overlay: classes.overlay }}
+        classNames={{ overlay: classes.overlay, content: classes.content }}
         yOffset={120}
       >
         <Stack>

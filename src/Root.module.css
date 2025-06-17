@@ -59,6 +59,10 @@
 .navbar {
   height: calc(100dvh - var(--app-shell-header-offset, 0rem));
 
+  background-color: alpha(var(--mantine-color-body), 0.8);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+
   view-transition-name: navbar;
 }
 
