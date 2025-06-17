@@ -62,6 +62,14 @@
   animation: 0.3s ease-in both slide-in;
 }
 
+::view-transition-old(edit-modal) {
+  animation: 0.3s ease-in both slide-out;
+}
+
+::view-transition-new(edit-modal) {
+  animation: 0.3s ease-in both slide-in;
+}
+
 ::view-transition-group(header) {
   z-index: 1000;
 }
@@ -72,4 +80,20 @@
 
 ::view-transition-group(navbar) {
   z-index: 1000;
+}
+
+::view-transition-group(timer-modal) {
+  z-index: 4000;
+}
+
+::view-transition-group(timer-content) {
+  z-index: 5000;
+}
+
+::view-transition-old(timer-content) {
+  animation: 0.3s ease-in both slide-out;
+}
+
+::view-transition-new(timer-content) {
+  animation: 0.3s ease-in both slide-in;
 }

@@ -1,6 +1,12 @@
 .overlay {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+
+  view-transition-name: timer-modal;
+}
+
+.content {
+  view-transition-name: timer-content;
 }
 
 .progress:where([data-striped]) {
