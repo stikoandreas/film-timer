@@ -10,10 +10,16 @@ import { DebugContext } from '@/context/DebugContext';
 interface TimeInputProps {
   value?: number;
   defaultValue?: number;
+  autoFocus?: boolean;
   onChange?: (value: number) => void;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export function TimeInput(props: TimeInputProps & DataAttributes) {
+export function TimeInput({
+  size = 'lg',
+  autoFocus = true,
+  ...props
+}: TimeInputProps & DataAttributes) {
   const { value, defaultValue, onChange } = props;
   const [_value, handleChange] = useUncontrolled<number>({
     value,
@@ -21,6 +27,22 @@ export function TimeInput(props: TimeInputProps & DataAttributes) {
     finalValue: undefined,
     onChange,
   });
+
+  const sizeWidth = {
+    xs: rem(29),
+    sm: rem(34),
+    md: rem(39),
+    lg: rem(44),
+    xl: rem(52),
+  };
+
+  const sizePadding = {
+    xs: rem(4),
+    sm: rem(6),
+    md: rem(8),
+    lg: 'xs',
+    xl: rem(12),
+  };
 
   const { debug } = useContext(DebugContext);
 
@@ -69,9 +91,9 @@ export function TimeInput(props: TimeInputProps & DataAttributes) {
   }
   return (
     <Stack>
-      <Group gap="xs">
+      <Group gap={sizePadding[size]}>
         {digits.map((digit, index) => (
-          <Group key={index} gap="xs">
+          <Group key={index} gap={sizePadding[size]}>
             <Input
               styles={{
                 input: {
@@ -79,9 +101,9 @@ export function TimeInput(props: TimeInputProps & DataAttributes) {
                   textAlign: 'left',
                 },
               }}
-              autoFocus={index === 0 || undefined}
-              w={rem(45)}
-              size="lg"
+              autoFocus={(autoFocus && index === 0) || undefined}
+              w={sizeWidth[size]}
+              size={size}
               placeholder="0"
               inputMode="numeric"
               {...digit}

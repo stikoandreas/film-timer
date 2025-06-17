@@ -7,13 +7,14 @@ import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
 
 export function RecipeDetailsPage() {
   const { id } = useParams();
-  if (!Number.isNaN(id) && Number(id) >= 0 && Number(id) <= recipes.length - 1) {
+  const recipe = recipes.find((r) => r.id === id);
+  if (recipe) {
     return (
       <ScrollableView>
         <Center>
-          <Title mt="xs">{recipes[Number(id)].name}</Title>
+          <Title mt="xs">{recipe.name}</Title>
         </Center>
-        <ProcessForm initialValues={recipes[Number(id)]} />
+        <ProcessForm initialValues={recipe} />
       </ScrollableView>
     );
   }

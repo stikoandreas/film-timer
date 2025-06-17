@@ -16,4 +16,5 @@ export interface DevelopingProcess {
   name?: string;
   steps: Array<DevelopingStep>;
   id: string;
+  process: 'bw' | 'c41' | 'e6' | 'other';
 }
