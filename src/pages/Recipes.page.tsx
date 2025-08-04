@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import { IconAlarm, IconChevronRight, IconListCheck } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { recipes } from '@/resources/recipes';
 import { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
@@ -19,9 +19,11 @@ import { formatSeconds } from '@/lib/time';
 
 import { InfoChip } from '@/components/InfoChip/InfoChip';
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
+import { useTitle } from '@/context/TitleContext';
 
 export function RecipesPage() {
   const [process, setProcess] = useState('c41');
+  useTitle('Recipes');
 
   function filterRecipe(recipe: DevelopingProcess) {
     return process !== 'other'
@@ -34,7 +36,6 @@ export function RecipesPage() {
   return (
     <ScrollableView>
       <Stack align="center" gap={0}>
-        <Title mt="xs">Recipes</Title>
         <SegmentedControl
           data={[
             { label: 'C41', value: 'c41' },
@@ -50,10 +51,9 @@ export function RecipesPage() {
         <Card shadow="sm" w={400} maw="90vw">
           <Stack align="center" gap={0}>
             {filteredRecipes.map((recipe, index) => (
-              <>
+              <Fragment key={recipe.id}>
                 <UnstyledButton
                   component={Link}
-                  key={recipe.id}
                   to={`/recipes/${recipe.id}`}
                   w="100%"
                   viewTransition
@@ -86,7 +86,7 @@ export function RecipesPage() {
                   </Group>
                 </UnstyledButton>
                 {index < filteredRecipes.length - 1 && <Divider my="xs" w="100%" />}
-              </>
+              </Fragment>
             ))}
           </Stack>
         </Card>

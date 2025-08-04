@@ -8,8 +8,10 @@ import { ButtonBar } from '@/components/ButtonBar/ButtonBar';
 import classes from './Root.module.css';
 import { Navbar } from './components/Navbar/Navbar';
 import { WakeContextProvider } from './context/WakeContext';
+import { useState } from 'react';
 
 export function Root() {
+  const [title, setTitle] = useState<string | undefined>(undefined);
   const { pathname } = useLocation();
   return (
     <>
@@ -28,13 +30,13 @@ export function Root() {
             className={classes.shell}
           >
             <AppShell.Header className={classes.header}>
-              <ButtonBar />
+              <ButtonBar title={title} />
             </AppShell.Header>
             <AppShell.Navbar visibleFrom="sm" className={classes.navbar}>
               <Navbar />
             </AppShell.Navbar>
             <div className={classes.main}>
-              <Outlet />
+              <Outlet context={{ title, setTitle }} />
             </div>
             {pathname !== '/timer' && (
               <AppShell.Footer className={classes.footer} hiddenFrom="sm">
