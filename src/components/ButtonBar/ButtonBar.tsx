@@ -2,7 +2,6 @@ import { Group, Text, Title } from '@mantine/core';
 import { WakeLock } from '@/components/WakeLock/WakeLock';
 import { ColorSchemeButton } from '../ColorSchemeButton/ColorSchemeButton';
 import { InstallButton } from '../InstallButton/InstallButton';
-import { AppIcon } from '../AppIcon/AppIcon';
 
 export function ButtonBar({ title }: { title?: string }) {
   return (

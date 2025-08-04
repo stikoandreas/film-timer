@@ -6,7 +6,6 @@ import {
   SegmentedControl,
   Stack,
   Text,
-  Title,
   UnstyledButton,
 } from '@mantine/core';
 import { IconAlarm, IconChevronRight, IconListCheck } from '@tabler/icons-react';

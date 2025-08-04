@@ -1,5 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { AppShell } from '@mantine/core';
+import { useState } from 'react';
+
 import { MobileFooter } from './components/MobileFooter/MobileFooter';
 
 import { DebugContextProvider } from '@/context/DebugContext';
@@ -8,7 +10,6 @@ import { ButtonBar } from '@/components/ButtonBar/ButtonBar';
 import classes from './Root.module.css';
 import { Navbar } from './components/Navbar/Navbar';
 import { WakeContextProvider } from './context/WakeContext';
-import { useState } from 'react';
 
 export function Root() {
   const [title, setTitle] = useState<string | undefined>(undefined);

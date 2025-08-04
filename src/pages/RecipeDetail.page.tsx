@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { Center, Title } from '@mantine/core';
 
 import { ProcessForm } from '@/components/ProcessForm/ProcessForm';
 import { recipes } from '@/resources/recipes';

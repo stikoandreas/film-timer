@@ -1,4 +1,4 @@
-import { Button, Center, rem, Stack, Switch, Title } from '@mantine/core';
+import { Button, Center, rem, Stack, Switch } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
