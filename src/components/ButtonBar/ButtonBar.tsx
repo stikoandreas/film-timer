@@ -6,11 +6,16 @@ import { InstallButton } from '../InstallButton/InstallButton';
 export function ButtonBar({ title }: { title?: string }) {
   return (
     <>
-      <Group justify="space-between" pl="md">
+      <Group justify="space-between" pl="md" wrap="nowrap">
         <Title order={2}>
           {title ? (
-            <Group gap={0} align="center">
-              <Text inherit component="span" fw={500}>
+            <Group gap={0} align="center" wrap="nowrap">
+              <Text
+                inherit
+                component="span"
+                fw={500}
+                style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+              >
                 {title}
               </Text>
             </Group>
@@ -25,7 +30,7 @@ export function ButtonBar({ title }: { title?: string }) {
             </Text>
           )}
         </Title>
-        <Group gap="xs" justify="right" p="xs">
+        <Group gap="xs" justify="right" p="xs" wrap="nowrap">
           <InstallButton />
           <ColorSchemeButton />
           <WakeLock />
