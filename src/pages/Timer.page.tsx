@@ -7,12 +7,16 @@ import { Timer } from '@/components/Timer/Timer';
 import { StaticView } from '@/components/StaticView/StaticView';
 
 import { AppStateContext } from '@/context/AppStateContext';
+import { useTitle } from '@/context/TitleContext';
 
 export function TimerPage() {
   const [searchParams] = useSearchParams();
+
   if (!searchParams.get('recipe')) return 'No recipe';
   const recipe = JSON.parse(searchParams.get('recipe')!);
   const navigate = useNavigate();
+
+  useTitle(recipe.name);
 
   const { recipeActive } = useContext(AppStateContext);
 

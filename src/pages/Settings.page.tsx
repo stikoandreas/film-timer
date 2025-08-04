@@ -1,7 +1,8 @@
-import { Button, Center, rem, Stack, Switch, Title } from '@mantine/core';
+import { Button, Center, rem, Stack, Switch } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
+import { useTitle } from '@/context/TitleContext';
 
 export function SettingsPage() {
   const [quickEdit, setQuickEdit] = useLocalStorage({
@@ -9,11 +10,12 @@ export function SettingsPage() {
     defaultValue: false,
   });
 
+  useTitle('Settings');
+
   return (
     <ScrollableView>
       <Center>
         <Stack align="left" mt="xs" maw="90vw" w={rem(450)}>
-          <Title>Settings</Title>
           <Button
             onClick={() => {
               window.location.reload();

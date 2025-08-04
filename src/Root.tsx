@@ -1,5 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { AppShell } from '@mantine/core';
+import { useState } from 'react';
+
 import { MobileFooter } from './components/MobileFooter/MobileFooter';
 
 import { DebugContextProvider } from '@/context/DebugContext';
@@ -10,6 +12,7 @@ import { Navbar } from './components/Navbar/Navbar';
 import { WakeContextProvider } from './context/WakeContext';
 
 export function Root() {
+  const [title, setTitle] = useState<string | undefined>(undefined);
   const { pathname } = useLocation();
   return (
     <>
@@ -28,13 +31,13 @@ export function Root() {
             className={classes.shell}
           >
             <AppShell.Header className={classes.header}>
-              <ButtonBar />
+              <ButtonBar title={title} />
             </AppShell.Header>
             <AppShell.Navbar visibleFrom="sm" className={classes.navbar}>
               <Navbar />
             </AppShell.Navbar>
             <div className={classes.main}>
-              <Outlet />
+              <Outlet context={{ title, setTitle }} />
             </div>
             {pathname !== '/timer' && (
               <AppShell.Footer className={classes.footer} hiddenFrom="sm">
