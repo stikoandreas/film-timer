@@ -150,7 +150,13 @@ export function TimeCard({
           label={
             <Stack gap={2} align="center">
               <Title c="white">{getTimeRemaining()}</Title>
-              <Progress.Root w={90} bg="var(--mantine-color-blue-9)" size="xs" radius="lg">
+              <Progress.Root
+                w={90}
+                bg="var(--mantine-color-blue-9)"
+                size="xs"
+                radius="lg"
+                transitionDuration={0}
+              >
                 <Progress.Section
                   animated={continuousTimer.isStarted()}
                   color="white"
