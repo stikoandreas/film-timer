@@ -1,16 +1,20 @@
 import { Affix, Button, Center } from '@mantine/core';
 import { useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import { useLocalStorage } from '@mantine/hooks';
 
 import { DevelopingProcess } from '@/types/DevelopingProcess';
 import { ProcessForm } from '../ProcessForm/ProcessForm';
 
-export function ProcessOverview({
-  initialValue,
-}: {
-  initialValue?: DevelopingProcess;
-  isCustom?: boolean;
-}) {
+export function ProcessOverview({ initialValue }: { initialValue?: DevelopingProcess }) {
+  const [customRecipes, setCustomRecipes] = useLocalStorage<DevelopingProcess[]>({
+    key: 'customRecipes',
+    defaultValue: [],
+    getInitialValueInEffect: true,
+  });
+
+  const isCustom = initialValue && customRecipes.some((r) => r.id === initialValue.id);
+
   const [process, setProcess] = useState<DevelopingProcess | undefined>(initialValue);
   const navigate = useNavigate();
 
@@ -23,9 +27,18 @@ export function ProcessOverview({
       viewTransition: true,
     });
   }
+
+  function handleChange(value: DevelopingProcess) {
+    setProcess(value);
+    if (isCustom) {
+      const updatedRecipes = customRecipes.map((r) => (r.id === value.id ? value : r));
+      setCustomRecipes(updatedRecipes);
+    }
+  }
+
   return (
     <>
-      <ProcessForm initialValue={process} onChange={setProcess} />
+      <ProcessForm initialValue={process} onChange={handleChange} />
       <Center>
         <Button
           onClick={handleSubmit}
