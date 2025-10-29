@@ -1,9 +1,10 @@
-import { Group, Button, Center, Card, Text, Stack, Avatar, Affix } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { Group, Button, Center, Card, Text, Stack, Avatar } from '@mantine/core';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { IconAlarm, IconBell, IconRefresh, IconThermometer } from '@tabler/icons-react';
-import { createSearchParams, useNavigate } from 'react-router-dom';
-import { useLocalStorage } from '@mantine/hooks';
+import { useLocalStorage, useUncontrolled } from '@mantine/hooks';
+import { clsx } from 'clsx';
+
+import { v4 as uuidv4 } from 'uuid';
 
 import { EditModal } from '@/components/EditModal/EditModal';
 
@@ -18,80 +19,34 @@ import classes from './ProcessForm.module.css';
 import { InfoChip } from '@/components/InfoChip/InfoChip';
 import { TimeInput } from '../TimeInput/TimeInput';
 
-export function ProcessForm({ initialValues }: { initialValues?: DevelopingProcess }) {
+export function ProcessForm({
+  initialValue,
+  onChange,
+}: {
+  initialValue?: DevelopingProcess;
+  onChange?: (value: DevelopingProcess) => void;
+}) {
   const [quickEdit] = useLocalStorage({
     key: 'quickEdit',
     defaultValue: false,
     getInitialValueInEffect: true,
   });
 
-  const navigate = useNavigate();
-  const form = useForm<DevelopingProcess>({
-    mode: 'uncontrolled',
-    initialValues: initialValues || {
-      id: '394f63d6-e445-4133-8cde-47220544679a',
-      process: 'bw',
-      steps: [
-        {
-          name: 'Develop',
-          chime_seconds: 30,
-          id: '26fc8d0b-9f99-4e71-9252-6049267e2851',
-          step_seconds: 6 * 60,
-          icon: 'brightness',
-        },
-        {
-          name: 'Stop',
-          chime_seconds: '',
-          id: '5e50e334-c247-4778-9d1c-e7a8074bf0ac',
-          step_seconds: 30,
-          icon: 'dropletPause',
-          continuous_agitation: 30,
-        },
-        {
-          name: 'Fix',
-          chime_seconds: 30,
-          id: '88faff90-dddd-4964-8dab-f44608681b25',
-          step_seconds: 5 * 60,
-          icon: 'shadowOff',
-        },
-      ],
-    },
-    validate: {
-      steps: {
-        name: (value) => (value.length <= 0 ? 'Name must be at least 1 character long' : null),
-        step_seconds: (value) => (value <= 0 ? 'Step must be at least 1 second' : null),
-        chime_seconds: (value) =>
-          value !== null && value !== '' && value < 5
-            ? 'Chime interval must be at least 5 seconds'
-            : null,
-      },
-    },
+  const [_value, handleChange] = useUncontrolled<DevelopingProcess>({
+    value: initialValue,
+    defaultValue: initialValue,
+    finalValue: undefined,
+    onChange,
   });
 
-  function handleSubmit(values: DevelopingProcess) {
-    const url = `/timer?${createSearchParams({
-      recipe: JSON.stringify(values),
-    }).toString()}`;
-
-    navigate(url, {
-      viewTransition: true,
-    });
-  }
-
-  const fields = form.getValues().steps.map((item, index) => (
+  const fields = _value.steps.map((item, index) => (
     <Draggable key={item.id} index={index} draggableId={item.id}>
       {(provided, snapshot) => (
         <Card
           shadow="sm"
           mt="xs"
           pl="xs"
-          className={[
-            classes.draggable,
-            snapshot.isDragging ? classes.dragging : undefined,
-            Object.keys(form.errors).some((key) => key.startsWith(`steps.${index}`))
-              ? classes.carderror
-              : undefined,
-          ].join(' ')}
+          className={clsx(classes.draggable, snapshot.isDragging ? classes.dragging : undefined)}
           ref={provided.innerRef}
           {...provided.draggableProps}
           w={400}
@@ -100,22 +55,22 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
           <Group gap="xs" wrap="nowrap" justify="space-between" {...provided.dragHandleProps}>
             <Group gap="xs" wrap="nowrap" style={{ flexGrow: 1 }}>
               <Center>
-                <Avatar
-                  size="md"
-                  name={form.getTransformedValues().steps[index].name}
-                  color="initials"
-                >
-                  {form.getTransformedValues().steps[index].icon &&
-                    recipeIcons[form.getTransformedValues().steps[index].icon!]}
+                <Avatar size="md" name={item.name} color="initials">
+                  {item.icon && recipeIcons[item.icon]}
                 </Avatar>
               </Center>
               <Stack gap={6} style={{ flexGrow: 1 }}>
                 <Text m={0} ml={3} fz={17} fw={500}>
-                  {form.getTransformedValues().steps[index].name}
+                  {item.name}
                 </Text>
                 {quickEdit && (
                   <TimeInput
-                    {...form.getInputProps(`steps.${index}.step_seconds`)}
+                    defaultValue={item.step_seconds}
+                    onChange={(val) => {
+                      const newSteps = [..._value.steps];
+                      newSteps[index] = { ...newSteps[index], step_seconds: Number(val) };
+                      handleChange({ ..._value, steps: newSteps });
+                    }}
                     size="sm"
                     autoFocus={false}
                   />
@@ -124,44 +79,36 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
                   <InfoChip
                     icon={IconAlarm}
                     primary
-                    label={formatSeconds(
-                      form.getTransformedValues().steps[index].step_seconds
-                    ).concat(
+                    label={formatSeconds(item.step_seconds).concat(
                       '',
-                      form.getTransformedValues().steps[index].exhaust_compensation ? '+' : ''
+                      item.exhaust_compensation ? '+' : ''
                     )}
                   />
-                  {form.getTransformedValues().steps[index].temperature && (
-                    <InfoChip
-                      icon={IconThermometer}
-                      label={`${form.getTransformedValues().steps[index].temperature}°C`}
-                    />
+                  {item.temperature && (
+                    <InfoChip icon={IconThermometer} label={`${item.temperature}°C`} />
                   )}
-                  {form.getTransformedValues().steps[index].continuous_agitation && (
-                    <InfoChip
-                      icon={IconRefresh}
-                      label={`${form.getTransformedValues().steps[index].continuous_agitation}s`}
-                    />
+                  {item.continuous_agitation && (
+                    <InfoChip icon={IconRefresh} label={`${item.continuous_agitation}s`} />
                   )}
-                  {form.getTransformedValues().steps[index].chime_seconds && (
-                    <InfoChip
-                      icon={IconBell}
-                      label={`${form.getTransformedValues().steps[index].chime_seconds}s`}
-                    />
+                  {item.chime_seconds && (
+                    <InfoChip icon={IconBell} label={`${item.chime_seconds}s`} />
                   )}
                 </Group>
               </Stack>
             </Group>
             <Stack gap="xs">
               <EditModal
-                key={form.key(`steps.${index}`)}
-                index={index}
-                {...form.getInputProps(`steps.${index}`)}
-                nameInputProps={{ ...form.getInputProps(`steps.${index}.name`) }}
-                durationInputProps={{ ...form.getInputProps(`steps.${index}.step_seconds`) }}
-                chimeInputProps={{ ...form.getInputProps(`steps.${index}.chime_seconds`) }}
-                validate={form.validate}
-                onDelete={() => form.removeListItem('steps', index)}
+                key={item.id}
+                value={item}
+                onSubmit={(updatedStep) => {
+                  const newSteps = [..._value.steps];
+                  newSteps[index] = updatedStep;
+                  handleChange({ ..._value, steps: newSteps });
+                }}
+                onDelete={() => {
+                  const newSteps = _value.steps.filter((_, i) => i !== index);
+                  handleChange({ ..._value, steps: newSteps });
+                }}
               />
             </Stack>
           </Group>
@@ -171,12 +118,17 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
   ));
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
+    <>
       <Stack align="center" gap={0} pb={50}>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
-            destination?.index !== undefined &&
-              form.reorderListItem('steps', { from: source.index, to: destination.index });
+            if (destination?.index !== undefined) {
+              const newSteps = Array.from(_value.steps);
+              const [movedItem] = newSteps.splice(source.index, 1);
+              newSteps.splice(destination.index, 0, movedItem);
+
+              handleChange({ ..._value, steps: newSteps });
+            }
           }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">
@@ -193,11 +145,17 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
           <Button
             size="xs"
             onClick={() =>
-              form.insertListItem('steps', {
-                name: 'New step',
-                step_seconds: 60,
-                chime_seconds: '',
-                id: crypto.randomUUID(),
+              handleChange({
+                ..._value,
+                steps: [
+                  ..._value.steps,
+                  {
+                    name: 'New step',
+                    step_seconds: 60,
+                    chime_seconds: '',
+                    id: uuidv4(),
+                  },
+                ],
               })
             }
             variant="outline"
@@ -205,22 +163,7 @@ export function ProcessForm({ initialValues }: { initialValues?: DevelopingProce
             Add Step
           </Button>
         </Group>
-        <Button type="submit" fullWidth visibleFrom="sm" mt="sm" w={400} maw="90vw">
-          Start Timer
-        </Button>
       </Stack>
-      <Affix
-        position={{ bottom: 'calc(env(safe-area-inset-bottom, 0) + 65px)' }}
-        withinPortal={false}
-        hiddenFrom="sm"
-        style={{ viewTransitionName: 'affix' }}
-      >
-        <Center w="100dvw" p="sm" className={classes.action}>
-          <Button type="submit" fullWidth size="sm">
-            Start Timer
-          </Button>
-        </Center>
-      </Affix>
-    </form>
+    </>
   );
 }

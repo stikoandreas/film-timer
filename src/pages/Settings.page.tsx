@@ -1,4 +1,4 @@
-import { Button, Center, rem, Stack, Switch } from '@mantine/core';
+import { Button, Center, rem, Stack, Switch, Text } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
@@ -8,6 +8,12 @@ export function SettingsPage() {
   const [quickEdit, setQuickEdit] = useLocalStorage({
     key: 'quickEdit',
     defaultValue: false,
+  });
+
+  const [customRecipes, setCustomRecipes] = useLocalStorage({
+    key: 'customRecipes',
+    defaultValue: [],
+    getInitialValueInEffect: true,
   });
 
   useTitle('Settings');
@@ -32,6 +38,15 @@ export function SettingsPage() {
             mt="md"
             size="md"
           />
+          <Text size="sm">You have {customRecipes.length} custom recipes.</Text>
+          <Button
+            onClick={() => {
+              setCustomRecipes([]);
+            }}
+            variant="outline"
+          >
+            Clear local recipes
+          </Button>
         </Stack>
       </Center>
     </ScrollableView>

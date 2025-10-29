@@ -4,6 +4,8 @@ import {
   IconFlask,
   IconFlaskFilled,
   IconList,
+  IconSettings,
+  IconSettingsFilled,
 } from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
 import { NavLink, Tooltip } from '@mantine/core';
@@ -29,6 +31,13 @@ const links = [
     icon: <IconFlask />,
     selectedIcon: <IconFlaskFilled />,
     href: '/volume',
+    key: randomId(),
+  },
+  {
+    label: 'Settings',
+    icon: <IconSettings />,
+    selectedIcon: <IconSettingsFilled />,
+    href: '/settings',
     key: randomId(),
   },
 ];
