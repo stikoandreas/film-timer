@@ -20,7 +20,8 @@ import {
   Image,
 } from '@mantine/core';
 import { useState, useEffect, useRef, useCallback, useContext } from 'react';
-import { Carousel, Embla } from '@mantine/carousel';
+import { Carousel } from '@mantine/carousel';
+import { EmblaCarouselType } from 'embla-carousel';
 import { useTimer } from 'react-use-precision-timer';
 
 import type { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
@@ -192,7 +193,7 @@ export function TimeCard({
 export function Timer({ process }: { process: DevelopingProcess }) {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [embla, setEmbla] = useState<Embla | null>(null);
+  const [embla, setEmbla] = useState<EmblaCarouselType | null>(null);
 
   const [isIntermission, setIsInterMission] = useState(true);
   const [isFinished, setIsFinished] = useState(false);
@@ -330,8 +331,8 @@ export function Timer({ process }: { process: DevelopingProcess }) {
           height={400}
           slideSize="90%"
           slideGap="md"
-          align="center"
           getEmblaApi={setEmbla}
+          emblaOptions={{ align: 'center', containScroll: false }}
           onSlideChange={(index) => {
             viewportRef.current
               ?.querySelectorAll('[data-list-item]')
