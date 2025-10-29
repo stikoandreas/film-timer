@@ -1,8 +1,9 @@
 import { Button, Center, rem, Stack, Switch, Text } from '@mantine/core';
-import { useLocalStorage } from '@mantine/hooks';
+import { useLocalStorage, useMediaQuery, useOs } from '@mantine/hooks';
 
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
 import { useTitle } from '@/context/TitleContext';
+import { InstallButton } from '@/components/InstallButton/InstallButton';
 
 export function SettingsPage() {
   const [quickEdit, setQuickEdit] = useLocalStorage({
@@ -18,18 +19,29 @@ export function SettingsPage() {
 
   useTitle('Settings');
 
+  const matches = useMediaQuery('(display-mode: standalone)');
+  const os = useOs();
+
   return (
     <ScrollableView>
       <Center>
         <Stack align="left" mt="xs" maw="90vw" w={rem(450)}>
-          <Button
-            onClick={() => {
-              window.location.reload();
-            }}
-            variant="outline"
-          >
-            Install latest version
-          </Button>
+          {matches ? (
+            <Button
+              onClick={() => {
+                window.location.reload();
+              }}
+              variant="outline"
+            >
+              Install latest version
+            </Button>
+          ) : os === 'ios' ? (
+            <InstallButton>
+              <Button style={{ cursor: 'pointer' }} size="md" fullWidth>
+                Install to Home Screen
+              </Button>
+            </InstallButton>
+          ) : null}
           <Switch
             label="Quick Edit"
             checked={quickEdit}
