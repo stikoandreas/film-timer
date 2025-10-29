@@ -1,3 +1,4 @@
+import { useLocalStorage } from '@mantine/hooks';
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -22,7 +23,12 @@ export const WakeContext = createContext<WakeContextInterface>({
 export function WakeContextProvider({ children }: React.PropsWithChildren) {
   const [isSupported, setIsSupported] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
-  const [isAuto, setIsAuto] = useState(true);
+
+  const [isAuto, setIsAuto] = useLocalStorage({
+    key: 'autoWakelock',
+    defaultValue: true,
+  });
+
   const wakeLock = useRef<WakeLockSentinel | null>(null);
 
   async function aquireLock(soft = true) {

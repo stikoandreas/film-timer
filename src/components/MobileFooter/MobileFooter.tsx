@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Group, Stack, Text } from '@mantine/core';
+import { Group, Indicator, Stack, Text } from '@mantine/core';
 import {
   IconAlarm,
   IconAlarmFilled,
@@ -9,7 +9,7 @@ import {
   IconSettings,
   IconSettingsFilled,
 } from '@tabler/icons-react';
-import { randomId, useMediaQuery } from '@mantine/hooks';
+import { randomId, useMediaQuery, useOs } from '@mantine/hooks';
 
 import classes from './MobileFooter.module.css';
 
@@ -35,6 +35,13 @@ const links = [
     href: '/volume',
     key: randomId(),
   },
+  {
+    label: 'Settings',
+    icon: <IconSettings />,
+    selectedIcon: <IconSettingsFilled />,
+    href: '/settings',
+    key: randomId(),
+  },
 ];
 
 export function MobileFooter() {
@@ -43,6 +50,7 @@ export function MobileFooter() {
     return pathname.startsWith(link);
   }
 
+  const os = useOs();
   const matches = useMediaQuery('(display-mode: standalone)');
 
   const { pathname } = useLocation();
@@ -56,26 +64,13 @@ export function MobileFooter() {
           viewTransition
         >
           <Stack align="center" gap={0}>
-            {isActive(link.href) ? link.selectedIcon : link.icon}
+            <Indicator disabled={link.href !== '/settings' || !(!matches && os === 'ios')}>
+              {isActive(link.href) ? link.selectedIcon : link.icon}
+            </Indicator>
             <Text size="xs">{link.label}</Text>
           </Stack>
         </Link>
       ))}
-      {matches && (
-        <Link
-          to="/settings"
-          className={[
-            classes.link,
-            pathname.startsWith('/settings') ? classes.active : undefined,
-          ].join(' ')}
-          viewTransition
-        >
-          <Stack align="center" gap={0}>
-            {pathname.startsWith('/settings') ? <IconSettingsFilled /> : <IconSettings />}
-            <Text size="xs">Settings</Text>
-          </Stack>
-        </Link>
-      )}
     </Group>
   );
 }

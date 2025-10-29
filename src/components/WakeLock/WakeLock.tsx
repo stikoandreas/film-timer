@@ -2,6 +2,7 @@ import { Box, Button, Indicator, rem } from '@mantine/core';
 import { IconCoffee, IconCoffeeOff } from '@tabler/icons-react';
 import { useContext } from 'react';
 import { notifications } from '@mantine/notifications';
+import { useMatch } from 'react-router-dom';
 
 import { WakeContext } from '@/context/WakeContext';
 
@@ -24,6 +25,8 @@ const notificationOn = {
 export function WakeLock() {
   const { isEnabled, isSupported, isAuto, setIsAuto, releaseLock } = useContext(WakeContext);
 
+  const routeMatch = useMatch('/timer');
+
   function handleChange() {
     if (isAuto) {
       notifications.show(notificationOff);
@@ -36,7 +39,7 @@ export function WakeLock() {
   }
 
   return (
-    <>
+    routeMatch && (
       <Button
         size="compact-md"
         variant="default"
@@ -60,6 +63,6 @@ export function WakeLock() {
           </Box>
         </Indicator>
       </Button>
-    </>
+    )
   );
 }

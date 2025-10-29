@@ -11,12 +11,13 @@ import {
   ThemeIcon,
   Tooltip,
   Transition,
+  UnstyledButton,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery, useOs } from '@mantine/hooks';
 import { IconApps, IconShare2, IconSquarePlus } from '@tabler/icons-react';
 import { AppIcon } from '../AppIcon/AppIcon';
 
-export function InstallButton() {
+export function InstallButton({ children }: { children?: React.ReactNode }) {
   const [opened, { open, close }] = useDisclosure(false);
 
   const os = useOs();
@@ -57,16 +58,20 @@ export function InstallButton() {
               Close
             </Button>
           </Modal>
-          <ActionIcon onClick={open} variant="default">
-            <IconApps style={{ width: '80%', height: '80%' }} stroke={1.5} />
-          </ActionIcon>
+          {children ? (
+            <UnstyledButton onClick={open}>{children}</UnstyledButton>
+          ) : (
+            <ActionIcon onClick={open} variant="default">
+              <IconApps style={{ width: '80%', height: '80%' }} stroke={1.5} />
+            </ActionIcon>
+          )}
           <Affix position={{ bottom: 3 }} withinPortal hiddenFrom="sm">
             <Transition transition="slide-up" mounted={opened}>
               {(styles) => (
                 <Center w="100dvw" style={styles}>
                   <Tooltip
                     label={
-                      <Group gap={3}>
+                      <Group gap={3} align="center">
                         <ThemeIcon
                           variant="subtle"
                           color="light-dark(var(--mantine-color-white), var(--mantine-color-black))"
