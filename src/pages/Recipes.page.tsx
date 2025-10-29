@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Button,
   Card,
   Divider,
   Group,
@@ -11,6 +12,7 @@ import {
 import { IconAlarm, IconChevronRight, IconListCheck } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react';
+import { useLocalStorage } from '@mantine/hooks';
 
 import { recipes } from '@/resources/recipes';
 import { DevelopingProcess, DevelopingStep } from '@/types/DevelopingProcess';
@@ -30,7 +32,15 @@ export function RecipesPage() {
       : recipe.process !== 'c41' && recipe.process !== 'bw';
   }
 
-  const filteredRecipes = recipes.filter(filterRecipe);
+  const [customRecipes] = useLocalStorage<DevelopingProcess[]>({
+    key: 'customRecipes',
+    defaultValue: [],
+    getInitialValueInEffect: true,
+  });
+
+  const allRecipes = [...recipes, ...customRecipes];
+
+  const filteredRecipes = allRecipes.filter(filterRecipe);
 
   return (
     <ScrollableView>
@@ -87,6 +97,15 @@ export function RecipesPage() {
                 {index < filteredRecipes.length - 1 && <Divider my="xs" w="100%" />}
               </Fragment>
             ))}
+            <Button
+              component={Link}
+              to={`/recipes/custom/${process}`}
+              variant="light"
+              fullWidth
+              mt="md"
+            >
+              Create Custom Recipe
+            </Button>
           </Stack>
         </Card>
       </Stack>

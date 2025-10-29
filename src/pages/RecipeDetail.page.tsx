@@ -1,18 +1,28 @@
 import { useParams } from 'react-router-dom';
+import { useLocalStorage } from '@mantine/hooks';
 
-import { ProcessForm } from '@/components/ProcessForm/ProcessForm';
 import { recipes } from '@/resources/recipes';
 import { ScrollableView } from '@/components/ScrollableView/ScrollableView';
 import { useTitle } from '@/context/TitleContext';
+import { DevelopingProcess } from '@/types/DevelopingProcess';
+import { ProcessOverview } from '@/components/ProcessOverview/ProcessOverview';
 
 export function RecipeDetailsPage() {
   const { id } = useParams();
-  const recipe = recipes.find((r) => r.id === id);
+  const [customRecipes] = useLocalStorage<DevelopingProcess[]>({
+    key: 'customRecipes',
+    defaultValue: [],
+    getInitialValueInEffect: true,
+  });
+
+  const allRecipes = [...recipes, ...customRecipes];
+
+  const recipe = allRecipes.find((r) => r.id === id);
   useTitle(recipe ? recipe.name : undefined);
   if (recipe) {
     return (
       <ScrollableView>
-        <ProcessForm initialValues={recipe} />
+        <ProcessOverview initialValue={recipe} isCustom={customRecipes.some((r) => id === r.id)} />
       </ScrollableView>
     );
   }
