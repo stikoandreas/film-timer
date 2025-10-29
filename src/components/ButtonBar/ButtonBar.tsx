@@ -2,6 +2,7 @@ import { Group, Text, Title } from '@mantine/core';
 import { WakeLock } from '@/components/WakeLock/WakeLock';
 import { ColorSchemeButton } from '../ColorSchemeButton/ColorSchemeButton';
 import { InstallButton } from '../InstallButton/InstallButton';
+import { ContextMenu } from '../ContextMenu/ContextMenu';
 
 export function ButtonBar({ title }: { title?: string }) {
   return (
@@ -34,6 +35,7 @@ export function ButtonBar({ title }: { title?: string }) {
           <InstallButton />
           <ColorSchemeButton />
           <WakeLock />
+          <ContextMenu />
         </Group>
       </Group>
     </>

@@ -22,7 +22,7 @@ export function RecipeDetailsPage() {
   if (recipe) {
     return (
       <ScrollableView>
-        <ProcessOverview initialValue={recipe} isCustom={customRecipes.some((r) => id === r.id)} />
+        <ProcessOverview initialValue={recipe} />
       </ScrollableView>
     );
   }
