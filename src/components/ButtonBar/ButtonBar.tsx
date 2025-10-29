@@ -1,13 +1,12 @@
 import { Group, Text, Title } from '@mantine/core';
 import { WakeLock } from '@/components/WakeLock/WakeLock';
-import { ColorSchemeButton } from '../ColorSchemeButton/ColorSchemeButton';
 import { InstallButton } from '../InstallButton/InstallButton';
 import { ContextMenu } from '../ContextMenu/ContextMenu';
 
 export function ButtonBar({ title }: { title?: string }) {
   return (
     <>
-      <Group justify="space-between" pl="md" wrap="nowrap">
+      <Group justify="space-between" pl="md" wrap="nowrap" align="center" h={48}>
         <Title order={2}>
           {title ? (
             <Group gap={0} align="center" wrap="nowrap">
@@ -33,7 +32,6 @@ export function ButtonBar({ title }: { title?: string }) {
         </Title>
         <Group gap="xs" justify="right" p="xs" wrap="nowrap">
           <InstallButton />
-          <ColorSchemeButton />
           <WakeLock />
           <ContextMenu />
         </Group>
